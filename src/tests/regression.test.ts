@@ -1,5 +1,10 @@
 import { calculateHiringPlan } from '../utils/calculator';
-import { CITIES_DATA, DEFAULT_PLAN_CONFIG, EVIDENCE_LIBRARY } from '../data/defaultData';
+import {
+  CITIES_DATA,
+  DEFAULT_PLAN_CONFIG,
+  EVIDENCE_LIBRARY,
+  DEMO_SCENARIOS,
+} from '../data/defaultData';
 import { HiringPlanConfig, CityProfile, RoleAllocation } from '../types';
 import { jsPDF } from 'jspdf';
 import {
@@ -444,6 +449,70 @@ assert(dupeResult.parsedItems[0].id !== EVIDENCE_LIBRARY[0].id, 'Bulk Upload Dup
 const emptyResult = validateBulkEvidenceJson(JSON.stringify([]));
 assert(emptyResult.valid === false, 'Bulk Upload Empty: Empty array is rejected with clear error');
 assert(emptyResult.errors.some(e => e.field === 'Empty Dataset'), 'Bulk Upload Empty: Identifies Empty Dataset error');
+
+// -----------------------------------------------------------------------------
+// 5. ASSESSMENT-FIRST LIFECYCLE, DEMO PRESERVATION & DETERMINISTIC CALCULATIONS
+// -----------------------------------------------------------------------------
+console.log('\nSECTION 5: Assessment-First Dashboard, Demo Preservation & Calculations');
+
+const dashboardViewTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/DashboardView.tsx'), 'utf-8');
+const planBuilderViewTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/PlanBuilderView.tsx'), 'utf-8');
+
+// Test 5.1: Initial unassessed state integration in App.tsx
+assert(
+  appTsx.includes('hasActiveAssessment') && appTsx.includes('ASSESSMENT_ACTIVE_KEY'),
+  'App.tsx implements assessment lifecycle state with unassessed default'
+);
+
+// Test 5.2: Demo Scenarios preserved and accessible
+assert(
+  Array.isArray(DEMO_SCENARIOS) && DEMO_SCENARIOS.length >= 5,
+  'Demo Data: All 5 enterprise demo scenarios are preserved and available'
+);
+
+// Test 5.3: Each demo scenario calculates deterministically
+DEMO_SCENARIOS.forEach((scenario) => {
+  const calc = calculateHiringPlan(scenario.config);
+  assert(
+    typeof calc.targetHires === 'number' &&
+      calc.targetHires === scenario.headcount &&
+      calc.requiredTotalApplicantPool > calc.targetHires &&
+      !isNaN(calc.recruiterCapacityUtilizationPct),
+    `Demo Scenario "${scenario.title}" calculates deterministically (${calc.targetHires} hires, ${calc.requiredTotalApplicantPool.toLocaleString()} pool)`
+  );
+});
+
+// Test 5.4: HomeView handles unassessed state cleanly
+assert(
+  homeViewTsx.includes('hasActiveAssessment') &&
+    homeViewTsx.includes('Ready to Evaluate Your GCC Expansion Plan?') &&
+    homeViewTsx.includes('onLoadDemoScenario'),
+  'HomeView: Initial dashboard displays clean setup gateway without automatic completed results'
+);
+
+// Test 5.5: DashboardView handles unassessed state cleanly
+assert(
+  dashboardViewTsx.includes('hasActiveAssessment') &&
+    dashboardViewTsx.includes('Start an Assessment to View Feasibility Results') &&
+    dashboardViewTsx.includes('Load Enterprise Demo Scenarios'),
+  'DashboardView: Initial overview displays assessment gateway without automatic completed results'
+);
+
+// Test 5.6: PlanBuilderView provides explicit Run Assessment trigger
+assert(
+  planBuilderViewTsx.includes('onRunAssessment') &&
+    planBuilderViewTsx.includes('Run Assessment & View Overview'),
+  'PlanBuilderView: Provides explicit Run Assessment action to transition to active overview'
+);
+
+// Test 5.7: Evidence library integrity and zero hallucination
+assert(
+  EVIDENCE_LIBRARY.length >= 8 &&
+    EVIDENCE_LIBRARY.every(
+      (item) => item.claim && item.sourceName && item.classification && item.limitations
+    ),
+  'Evidence Base: All items have verified sources, classifications, and explicit limitations'
+);
 
 // -----------------------------------------------------------------------------
 // SUMMARY

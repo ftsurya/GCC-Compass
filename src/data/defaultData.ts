@@ -3,6 +3,7 @@ import {
   EvidenceItem,
   HiringPlanConfig,
   RoleAllocation,
+  DemoScenario,
 } from '../types';
 
 export const CITIES_DATA: CityProfile[] = [
@@ -29,6 +30,40 @@ export const CITIES_DATA: CityProfile[] = [
     evidenceStatus: 'Partial Data',
     caveats:
       'Verified corporate announcements confirm facilities, but detailed city-level census of specific programming frameworks (e.g., Kubernetes/Go/Rust) is unmeasured by official statistics. Requires recruiter sourcing pilot.',
+    coordinates: {
+      latitude: 17.6868,
+      longitude: 83.2185,
+    },
+    officeOperatingCost: {
+      primeGradeARent: '₹35 - ₹55 / sq ft / month',
+      status: 'third_party_estimate',
+      sourceName: 'APITIC & Regional Commercial SEZ Lease Filings',
+      dateChecked: 'October 2024',
+      limitations: 'Contiguous Grade-A commercial floor plates >100k sq ft are scarce outside Rushikonda IT SEZ.',
+    },
+    stateIncentivesPolicy: {
+      policyName: 'Andhra Pradesh IT Policy 2021-2024 (GCC Roadmap)',
+      highlights: [
+        'Lease rental subsidy in Rushikonda IT SEZ',
+        'Industrial power tariff concessions for 5 years',
+        'Reimbursement of patent filing costs and recruitment subsidies',
+      ],
+      status: 'verified_fact',
+      sourceName: 'ITE&C Department, Government of Andhra Pradesh',
+      dateChecked: 'October 2024',
+      limitations: 'Disbursement timelines subject to state fiscal allocation cycles.',
+    },
+    serviceProviders: {
+      identifiedProviders: [
+        'Miracle Software Systems (Local Systems SI)',
+        'Regional IT Staffing Agencies',
+        'National IPCs (CBRE/JLL manage via Hyderabad office)',
+      ],
+      status: 'third_party_estimate',
+      sourceName: 'ITAAP (IT Association of Andhra Pradesh) Directory',
+      dateChecked: 'October 2024',
+      limitations: 'Top-tier executive search practices operate fly-in teams from Hyderabad rather than full local offices.',
+    },
   },
   {
     id: 'hyderabad',
@@ -52,6 +87,40 @@ export const CITIES_DATA: CityProfile[] = [
     evidenceStatus: 'Benchmarked',
     caveats:
       'Deep supply, but multi-offer competition is intense. Attrition runs 18-23% annually, driving high replacement hiring demand.',
+    coordinates: {
+      latitude: 17.3850,
+      longitude: 78.4867,
+    },
+    officeOperatingCost: {
+      primeGradeARent: '₹65 - ₹95 / sq ft / month',
+      status: 'third_party_estimate',
+      sourceName: 'CBRE India Office Market View H1 2024',
+      dateChecked: 'October 2024',
+      limitations: 'Rent figures reflect prime HITEC City and Financial District; peripheral sub-markets offer lower rates.',
+    },
+    stateIncentivesPolicy: {
+      policyName: 'Telangana ICT Policy 2.0 & GRID Incentive Framework',
+      highlights: [
+        'Single-window clearance through TS-iPASS',
+        'GRID incentives for tech hubs outside the western corridor',
+        'Stamp duty and registration charge reimbursements',
+      ],
+      status: 'verified_fact',
+      sourceName: 'ITE&C Department, Government of Telangana',
+      dateChecked: 'October 2024',
+      limitations: 'Fiscal incentives tied to specific campus capital investments and audited employment milestones.',
+    },
+    serviceProviders: {
+      identifiedProviders: [
+        'Colliers, Knight Frank, CBRE (Real Estate IPCs)',
+        'Adecco, KellyOCG, TeamLease (Recruitment / RPO)',
+        'Smartworks, Tablespace, Dextrus (Enterprise Flex Spaces)',
+      ],
+      status: 'verified_fact',
+      sourceName: 'HYSEA (Hyderabad Software Enterprises Association) Directory',
+      dateChecked: 'October 2024',
+      limitations: 'Vendor density heavily concentrated in western tech corridor (HITEC City / Gachibowli).',
+    },
   },
   {
     id: 'bengaluru',
@@ -75,6 +144,40 @@ export const CITIES_DATA: CityProfile[] = [
     evidenceStatus: 'Benchmarked',
     caveats:
       'Highest talent depth in India, but highest compensation bands, fierce talent wars, and frequent last-minute offer reneges.',
+    coordinates: {
+      latitude: 12.9716,
+      longitude: 77.5946,
+    },
+    officeOperatingCost: {
+      primeGradeARent: '₹95 - ₹145 / sq ft / month',
+      status: 'third_party_estimate',
+      sourceName: 'Cushman & Wakefield Marketbeat India H1 2024',
+      dateChecked: 'October 2024',
+      limitations: 'Excludes Common Area Maintenance (CAM) charges, fit-out amortization, and property taxes.',
+    },
+    stateIncentivesPolicy: {
+      policyName: 'Karnataka Information Technology Policy & Beyond Bengaluru Initiative',
+      highlights: [
+        'Incentives prioritize tier-2 expansion under Beyond Bengaluru',
+        'Industrial power tariff concessions for registered IT units',
+        'Patent filing reimbursement and R&D matching grants',
+      ],
+      status: 'verified_fact',
+      sourceName: 'Department of Electronics, IT, BT, Government of Karnataka',
+      dateChecked: 'October 2024',
+      limitations: 'Tier-1 Bengaluru core zone receives minimal direct capital subsidies compared to regional clusters.',
+    },
+    serviceProviders: {
+      identifiedProviders: [
+        'CBRE, JLL, Cushman & Wakefield, Savills (IPC Real Estate)',
+        'TeamLease, Michael Page, Randstad, Korn Ferry (Executive / RPO)',
+        'Awfis, WeWork, Simpliwork, Indiqube (Managed Flex)',
+      ],
+      status: 'verified_fact',
+      sourceName: 'NASSCOM Global Capability Centers Council Directory',
+      dateChecked: 'October 2024',
+      limitations: 'Ecosystem is hyper-mature with significant variation in fee structures and service tiers.',
+    },
   },
   {
     id: 'coimbatore',
@@ -97,6 +200,40 @@ export const CITIES_DATA: CityProfile[] = [
     evidenceStatus: 'Partial Data',
     caveats:
       'Strong junior-to-mid engineering pipeline, but leadership hiring (Principal, Director) usually requires relocation from Chennai or Bengaluru.',
+    coordinates: {
+      latitude: 11.0168,
+      longitude: 76.9558,
+    },
+    officeOperatingCost: {
+      primeGradeARent: '₹40 - ₹60 / sq ft / month',
+      status: 'third_party_estimate',
+      sourceName: 'Guidance Tamil Nadu Commercial Real Estate Benchmarks',
+      dateChecked: 'October 2024',
+      limitations: 'Concentrated within ELCOT SEZ and TIDEL Park campuses; speculative commercial developments are limited.',
+    },
+    stateIncentivesPolicy: {
+      policyName: 'Tamil Nadu Technology Policy & GCC Policy Framework',
+      highlights: [
+        'Payroll subsidy for employing women tech engineers in Tier-2 hubs',
+        'Capital subsidy on land and building for investments in ELCOT IT parks',
+        'Electricity duty exemption for IT/ITeS units for 5 years',
+      ],
+      status: 'verified_fact',
+      sourceName: 'Guidance Tamil Nadu (Investment Promotion Agency)',
+      dateChecked: 'October 2024',
+      limitations: 'Payroll subsidies require minimum threshold of 50 local full-time tech employees.',
+    },
+    serviceProviders: {
+      identifiedProviders: [
+        'Regional IT staffing partners (Coimbatore & Chennai practices)',
+        'TIDEL Park Managed Facilities',
+        'CII Coimbatore IT Panel Consortia',
+      ],
+      status: 'third_party_estimate',
+      sourceName: 'Codissia & CII Southern Region Directory',
+      dateChecked: 'October 2024',
+      limitations: 'Global real estate IPCs typically cover Coimbatore transactions from their Chennai regional desks.',
+    },
   },
   {
     id: 'bhubaneswar',
@@ -119,6 +256,40 @@ export const CITIES_DATA: CityProfile[] = [
     evidenceStatus: 'Partial Data',
     caveats:
       'High stickiness and low attrition, but lateral talent poaching within the city quickly cannibalizes existing IT campuses.',
+    coordinates: {
+      latitude: 20.2961,
+      longitude: 85.8245,
+    },
+    officeOperatingCost: {
+      primeGradeARent: '₹35 - ₹52 / sq ft / month',
+      status: 'third_party_estimate',
+      sourceName: 'IDCO (Odisha Industrial Infrastructure Development Corp)',
+      dateChecked: 'October 2024',
+      limitations: 'Primary commercial supply is state-owned IT parks (Infocity, O-Hub); private commercial spec space is nascent.',
+    },
+    stateIncentivesPolicy: {
+      policyName: 'Odisha IT Policy 2022 & Data Center Policy',
+      highlights: [
+        '25% capital investment subsidy up to ₹20 Crore',
+        'Lease rental subsidy of ₹20 per sq ft for 3 years in approved IT parks',
+        '100% exemption on electricity duty for 5 years',
+      ],
+      status: 'verified_fact',
+      sourceName: 'Electronics & IT Department, Government of Odisha',
+      dateChecked: 'October 2024',
+      limitations: 'Requires formal sanction through State Level Single Window Clearance Authority (SLSWCA).',
+    },
+    serviceProviders: {
+      identifiedProviders: [
+        'Regional IT Staffing Agencies',
+        'O-Hub & Start-up Odisha Incubation Facilities',
+        'National IPC real estate teams managed out of Kolkata',
+      ],
+      status: 'third_party_estimate',
+      sourceName: 'TiE Bhubaneswar & Odisha IT Industry Consortium',
+      dateChecked: 'October 2024',
+      limitations: 'Specialist headhunting practices for Principal/Staff product roles usually staffed from Kolkata or Bengaluru.',
+    },
   },
 ];
 
@@ -329,6 +500,132 @@ export const EVIDENCE_LIBRARY: EvidenceItem[] = [
       'No audited government or chamber of commerce dataset exists detailing specialized tech stack distributions in Tier-2 cities.',
     relevanceToScenario:
       'Critical caveat: The planning team must not assume candidates in niche frameworks exist in high numbers without a dedicated talent mapping sprint.',
+  },
+];
+
+export const DEMO_SCENARIOS: DemoScenario[] = [
+  {
+    id: 'demo-1',
+    key: 'bengaluru-baseline',
+    title: 'Bengaluru Tech Campus (Baseline)',
+    subtitle: 'Tier-1 Tech Capital · Standard Funnel Assumptions',
+    cityId: 'bengaluru',
+    cityName: 'Bengaluru',
+    tier: 'Tier-1',
+    headcount: 300,
+    deadlineMonths: 6,
+    noticePeriodLagDays: 60,
+    keyChallenge: 'Recruiter capacity deficit (409% TA load) & 2-month notice lag offer cutoff.',
+    description:
+      'Enterprise benchmark assessment evaluating 300 tech hires across 6 months in Bengaluru against India’s 60-day notice period assumptions and standard 5-member TA team capacity.',
+    tags: ['Tier-1 Baseline', '60d Notice Lag', 'Capacity Bottleneck'],
+    config: {
+      ...DEFAULT_PLAN_CONFIG,
+      cityId: 'bengaluru',
+      totalTargetHires: 300,
+      deadlineMonths: 6,
+      noticePeriodLagDays: 60,
+    },
+  },
+  {
+    id: 'demo-2',
+    key: 'hyderabad-compressed',
+    title: 'Hyderabad Rapid Expansion',
+    subtitle: 'Compressed 4-Month Timeline · HITEC City',
+    cityId: 'hyderabad',
+    cityName: 'Hyderabad',
+    tier: 'Tier-1',
+    headcount: 350,
+    deadlineMonths: 4,
+    noticePeriodLagDays: 60,
+    keyChallenge: 'Active offer window compressed to 2 months; creates extreme velocity strain.',
+    description:
+      'Stress tests rapid aggressive hiring in Hyderabad where a 4-month deadline with a 60-day notice period leaves only 2 active months to complete all candidate offers.',
+    tags: ['Compressed Runway', 'Rapid Ramp', 'High Velocity'],
+    config: {
+      ...DEFAULT_PLAN_CONFIG,
+      cityId: 'hyderabad',
+      totalTargetHires: 350,
+      deadlineMonths: 4,
+      noticePeriodLagDays: 60,
+    },
+  },
+  {
+    id: 'demo-3',
+    key: 'vizag-high-renege',
+    title: 'Visakhapatnam Coastal Center',
+    subtitle: 'Tier-2 Emerging Hub · High Notice Dropout',
+    cityId: 'vizag',
+    cityName: 'Visakhapatnam',
+    tier: 'Tier-2',
+    headcount: 250,
+    deadlineMonths: 6,
+    noticePeriodLagDays: 60,
+    keyChallenge: '40% post-offer renege rate requires extending 417+ offers to yield 250 joiners.',
+    description:
+      'Models regional Tier-2 expansion in Andhra Pradesh testing severe candidate counter-offers and last-minute ghosting (40% reneging friction during notice periods).',
+    tags: ['Tier-2 Hub', 'High Dropouts', 'Counter-Offers'],
+    config: {
+      ...DEFAULT_PLAN_CONFIG,
+      cityId: 'vizag',
+      totalTargetHires: 250,
+      deadlineMonths: 6,
+      noticePeriodLagDays: 60,
+      acceptedToJoiningRate: 60,
+      offerAcceptanceRate: 65,
+    },
+  },
+  {
+    id: 'demo-4',
+    key: 'coimbatore-high-bar',
+    title: 'Coimbatore Product Engineering',
+    subtitle: 'Tier-2 Specialized Hub · Selective Technical Bar',
+    cityId: 'coimbatore',
+    cityName: 'Coimbatore',
+    tier: 'Tier-2',
+    headcount: 200,
+    deadlineMonths: 6,
+    noticePeriodLagDays: 60,
+    keyChallenge: '1 in 8 interview pass rate (12%) inflates engineering interview panel hours.',
+    description:
+      'Assesses high-bar technical hiring in Coimbatore’s emerging engineering cluster, with a strict 12% interview pass rate requiring 3,175+ technical interviewer hours.',
+    tags: ['Selective Bar', 'Engineering Load', 'Niche Talent'],
+    config: {
+      ...DEFAULT_PLAN_CONFIG,
+      cityId: 'coimbatore',
+      totalTargetHires: 200,
+      deadlineMonths: 6,
+      noticePeriodLagDays: 60,
+      interviewToOfferRate: 12,
+      qualifiedToInterviewRate: 25,
+    },
+  },
+  {
+    id: 'demo-5',
+    key: 'rpo-mitigated-scale',
+    title: 'Enterprise RPO-Mitigated Scale',
+    subtitle: 'Pan-India Hiring with External TA Multiplier (1.5x)',
+    cityId: 'bengaluru',
+    cityName: 'Bengaluru',
+    tier: 'Tier-1',
+    headcount: 400,
+    deadlineMonths: 6,
+    noticePeriodLagDays: 60,
+    keyChallenge: 'Scaled 400-hire target mitigated through 8 recruiters and 1.5x RPO multiplier.',
+    description:
+      'Demonstrates strategic mitigation of high-volume hiring (400 tech hires) using an expanded 8-recruiter core team backed by agency/RPO throughput support.',
+    tags: ['Enterprise Scale', 'RPO Mitigation', 'Capacity Balanced'],
+    config: {
+      ...DEFAULT_PLAN_CONFIG,
+      cityId: 'bengaluru',
+      totalTargetHires: 400,
+      deadlineMonths: 6,
+      noticePeriodLagDays: 60,
+      dedicatedRecruiters: 8,
+      agencySupportEnabled: true,
+      agencyCapacityMultiplier: 1.5,
+      acceptedToJoiningRate: 80,
+    },
   },
 ];
 

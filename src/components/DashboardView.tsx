@@ -10,25 +10,39 @@ import {
   CheckCircle2,
   ExternalLink,
   ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  RotateCcw,
+  Layers,
+  Compass,
 } from 'lucide-react';
 import { CityProfile, HiringPlanConfig, CalculationResult } from '../types';
+import { DEMO_SCENARIOS } from '../data/defaultData';
 
 interface DashboardViewProps {
   city: CityProfile;
   config: HiringPlanConfig;
   calc: CalculationResult;
+  hasActiveAssessment?: boolean;
+  activeScenarioName?: string | null;
   onNavigateToBuilder: () => void;
   onNavigateToStressTest: () => void;
   onNavigateToEvidence: () => void;
+  onLoadDemoScenario?: (scenarioKey: string) => void;
+  onClearAssessment?: () => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
   city,
   config,
   calc,
+  hasActiveAssessment = false,
+  activeScenarioName,
   onNavigateToBuilder,
   onNavigateToStressTest,
   onNavigateToEvidence,
+  onLoadDemoScenario,
+  onClearAssessment,
 }) => {
   const getStatusBadge = (status: CalculationResult['overallFeasibilityStatus']) => {
     switch (status) {
@@ -65,16 +79,150 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   const statusMeta = getStatusBadge(calc.overallFeasibilityStatus);
 
+  // If no assessment has been explicitly chosen or run yet, present the clean setup gateway
+  if (!hasActiveAssessment) {
+    return (
+      <div className="space-y-8 animate-fadeIn">
+        {/* Gateway Header */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-semibold text-slate-800">
+                <Compass className="w-3.5 h-3.5 text-emerald-600" />
+                <span>GCC Compass · Workspace Overview</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                Start an Assessment to View Feasibility Results
+              </h1>
+              <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">
+                The initial workspace overview does not display completed assessment results automatically. To ensure integrity and avoid presenting speculative outcomes, choose between configuring custom workforce targets or loading an enterprise demonstration scenario.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={onNavigateToBuilder}
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-colors shadow-sm"
+              >
+                <Sliders className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Configure in Plan Builder</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Two Primary Pathways */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+            {/* Pathway 1: Custom Plan */}
+            <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+                  <Sliders className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold text-slate-900">
+                    Option 1: Configure Custom Assessment
+                  </h2>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Set up your organization’s planned headcount, target Indian hub, hiring deadlines, and stage conversion yields. Calculations will execute live via deterministic backwards induction.
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-200/80">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Select from 5 benchmarked Indian tech cities</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Model 60-day or 90-day notice period runways</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Audit in-house vs RPO recruitment capacity</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={onNavigateToBuilder}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-900 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl transition-colors shadow-2xs"
+              >
+                <span>Open Plan Builder Configurator</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Pathway 2: Pre-Configured Demo Scenarios */}
+            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-indigo-600" />
+                    <span>Option 2: Load Enterprise Demo Scenarios</span>
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Select a verified scenario to inspect labor-market friction and capacity bottlenecks:
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-1">
+                {DEMO_SCENARIOS.map((demo) => (
+                  <div
+                    key={demo.id}
+                    className="p-3.5 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/20 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-slate-900">{demo.title}</span>
+                        <span className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+                          {demo.tier}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">
+                        <span className="font-medium text-slate-700">{demo.headcount} Hires</span> across{' '}
+                        <span className="font-medium text-slate-700">{demo.deadlineMonths} Months</span> ({demo.noticePeriodLagDays}d notice)
+                      </div>
+                      <div className="text-[11px] text-slate-600 italic">
+                        {demo.keyChallenge}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => onLoadDemoScenario && onLoadDemoScenario(demo.key)}
+                      className="px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors whitespace-nowrap self-start sm:self-center"
+                    >
+                      Load Demo Scenario
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Epistemic disclaimer */}
+          <div className="mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-500">
+            <span className="font-semibold text-slate-700 shrink-0">Epistemic Status:</span>
+            <span>
+              All GCC Compass results are calculated using backward induction arithmetic. No numbers are generated via speculative estimation or statistical extrapolation without explicit input parameters.
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Active Assessment State: Render full calculated overview
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fadeIn">
       {/* Top Banner / Problem Statement Context */}
       <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
-              <span>GCC Expansion Plan Assessment</span>
-              <span aria-hidden="true">·</span>
-              <span>Primary Hypothesis Stress Test</span>
+              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-semibold rounded border border-emerald-200">
+                {activeScenarioName ? `Demo Scenario: ${activeScenarioName}` : 'Active Assessment'}
+              </span>
               <span aria-hidden="true">·</span>
               <span className="font-mono">{city.name}, {city.state}</span>
             </div>
@@ -101,6 +249,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               Run Stress Test
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
+            {onClearAssessment && (
+              <button
+                onClick={onClearAssessment}
+                className="inline-flex items-center gap-1 px-3 py-2 text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors whitespace-nowrap"
+                title="Clear current assessment and return to clean setup state"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Clear Assessment
+              </button>
+            )}
           </div>
         </div>
 
@@ -108,7 +266,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-500">
           <span className="font-semibold text-slate-700 shrink-0">Epistemic Status:</span>
           <span>
-            Calculations reflect deterministic funnel arithmetic using demonstration defaults. These results do not represent customer-validated demand or guaranteed candidate availability in {city.name}.
+            Calculations reflect deterministic funnel arithmetic derived from active assumptions. These results model operational recruitment yield and notice-period runways in {city.name}.
           </span>
         </div>
       </div>

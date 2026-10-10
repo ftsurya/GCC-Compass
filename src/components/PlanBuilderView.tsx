@@ -30,8 +30,11 @@ interface PlanBuilderViewProps {
   cities: CityProfile[];
   config: HiringPlanConfig;
   calc: CalculationResult;
+  hasActiveAssessment?: boolean;
   onChangeConfig: (newConfig: HiringPlanConfig) => void;
   onNavigateToStressTest: () => void;
+  onNavigateToOverview?: () => void;
+  onRunAssessment?: () => void;
   onResetDefaults: () => void;
 }
 
@@ -39,8 +42,11 @@ export const PlanBuilderView: React.FC<PlanBuilderViewProps> = ({
   cities,
   config,
   calc,
+  hasActiveAssessment,
   onChangeConfig,
   onNavigateToStressTest,
+  onNavigateToOverview,
+  onRunAssessment,
   onResetDefaults,
 }) => {
   const [showFormulaDetails, setShowFormulaDetails] = useState<boolean>(true);
@@ -219,7 +225,7 @@ export const PlanBuilderView: React.FC<PlanBuilderViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
           <button
             onClick={onResetDefaults}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
@@ -228,6 +234,16 @@ export const PlanBuilderView: React.FC<PlanBuilderViewProps> = ({
             <RotateCcw className="w-3.5 h-3.5" />
             Reset Baseline
           </button>
+          {onRunAssessment && (
+            <button
+              onClick={onRunAssessment}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm"
+              title="Calculate and view complete results in Overview"
+            >
+              <CheckCircle className="w-3.5 h-3.5" />
+              Run Assessment & View Overview
+            </button>
+          )}
           <button
             onClick={onNavigateToStressTest}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors shadow-sm"

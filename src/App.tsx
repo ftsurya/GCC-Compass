@@ -8,12 +8,14 @@ import { PlanBuilderView } from './components/PlanBuilderView';
 import { StressTestView } from './components/StressTestView';
 import { EvidenceLibraryView } from './components/EvidenceLibraryView';
 import { DecisionBriefView } from './components/DecisionBriefView';
+import { MapIntelligenceView } from './components/MapIntelligenceView';
 import { AuthModal, GUEST_USER } from './components/AuthModal';
 
 import {
   CITIES_DATA,
   DEFAULT_PLAN_CONFIG,
   EVIDENCE_LIBRARY,
+  DEMO_SCENARIOS,
 } from './data/defaultData';
 import { HiringPlanConfig, EvidenceItem, UserProfile } from './types';
 import { calculateHiringPlan } from './utils/calculator';
@@ -21,6 +23,8 @@ import { calculateHiringPlan } from './utils/calculator';
 const CONFIG_STORAGE_KEY = 'gcc_compass_plan_config_v1';
 const EVIDENCE_STORAGE_KEY = 'gcc_compass_evidence_v1';
 const USER_STORAGE_KEY = 'gcc_compass_user_session_v1';
+const ASSESSMENT_ACTIVE_KEY = 'gcc_compass_has_assessment_v1';
+const ASSESSMENT_NAME_KEY = 'gcc_compass_assessment_name_v1';
 
 export type AppRoute =
   | '/'
@@ -28,6 +32,8 @@ export type AppRoute =
   | '/app'
   | '/app/overview'
   | '/app/plan-builder'
+  | '/app/map'
+  | '/app/map-intelligence'
   | '/app/stress-test'
   | '/app/evidence'
   | '/app/decision-brief';
@@ -38,6 +44,8 @@ const routeToTabMap: Record<AppRoute, NavTab> = {
   '/app': 'home',
   '/app/overview': 'overview',
   '/app/plan-builder': 'plan-builder',
+  '/app/map': 'map-intelligence',
+  '/app/map-intelligence': 'map-intelligence',
   '/app/stress-test': 'stress-test',
   '/app/evidence': 'evidence-library',
   '/app/decision-brief': 'decision-brief',
@@ -49,6 +57,7 @@ const tabToRouteMap: Record<NavTab, AppRoute> = {
   'home': '/app',
   'overview': '/app/overview',
   'plan-builder': '/app/plan-builder',
+  'map-intelligence': '/app/map',
   'stress-test': '/app/stress-test',
   'evidence-library': '/app/evidence',
   'decision-brief': '/app/decision-brief',
@@ -74,6 +83,14 @@ function getRouteFromLocation(): AppRoute {
   }
   if (candidate === '/app/plan-builder' || candidate === '/plan-builder' || candidate === '/builder') {
     return '/app/plan-builder';
+  }
+  if (
+    candidate === '/app/map' ||
+    candidate === '/app/map-intelligence' ||
+    candidate === '/map' ||
+    candidate === '/map-intelligence'
+  ) {
+    return '/app/map';
   }
   if (candidate === '/app/stress-test' || candidate === '/stress-test') {
     return '/app/stress-test';
@@ -127,6 +144,32 @@ export default function App() {
     return GUEST_USER;
   });
 
+  // Assessment Lifecycle: Initial dashboard must not display completed results automatically
+  const [hasActiveAssessment, setHasActiveAssessment] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(ASSESSMENT_ACTIVE_KEY);
+        if (stored !== null) {
+          return stored === 'true';
+        }
+      } catch (e) {
+        console.warn('Failed to parse assessment active flag:', e);
+      }
+    }
+    return false;
+  });
+
+  const [activeScenarioName, setActiveScenarioName] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem(ASSESSMENT_NAME_KEY);
+      } catch (e) {
+        console.warn('Failed to parse stored scenario name:', e);
+      }
+    }
+    return null;
+  });
+
   // Load persisted config or use baseline default
   const [config, setConfig] = useState<HiringPlanConfig>(() => {
     if (typeof window !== 'undefined') {
@@ -173,6 +216,20 @@ export default function App() {
       console.warn('Could not persist user session to localStorage:', e);
     }
   }, [currentUser]);
+
+  // Persist assessment lifecycle state
+  useEffect(() => {
+    try {
+      localStorage.setItem(ASSESSMENT_ACTIVE_KEY, String(hasActiveAssessment));
+      if (activeScenarioName) {
+        localStorage.setItem(ASSESSMENT_NAME_KEY, activeScenarioName);
+      } else {
+        localStorage.removeItem(ASSESSMENT_NAME_KEY);
+      }
+    } catch (e) {
+      console.warn('Could not persist assessment lifecycle state:', e);
+    }
+  }, [hasActiveAssessment, activeScenarioName]);
 
   // Persist config changes
   useEffect(() => {
@@ -230,6 +287,45 @@ export default function App() {
     navigateTo(targetRoute);
   };
 
+  // Explicit Demo Scenario Loader: Loads selected scenario, activates assessment, navigates to overview
+  const handleLoadDemoScenario = (scenarioKey: string) => {
+    const scenario = DEMO_SCENARIOS.find((s) => s.key === scenarioKey);
+    if (scenario) {
+      setConfig(scenario.config);
+      setHasActiveAssessment(true);
+      setActiveScenarioName(scenario.title);
+      navigateTo('/app/overview');
+    }
+  };
+
+  // Explicit Assessment Runner: Activated when user runs calculations in Plan Builder
+  const handleRunAssessment = () => {
+    setHasActiveAssessment(true);
+    setActiveScenarioName('Custom Organization Plan');
+    navigateTo('/app/overview');
+  };
+
+  // Explicit transfer of explored city from Map Intelligence to Plan Builder without altering assessment state
+  const handleTransferCityToBuilder = (cityId: string) => {
+    setConfig((prev) => ({
+      ...prev,
+      cityId,
+    }));
+    navigateTo('/app/plan-builder');
+  };
+
+  // Reset / Clear Assessment: Returns dashboard to clean unassessed initial state
+  const handleClearAssessment = () => {
+    setHasActiveAssessment(false);
+    setActiveScenarioName(null);
+    try {
+      localStorage.removeItem(ASSESSMENT_ACTIVE_KEY);
+      localStorage.removeItem(ASSESSMENT_NAME_KEY);
+    } catch (e) {
+      console.warn('Could not clear assessment storage:', e);
+    }
+  };
+
   // Compute live calculations deterministically with memoization
   const calcResult = useMemo(() => calculateHiringPlan(config), [config]);
 
@@ -241,8 +337,12 @@ export default function App() {
 
   const handleResetDefaults = () => {
     setConfig(DEFAULT_PLAN_CONFIG);
+    setHasActiveAssessment(false);
+    setActiveScenarioName(null);
     try {
       localStorage.removeItem(CONFIG_STORAGE_KEY);
+      localStorage.removeItem(ASSESSMENT_ACTIVE_KEY);
+      localStorage.removeItem(ASSESSMENT_NAME_KEY);
     } catch (e) {
       console.warn('Could not clear stored config:', e);
     }
@@ -266,6 +366,9 @@ export default function App() {
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthModalOpen(true)}
         onResetDefaults={handleResetDefaults}
+        hasActiveAssessment={hasActiveAssessment}
+        activeScenarioName={activeScenarioName}
+        onClearAssessment={handleClearAssessment}
       />
 
       {/* Main Content Workspace */}
@@ -325,6 +428,8 @@ export default function App() {
             city={selectedCity}
             config={config}
             calc={calcResult}
+            hasActiveAssessment={hasActiveAssessment}
+            activeScenarioName={activeScenarioName}
             onStartAssessment={() => handleSelectTab('plan-builder')}
             onNavigateToBuilder={() => handleSelectTab('plan-builder')}
             onNavigateToOverview={() => handleSelectTab('overview')}
@@ -332,6 +437,8 @@ export default function App() {
             onNavigateToEvidence={() => handleSelectTab('evidence-library')}
             onNavigateToBrief={() => handleSelectTab('decision-brief')}
             onNavigateToIntro={() => handleSelectTab('intro')}
+            onLoadDemoScenario={handleLoadDemoScenario}
+            onClearAssessment={handleClearAssessment}
           />
         )}
 
@@ -341,9 +448,13 @@ export default function App() {
             city={selectedCity}
             config={config}
             calc={calcResult}
+            hasActiveAssessment={hasActiveAssessment}
+            activeScenarioName={activeScenarioName}
             onNavigateToBuilder={() => handleSelectTab('plan-builder')}
             onNavigateToStressTest={() => handleSelectTab('stress-test')}
             onNavigateToEvidence={() => handleSelectTab('evidence-library')}
+            onLoadDemoScenario={handleLoadDemoScenario}
+            onClearAssessment={handleClearAssessment}
           />
         )}
 
@@ -353,9 +464,24 @@ export default function App() {
             cities={CITIES_DATA}
             config={config}
             calc={calcResult}
+            hasActiveAssessment={hasActiveAssessment}
             onChangeConfig={setConfig}
             onNavigateToStressTest={() => handleSelectTab('stress-test')}
+            onNavigateToOverview={() => handleSelectTab('overview')}
+            onRunAssessment={handleRunAssessment}
             onResetDefaults={handleResetDefaults}
+          />
+        )}
+
+        {/* Map Intelligence (Route: /app/map or /app/map-intelligence) */}
+        {(currentRoute === '/app/map' || currentRoute === '/app/map-intelligence') && (
+          <MapIntelligenceView
+            cities={CITIES_DATA}
+            evidenceList={evidenceList}
+            selectedCityId={config.cityId}
+            hasActiveAssessment={hasActiveAssessment}
+            onTransferCityToBuilder={handleTransferCityToBuilder}
+            onNavigateToBuilder={() => handleSelectTab('plan-builder')}
           />
         )}
 
@@ -448,6 +574,15 @@ export default function App() {
                 className="hover:text-slate-900 transition-colors"
               >
                 Plan Builder
+              </button>
+              <span aria-hidden="true" className="text-slate-300">
+                ·
+              </span>
+              <button
+                onClick={() => navigateTo('/app/map')}
+                className="hover:text-slate-900 transition-colors"
+              >
+                Map Intelligence
               </button>
               <span aria-hidden="true" className="text-slate-300">
                 ·

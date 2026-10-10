@@ -16,6 +16,7 @@ import {
   Menu,
   X,
   ExternalLink,
+  MapPin,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -25,6 +26,7 @@ export type NavTab =
   | 'home'
   | 'overview'
   | 'plan-builder'
+  | 'map-intelligence'
   | 'stress-test'
   | 'evidence-library'
   | 'decision-brief';
@@ -34,6 +36,7 @@ export const WORKSPACE_TABS: NavTab[] = [
   'home',
   'overview',
   'plan-builder',
+  'map-intelligence',
   'stress-test',
   'evidence-library',
   'decision-brief',
@@ -46,6 +49,9 @@ interface TopBarProps {
   currentUser?: UserProfile;
   onOpenAuth?: () => void;
   onResetDefaults?: () => void;
+  hasActiveAssessment?: boolean;
+  activeScenarioName?: string | null;
+  onClearAssessment?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -55,6 +61,9 @@ export const TopBar: React.FC<TopBarProps> = ({
   currentUser,
   onOpenAuth,
   onResetDefaults,
+  hasActiveAssessment = false,
+  activeScenarioName,
+  onClearAssessment,
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -215,6 +224,16 @@ export const TopBar: React.FC<TopBarProps> = ({
                 Workspace
               </span>
             </div>
+            {hasActiveAssessment ? (
+              <span className="hidden xl:inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{activeScenarioName ? `Demo: ${activeScenarioName}` : 'Custom Active'}</span>
+              </span>
+            ) : (
+              <span className="hidden xl:inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                <span>Unassessed</span>
+              </span>
+            )}
           </div>
 
           {/* Internal Workspace Navigation Tabs */}
@@ -253,6 +272,18 @@ export const TopBar: React.FC<TopBarProps> = ({
             >
               <Sliders className="w-3.5 h-3.5 text-slate-500" />
               <span>Plan Builder</span>
+            </button>
+
+            <button
+              onClick={() => onSelectTab('map-intelligence')}
+              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+                activeTab === 'map-intelligence'
+                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
+                  : 'hover:text-slate-900'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5 text-slate-500" />
+              <span>Map Intelligence</span>
             </button>
 
             <button
@@ -419,6 +450,16 @@ export const TopBar: React.FC<TopBarProps> = ({
             }`}
           >
             Plan Builder
+          </button>
+          <button
+            onClick={() => onSelectTab('map-intelligence')}
+            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+              activeTab === 'map-intelligence'
+                ? 'bg-slate-900 text-white'
+                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+            }`}
+          >
+            Map Intelligence
           </button>
           <button
             onClick={() => onSelectTab('stress-test')}

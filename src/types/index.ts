@@ -29,6 +29,36 @@ export interface RoleAllocation {
   marketAvailabilityNotes?: string;
 }
 
+export interface CityCoordinates {
+  latitude: number;
+  longitude: number;
+}
+
+export interface CityCostIndicator {
+  primeGradeARent: string;
+  status: EvidenceClassification | 'unavailable';
+  sourceName: string;
+  dateChecked: string;
+  limitations: string;
+}
+
+export interface CityPolicyIndicator {
+  policyName: string;
+  highlights: string[];
+  status: EvidenceClassification | 'unavailable';
+  sourceName: string;
+  dateChecked: string;
+  limitations: string;
+}
+
+export interface CityProviderIndicator {
+  identifiedProviders: string[];
+  status: EvidenceClassification | 'unavailable';
+  sourceName: string;
+  dateChecked: string;
+  limitations: string;
+}
+
 export interface CityProfile {
   id: string;
   name: string;
@@ -42,6 +72,10 @@ export interface CityProfile {
   typicalOfferDropoutRate: number; // percentage (e.g. 25-35%)
   evidenceStatus: 'Partial Data' | 'Requires Verification' | 'Benchmarked';
   caveats: string;
+  coordinates?: CityCoordinates;
+  officeOperatingCost?: CityCostIndicator;
+  stateIncentivesPolicy?: CityPolicyIndicator;
+  serviceProviders?: CityProviderIndicator;
 }
 
 export interface HiringPlanConfig {
@@ -113,6 +147,23 @@ export interface ScenarioComparison {
   description: string;
   config: HiringPlanConfig;
   result: CalculationResult;
+}
+
+export interface DemoScenario {
+  id: string;
+  key: string;
+  title: string;
+  subtitle: string;
+  cityId: string;
+  cityName: string;
+  tier: string;
+  headcount: number;
+  deadlineMonths: number;
+  noticePeriodLagDays: 60 | 90;
+  keyChallenge: string;
+  description: string;
+  tags: string[];
+  config: HiringPlanConfig;
 }
 
 export interface UserProfile {
