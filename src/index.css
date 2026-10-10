@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+    size: A4 portrait;
+  }
+
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .border,
+  .border-slate-200 {
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Prevent awkward page breaks inside cards and tables */
+  table,
+  tr,
+  .space-y-3,
+  .rounded-xl,
+  .rounded-lg {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "GCC Location Intelligence | Hiring Plan Stress Test",
+  "description": "Evidence-backed hiring plan stress tester for Global Capability Centres in India, with deterministic funnel modeling, capacity analysis, and audit-grade evidence library.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
