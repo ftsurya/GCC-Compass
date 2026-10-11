@@ -63,59 +63,101 @@ const tabToRouteMap: Record<NavTab, AppRoute> = {
   'decision-brief': '/app/decision-brief',
 };
 
-function getRouteFromLocation(): AppRoute {
-  if (typeof window === 'undefined') return '/';
+export function getAppBasePath(): string {
+  if (typeof window === 'undefined') return '';
+  const pathname = window.location.pathname;
+  // If hosted on GitHub Pages (username.github.io/repo-name)
+  const segments = pathname.split('/').filter(Boolean);
+  if (window.location.hostname.endsWith('github.io') && segments.length > 0) {
+    return '/' + segments[0];
+  }
+  // Generic fallback if pathname starts with /gcc-compass (case-insensitive)
+  if (pathname.toLowerCase().startsWith('/gcc-compass')) {
+    return pathname.slice(0, '/gcc-compass'.length);
+  }
+  return '';
+}
 
-  const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
-  const hash = window.location.hash.replace(/^#\/?/, '/').trim();
+function matchRoute(candidate: string): AppRoute {
+  const c = candidate.toLowerCase().trim();
 
-  // Prefer hash if explicitly set with an app path, otherwise use pathname
-  const candidate = (hash && hash !== '/' ? hash : pathname).toLowerCase();
-
-  if (candidate === '/welcome' || candidate === '/signin' || candidate === '/login' || candidate === '/auth') {
+  if (c === '/welcome' || c === '/signin' || c === '/login' || c === '/auth') {
     return '/welcome';
   }
-  if (candidate === '/app' || candidate === '/app/home' || candidate === '/home') {
+  if (c === '/app' || c === '/app/home' || c === '/home') {
     return '/app';
   }
-  if (candidate === '/app/overview' || candidate === '/overview') {
+  if (c === '/app/overview' || c === '/overview') {
     return '/app/overview';
   }
-  if (candidate === '/app/plan-builder' || candidate === '/plan-builder' || candidate === '/builder') {
+  if (c === '/app/plan-builder' || c === '/plan-builder' || c === '/builder') {
     return '/app/plan-builder';
   }
   if (
-    candidate === '/app/map' ||
-    candidate === '/app/map-intelligence' ||
-    candidate === '/map' ||
-    candidate === '/map-intelligence'
+    c === '/app/map' ||
+    c === '/app/map-intelligence' ||
+    c === '/map' ||
+    c === '/map-intelligence'
   ) {
     return '/app/map';
   }
-  if (candidate === '/app/stress-test' || candidate === '/stress-test') {
+  if (c === '/app/stress-test' || c === '/stress-test') {
     return '/app/stress-test';
   }
   if (
-    candidate === '/app/evidence' ||
-    candidate === '/app/evidence-library' ||
-    candidate === '/evidence' ||
-    candidate === '/evidence-library'
+    c === '/app/evidence' ||
+    c === '/app/evidence-library' ||
+    c === '/evidence' ||
+    c === '/evidence-library'
   ) {
     return '/app/evidence';
   }
   if (
-    candidate === '/app/decision-brief' ||
-    candidate === '/decision-brief' ||
-    candidate === '/decision' ||
-    candidate === '/brief'
+    c === '/app/decision-brief' ||
+    c === '/decision-brief' ||
+    c === '/decision' ||
+    c === '/brief'
   ) {
     return '/app/decision-brief';
   }
-  if (candidate === '/' || candidate === '/intro') {
+  if (c === '/' || c === '/intro' || c === '') {
     return '/';
   }
 
   return '/';
+}
+
+function getRouteFromLocation(): AppRoute {
+  if (typeof window === 'undefined') return '/';
+
+  // 1. Check hash first: e.g. #/app/plan-builder or #/welcome
+  const rawHash = window.location.hash.replace(/^#\/?/, '/').trim();
+  if (rawHash && rawHash !== '/') {
+    const cleanHash = rawHash.replace(/\/+$/, '');
+    const matched = matchRoute(cleanHash);
+    if (matched !== '/') return matched;
+  }
+
+  // 2. Check query parameter fallback: e.g. ?p=/app/plan-builder or ?route=/app/plan-builder
+  const searchParams = new URLSearchParams(window.location.search);
+  const queryParam = searchParams.get('p') || searchParams.get('route');
+  if (queryParam) {
+    const cleanParam = ('/' + queryParam.replace(/^\/+/, '')).replace(/\/+$/, '');
+    const matched = matchRoute(cleanParam);
+    if (matched !== '/') return matched;
+  }
+
+  // 3. Check pathname: strip GitHub Pages project base path if present
+  let pathname = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '') || '/';
+  const basePath = getAppBasePath();
+  if (basePath && pathname.toLowerCase().startsWith(basePath.toLowerCase())) {
+    pathname = pathname.slice(basePath.length) || '/';
+  }
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
+
+  return matchRoute(pathname);
 }
 
 export default function App() {
@@ -270,16 +312,38 @@ export default function App() {
     };
   }, []);
 
-  // Programmatic navigation updating URL and state
+  // Programmatic navigation updating URL and state with GitHub Pages subpath preservation
   const navigateTo = (targetRoute: AppRoute) => {
     setCurrentRoute(targetRoute);
     if (typeof window !== 'undefined') {
-      if (window.location.pathname !== targetRoute) {
-        window.history.pushState(null, '', targetRoute);
+      const basePath = getAppBasePath();
+      const targetUrl =
+        targetRoute === '/'
+          ? (basePath ? `${basePath}/` : '/')
+          : `${basePath ? `${basePath}/` : '/'}#${targetRoute}`;
+
+      const currentUrl = window.location.pathname + window.location.search + window.location.hash;
+      if (currentUrl !== targetUrl) {
+        window.history.pushState(null, '', targetUrl);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  // Sync initial URL if loaded via direct pathname or SPA query redirect
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const initialRoute = getRouteFromLocation();
+      if (initialRoute !== '/') {
+        const basePath = getAppBasePath();
+        const expectedTarget = `${basePath ? `${basePath}/` : '/'}#${initialRoute}`;
+        const currentTarget = window.location.pathname + window.location.search + window.location.hash;
+        if (currentTarget !== expectedTarget) {
+          window.history.replaceState(null, '', expectedTarget);
+        }
+      }
+    }
+  }, []);
 
   // Tab selection handler maintaining backward compatibility
   const handleSelectTab = (tab: NavTab) => {

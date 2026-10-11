@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GCC Compass</title>
+    <script type="text/javascript">
+      // GitHub Pages Single Page Application Router Fallback
+      (function () {
+        var l = window.location;
+        var pathSegments = l.pathname.split('/').filter(Boolean);
+        var isGithubIo = l.hostname.endsWith('github.io');
+        var repoName = isGithubIo && pathSegments.length > 0 ? pathSegments[0] : '';
+        var repoPath = repoName ? '/' + repoName : '';
+        var routeSegments = repoName ? pathSegments.slice(1) : pathSegments;
+        var subPath = routeSegments.join('/');
+        var targetHash = subPath ? '#/' + subPath : '';
+        var targetUrl = repoPath + '/' + (targetHash ? targetHash : '') + (l.search ? l.search : '');
+        l.replace(targetUrl);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="./">GCC Compass</a>...</p>
+  </body>
+</html>
