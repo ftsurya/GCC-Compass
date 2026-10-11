@@ -89,6 +89,32 @@ assert(
   'App.tsx integrates IntroView for Page 1 and AuthModal for user session management'
 );
 
+// Test 1.6b: Accessible 7-Step "How GCC Compass Works" Guide Integration
+const howItWorksTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/HowItWorksModal.tsx'), 'utf-8');
+assert(
+  howItWorksTsx.includes('How GCC Compass Works') &&
+  howItWorksTsx.includes('Start Exploring') &&
+  howItWorksTsx.includes('Choose How to Begin') &&
+  howItWorksTsx.includes('Build a Realistic Hiring Plan') &&
+  howItWorksTsx.includes('Understand the Calculated Results') &&
+  howItWorksTsx.includes('Stress-Test Critical Assumptions') &&
+  howItWorksTsx.includes('Review Evidence & Export Decision Briefs'),
+  'HowItWorksModal contains comprehensive 7-step analytical user guide'
+);
+assert(
+  howItWorksTsx.includes('role="dialog"') &&
+  howItWorksTsx.includes('aria-modal="true"') &&
+  howItWorksTsx.includes('aria-labelledby="how-it-works-title"') &&
+  howItWorksTsx.includes("e.key === 'Escape'"),
+  'HowItWorksModal implements dialog accessibility standards, ARIA labelling, and Escape key dismissal'
+);
+assert(
+  appTsx.includes('<HowItWorksModal') &&
+  appTsx.includes('onOpenHowItWorks') &&
+  introViewTsx.includes('onOpenHowItWorks'),
+  'App.tsx and IntroView integrate HowItWorksModal trigger without mutating assessment state'
+);
+
 // Test 1.7: WelcomeView integrated for /welcome access page
 const welcomeViewTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/WelcomeView.tsx'), 'utf-8');
 assert(

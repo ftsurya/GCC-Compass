@@ -10,6 +10,7 @@ import { EvidenceLibraryView } from './components/EvidenceLibraryView';
 import { DecisionBriefView } from './components/DecisionBriefView';
 import { MapIntelligenceView } from './components/MapIntelligenceView';
 import { AuthModal, GUEST_USER } from './components/AuthModal';
+import { HowItWorksModal } from './components/HowItWorksModal';
 
 import {
   CITIES_DATA,
@@ -163,6 +164,7 @@ function getRouteFromLocation(): AppRoute {
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<AppRoute>(getRouteFromLocation);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
 
   // Derived active tab from current route
   const activeTab: NavTab = routeToTabMap[currentRoute] || 'home';
@@ -433,6 +435,7 @@ export default function App() {
         hasActiveAssessment={hasActiveAssessment}
         activeScenarioName={activeScenarioName}
         onClearAssessment={handleClearAssessment}
+        onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
       />
 
       {/* Main Content Workspace */}
@@ -467,6 +470,7 @@ export default function App() {
             onNavigateToBrief={() => handleSelectTab('decision-brief')}
             onOpenAuth={() => navigateTo('/welcome')}
             onNavigateToWelcome={() => navigateTo('/welcome')}
+            onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
           />
         )}
 
@@ -503,6 +507,7 @@ export default function App() {
             onNavigateToIntro={() => handleSelectTab('intro')}
             onLoadDemoScenario={handleLoadDemoScenario}
             onClearAssessment={handleClearAssessment}
+            onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
           />
         )}
 
@@ -599,6 +604,14 @@ export default function App() {
             console.warn('Could not persist user session:', e);
           }
         }}
+      />
+
+      {/* Accessible 7-Step "How GCC Compass Works" Analytical User Guide */}
+      <HowItWorksModal
+        isOpen={isHowItWorksOpen}
+        onClose={() => setIsHowItWorksOpen(false)}
+        onStartExploring={() => handleSelectTab('plan-builder')}
+        onOpenMapIntelligence={() => handleSelectTab('map-intelligence')}
       />
 
       {/* Enterprise Retro Product Footer */}

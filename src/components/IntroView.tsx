@@ -33,6 +33,7 @@ interface IntroViewProps {
   onNavigateToBrief: () => void;
   onOpenAuth: () => void;
   onNavigateToWelcome?: () => void;
+  onOpenHowItWorks?: () => void;
 }
 
 export const IntroView: React.FC<IntroViewProps> = ({
@@ -47,8 +48,13 @@ export const IntroView: React.FC<IntroViewProps> = ({
   onNavigateToBrief,
   onOpenAuth,
   onNavigateToWelcome,
+  onOpenHowItWorks,
 }) => {
   const scrollToMethodology = () => {
+    if (onOpenHowItWorks) {
+      onOpenHowItWorks();
+      return;
+    }
     const el =
       document.getElementById('how-it-works-section') ||
       document.getElementById('intro-methodology-section');

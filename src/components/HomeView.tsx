@@ -37,6 +37,7 @@ interface HomeViewProps {
   onNavigateToMap?: () => void;
   onLoadDemoScenario?: (demoKey: string) => void;
   onClearAssessment?: () => void;
+  onOpenHowItWorks?: () => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -55,8 +56,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onNavigateToMap,
   onLoadDemoScenario,
   onClearAssessment,
+  onOpenHowItWorks,
 }) => {
   const scrollToHowItWorks = () => {
+    if (onOpenHowItWorks) {
+      onOpenHowItWorks();
+      return;
+    }
     const el = document.getElementById('how-it-works-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });

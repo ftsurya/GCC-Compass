@@ -48,6 +48,7 @@ interface TopBarProps {
   hasActiveAssessment?: boolean;
   activeScenarioName?: string | null;
   onClearAssessment?: () => void;
+  onOpenHowItWorks?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -58,6 +59,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   onResetDefaults,
   hasActiveAssessment = false,
   activeScenarioName,
+  onOpenHowItWorks,
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -78,6 +80,10 @@ export const TopBar: React.FC<TopBarProps> = ({
   const isWorkspace = !isPublicIntro && !isPublicWelcome;
 
   const scrollToHowItWorks = () => {
+    if (onOpenHowItWorks) {
+      onOpenHowItWorks();
+      return;
+    }
     const el = document.getElementById('how-it-works-section') || document.getElementById('intro-methodology-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
