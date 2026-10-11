@@ -255,7 +255,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                     Create Custom Workforce Assessment
                   </h3>
                   <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Define target headcount, select your expansion city across 5 benchmarked locations (Bengaluru, Hyderabad, Visakhapatnam, Coimbatore, Bhubaneswar), set project timelines, and tune stage conversion yields.
+                    Define target headcount, select your expansion city across 6 benchmarked locations (Bengaluru, Hyderabad, Pune, Visakhapatnam, Coimbatore, Bhubaneswar), set project timelines, and tune stage conversion yields.
                   </p>
                 </div>
                 <div className="pt-1 flex flex-wrap gap-2 text-[11px] text-slate-500 font-medium">
@@ -352,7 +352,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 Multi-City Location Intelligence
               </h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Benchmark talent pools across Tier-1 metros (Bengaluru, Hyderabad) and emerging Tier-2 hubs (Visakhapatnam, Coimbatore, Bhubaneswar). Evaluates local seniority distributions, voluntary attrition, and established GCC campuses.
+                Benchmark talent pools across Tier-1 metros (Bengaluru, Hyderabad, Pune) and emerging Tier-2 hubs (Visakhapatnam, Coimbatore, Bhubaneswar). Evaluates local seniority distributions, voluntary attrition, and established GCC campuses.
               </p>
             </div>
             <button

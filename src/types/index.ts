@@ -59,6 +59,46 @@ export interface CityProviderIndicator {
   limitations: string;
 }
 
+export interface CompanyWorkforce {
+  localHeadcount: string;
+  headcountType:
+    | 'facility_estimate'
+    | 'corporate_announcement'
+    | 'company_announcement'
+    | 'third_party_estimate'
+    | 'requires_verification'
+    | 'unavailable';
+  sourceName: string;
+  dateChecked: string;
+  limitations: string;
+}
+
+export interface GccCompany {
+  id: string;
+  cityId: string;
+  name: string;
+  parentCompany: string;
+  headquarters: string;
+  facilityLocation: string;
+  establishedYear?: number;
+  primarySector: string;
+  businessFunctions: string[];
+  specialisations: string[];
+  workforce: CompanyWorkforce;
+  evidenceItemIds?: string[];
+}
+
+export interface CityWorkforceBreakdown {
+  directGccHeadcount: string;
+  directGccSource: string;
+  totalTechSectorHeadcount: string;
+  totalTechSectorSource: string;
+  seniorTalentPool: string;
+  geographicScope: string;
+  dateChecked: string;
+  definitionNotes: string;
+}
+
 export interface CityProfile {
   id: string;
   name: string;
@@ -66,6 +106,8 @@ export interface CityProfile {
   state: string;
   techEcosystemSummary: string;
   knownGccPresence: string[];
+  companies?: GccCompany[];
+  workforceBreakdown?: CityWorkforceBreakdown;
   estimatedTechTalentPool: string;
   estimatedSeniorTechTalentPool: string;
   averageNoticePeriodDays: number;
@@ -76,6 +118,7 @@ export interface CityProfile {
   officeOperatingCost?: CityCostIndicator;
   stateIncentivesPolicy?: CityPolicyIndicator;
   serviceProviders?: CityProviderIndicator;
+  evidenceItemIds?: string[];
 }
 
 export interface HiringPlanConfig {

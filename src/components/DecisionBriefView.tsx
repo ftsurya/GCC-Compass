@@ -60,6 +60,8 @@ export const DecisionBriefView: React.FC<DecisionBriefViewProps> = ({
       ? 'PSG Tech, CIT, and Amrita Vishwa Vidyapeetham'
       : city.id === 'bhubaneswar'
       ? 'IIT Bhubaneswar, NIT Rourkela, and KIIT'
+      : city.id === 'pune'
+      ? 'COEP Technological University, Pune University (SPPU), and Cummins College'
       : 'regional state engineering institutions';
 
   const handleDownloadPdf = () => {

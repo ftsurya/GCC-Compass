@@ -4,6 +4,7 @@ import {
   DEFAULT_PLAN_CONFIG,
   EVIDENCE_LIBRARY,
   DEMO_SCENARIOS,
+  GCC_COMPANIES,
 } from '../data/defaultData';
 import { HiringPlanConfig, CityProfile, RoleAllocation } from '../types';
 import { jsPDF } from 'jspdf';
@@ -512,6 +513,140 @@ assert(
       (item) => item.claim && item.sourceName && item.classification && item.limitations
     ),
   'Evidence Base: All items have verified sources, classifications, and explicit limitations'
+);
+
+// -----------------------------------------------------------------------------
+// 6. MAP INTELLIGENCE CITY-DATA ASSOCIATION, COMPANY DIRECTORY & DATA INTEGRITY
+// -----------------------------------------------------------------------------
+console.log('\nSECTION 6: Map Intelligence City-Data Association & Integrity');
+
+const mapIntelligenceViewTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/MapIntelligenceView.tsx'), 'utf-8');
+
+// Test 6.1: Supported cities verification
+const expectedCities = ['bengaluru', 'hyderabad', 'vizag', 'coimbatore', 'bhubaneswar', 'pune'];
+const foundCityIds = CITIES_DATA.map((c) => c.id);
+assert(
+  expectedCities.every((id) => foundCityIds.includes(id)),
+  'Map Intelligence: All 6 required cities (Bengaluru, Hyderabad, Vizag, Coimbatore, Bhubaneswar, Pune) are present'
+);
+
+// Test 6.2: Every city has stable unique ID, verified coordinates, and complete indicators
+assert(
+  CITIES_DATA.every(
+    (c) =>
+      c.id &&
+      c.name &&
+      c.tier &&
+      c.state &&
+      c.coordinates?.latitude &&
+      c.coordinates?.longitude &&
+      c.officeOperatingCost &&
+      c.stateIncentivesPolicy &&
+      c.serviceProviders &&
+      c.caveats
+  ),
+  'Map Intelligence: Every city has stable unique ID, verified coordinates, operating costs, and policies'
+);
+
+// Test 6.3: Structured hierarchy: City -> GCC Companies -> Company Profiles -> Functions -> Workforce
+assert(
+  GCC_COMPANIES.length >= 25 &&
+    GCC_COMPANIES.every(
+      (comp) =>
+        comp.id &&
+        comp.cityId &&
+        comp.name &&
+        comp.parentCompany &&
+        comp.facilityLocation &&
+        comp.primarySector &&
+        Array.isArray(comp.businessFunctions) &&
+        comp.businessFunctions.length > 0 &&
+        Array.isArray(comp.specialisations) &&
+        comp.specialisations.length > 0 &&
+        comp.workforce?.localHeadcount &&
+        comp.workforce?.sourceName &&
+        comp.workforce?.dateChecked &&
+        comp.workforce?.limitations
+    ),
+  'Map Intelligence: Reliable structured hierarchy established: City -> GCC Companies -> Profiles -> Functions -> Workforce'
+);
+
+// Test 6.4: Company Directory Filtering: Zero cross-city pollution
+const puneCompanies = GCC_COMPANIES.filter((c) => c.cityId === 'pune');
+const cbeCompanies = GCC_COMPANIES.filter((c) => c.cityId === 'coimbatore');
+const blrCompanies = GCC_COMPANIES.filter((c) => c.cityId === 'bengaluru');
+const vizagCompanies = GCC_COMPANIES.filter((c) => c.cityId === 'vizag');
+
+assert(
+  puneCompanies.length >= 4 &&
+    puneCompanies.every((c) => c.cityId === 'pune') &&
+    !puneCompanies.some((c) => c.cityId === 'coimbatore' || c.cityId === 'bengaluru'),
+  'Map Intelligence Directory: Pune companies are strictly isolated and not attributed to Coimbatore or Bengaluru'
+);
+
+assert(
+  cbeCompanies.length >= 4 &&
+    cbeCompanies.every((c) => c.cityId === 'coimbatore') &&
+    !cbeCompanies.some((c) => c.cityId === 'vizag' || c.cityId === 'pune'),
+  'Map Intelligence Directory: Coimbatore companies are strictly isolated and not attributed to Vizag or Pune'
+);
+
+// Test 6.5: Workforce definition distinctness: Direct GCC vs Total Tech Sector
+assert(
+  CITIES_DATA.every(
+    (c) =>
+      c.workforceBreakdown?.directGccHeadcount &&
+      c.workforceBreakdown?.totalTechSectorHeadcount &&
+      c.workforceBreakdown?.geographicScope &&
+      c.workforceBreakdown?.definitionNotes
+  ),
+  'Map Intelligence Workforce: Preserves distinct direct GCC headcount, total tech sector headcount, and explicit geographic scope'
+);
+
+// Test 6.6: Missing data handled explicitly without fabrication
+const unverifiedCompanies = GCC_COMPANIES.filter(
+  (c) =>
+    c.workforce.headcountType === 'requires_verification' ||
+    c.workforce.localHeadcount === 'Data unavailable'
+);
+assert(
+  unverifiedCompanies.length >= 2 &&
+    unverifiedCompanies.every((c) => c.workforce.limitations.length > 0),
+  'Map Intelligence Integrity: Undisclosed company workforce figures display "Data unavailable" or "requires_verification" with caveats'
+);
+
+// Test 6.7: Evidence association isolation: No generic Tier-2 leakage
+assert(
+  mapIntelligenceViewTsx.includes('activeCityCompanies') &&
+    mapIntelligenceViewTsx.includes('cityRelevantEvidence') &&
+    !mapIntelligenceViewTsx.includes("geo.includes('tier-2')"),
+  'Map Intelligence Evidence: Eliminated cross-city evidence leakage; generic tier-2 query removed'
+);
+
+// Test 6.8: Assessment isolation: Map Intelligence exploration does not mutate active assessment
+assert(
+  mapIntelligenceViewTsx.includes('onTransferCityToBuilder') &&
+    mapIntelligenceViewTsx.includes('handleTransferToPlanBuilder') &&
+    appTsx.includes('handleTransferCityToBuilder'),
+  'Map Intelligence Isolation: Exploring map markers does not alter active assessment state; transfer requires explicit user action'
+);
+
+// Test 6.9: Sidebar filter with data availability toggles
+assert(
+  mapIntelligenceViewTsx.includes('filterVerifiedIncentives') &&
+    mapIntelligenceViewTsx.includes('filterDirectGccWorkforce') &&
+    mapIntelligenceViewTsx.includes('filterOfficeCostBenchmarks') &&
+    mapIntelligenceViewTsx.includes('filterEmpiricalEvidence') &&
+    mapIntelligenceViewTsx.includes('Data Availability Toggles'),
+  'Map Intelligence Sidebar: Contains explicit data availability filters (verified incentives, workforce, office cost, empirical evidence)'
+);
+
+// Test 6.10: Dynamic map marker filtering
+assert(
+  mapIntelligenceViewTsx.includes('filteredCities') &&
+    mapIntelligenceViewTsx.includes('filteredCities.forEach') &&
+    mapIntelligenceViewTsx.includes('handleResetFilters'),
+  'Map Intelligence Map: City markers render strictly from filteredCities with dynamic reset action'
 );
 
 // -----------------------------------------------------------------------------

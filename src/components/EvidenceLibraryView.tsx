@@ -246,7 +246,12 @@ export const EvidenceLibraryView: React.FC<EvidenceLibraryViewProps> = ({
             className="text-xs font-medium bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700"
           >
             <option value="all">All Locations</option>
+            <option value="bengaluru">Bengaluru</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="pune">Pune</option>
             <option value="visakhapatnam">Visakhapatnam</option>
+            <option value="coimbatore">Coimbatore</option>
+            <option value="bhubaneswar">Bhubaneswar</option>
             <option value="pan-india">Pan-India</option>
           </select>
         </div>
