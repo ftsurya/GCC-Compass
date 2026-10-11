@@ -30,6 +30,8 @@ import {
   CheckCircle,
   FileSpreadsheet,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   BookOpen,
   FilterX,
   Sparkles,
@@ -93,6 +95,9 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
 
   // Transfer feedback toast
   const [transferToast, setTransferToast] = useState<string | null>(null);
+
+  // Dedicated floating legend panel expanded / collapsed toggle
+  const [isLegendExpanded, setIsLegendExpanded] = useState<boolean>(true);
 
   // Refs for Leaflet map container
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -208,6 +213,28 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
     filterEmpiricalEvidence ||
     tierFilter !== 'all' ||
     searchQuery.trim().length > 0;
+
+  // Real-time marker count breakdown for floating legend panel
+  const verifiedPolicyCount = useMemo(
+    () =>
+      filteredCities.filter(
+        (c) =>
+          c.stateIncentivesPolicy?.status === 'verified_fact' ||
+          c.stateIncentivesPolicy?.status === 'company_announcement'
+      ).length,
+    [filteredCities]
+  );
+
+  const requiresVerificationCount = useMemo(
+    () =>
+      filteredCities.filter(
+        (c) =>
+          !c.stateIncentivesPolicy ||
+          (c.stateIncentivesPolicy.status !== 'verified_fact' &&
+            c.stateIncentivesPolicy.status !== 'company_announcement')
+      ).length,
+    [filteredCities]
+  );
 
   const handleResetFilters = () => {
     setTierFilter('all');
@@ -334,15 +361,23 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
       const isSelected = city.id === activeCityId;
       const isCompared = comparisonCityIds.includes(city.id);
       const isTier1 = city.tier === 'Tier-1';
+      const hasVerifiedPolicy =
+        city.stateIncentivesPolicy &&
+        (city.stateIncentivesPolicy.status === 'verified_fact' ||
+          city.stateIncentivesPolicy.status === 'company_announcement');
 
-      // NeoBrutalist badge marker
+      // NeoBrutalist badge marker with status indicator dot
       const bgCol = isSelected ? '#FFE500' : isTier1 ? '#00F0A8' : '#FFFFFF';
       const textCol = '#000000';
+      const statusDotColor = hasVerifiedPolicy ? '#00F0A8' : '#F59E0B';
+      const statusTitle = hasVerifiedPolicy ? 'Verified Policy' : 'Requires Verification';
+
       const markerHtml = `
         <div style="cursor: pointer; display: flex; flex-direction: column; align-items: center; user-select: none;">
-          <div style="background: ${bgCol}; color: ${textCol}; border: 2.5px solid #000000; box-shadow: 3px 3px 0px 0px #000000; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 0.04em;">
-            ${city.name}
-            ${isCompared ? ' ★' : ''}
+          <div style="background: ${bgCol}; color: ${textCol}; border: 2.5px solid #000000; box-shadow: 3px 3px 0px 0px #000000; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 0.04em; display: flex; align-items: center; gap: 5px;">
+            <span>${city.name}</span>
+            ${isCompared ? '<span style="color:#000;">★</span>' : ''}
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${statusDotColor}; border:1.5px solid #000000; box-shadow: 1px 1px 0px 0px #000000;" title="${statusTitle}"></span>
           </div>
           <div style="width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 7px solid #000000; margin-top: -1px;"></div>
         </div>
@@ -351,8 +386,8 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
       const customIcon = L.divIcon({
         className: 'brutal-map-marker',
         html: markerHtml,
-        iconSize: [80, 32],
-        iconAnchor: [40, 30],
+        iconSize: [96, 34],
+        iconAnchor: [48, 32],
       });
 
       const marker = L.marker([city.coordinates.latitude, city.coordinates.longitude], {
@@ -429,60 +464,60 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
         </div>
       )}
 
-      {/* Main Flagship Header in Retro NeoBrutalism */}
-      <div className="bg-[#FFFDF5] border-3 border-black p-6 sm:p-7 shadow-[6px_6px_0px_0px_#000]">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-          <div className="space-y-2">
+      {/* Streamlined Flagship Header in Retro NeoBrutalism */}
+      <div className="bg-[#FFFDF5] border-3 border-black p-3.5 sm:p-4.5 shadow-[5px_5px_0px_0px_#000]">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="bg-black text-[#FFE500] px-2 py-0.5 font-mono text-[11px] font-black uppercase tracking-wider">
+              <span className="bg-black text-[#FFE500] px-1.5 py-0.2 font-mono text-[10px] font-black uppercase tracking-wider">
                 MODULE 01
               </span>
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1.5">
-                <Compass className="w-4 h-4 stroke-[2.5]" />
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black flex items-center gap-1.5">
+                <Compass className="w-3.5 h-3.5 stroke-[2.5]" />
                 // LOCATION INTELLIGENCE & GCC ECOSYSTEM ATLAS
               </span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-black uppercase font-display">
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-black uppercase font-display leading-tight">
               India GCC Hub Map Intelligence
             </h1>
-            <p className="text-xs sm:text-sm text-neutral-800 max-w-3xl leading-relaxed font-medium">
-              Explore verified coordinates, structured multinational capability center directories, talent depth benchmarks, commercial office rents, state incentive frameworks, and localized empirical evidence across supported hubs.
+            <p className="text-xs text-neutral-800 max-w-3xl leading-snug font-medium">
+              Explore verified coordinates, multinational capability centers, talent depth benchmarks, prime office rents, and state incentive frameworks across supported hubs.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               onClick={() => setIsComparisonOpen(!isComparisonOpen)}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs font-black uppercase tracking-wider border-2 border-black transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-mono font-black uppercase tracking-wider border-2 border-black transition-all ${
                 isComparisonOpen
-                  ? 'bg-black text-[#FFE500] shadow-[3px_3px_0px_0px_#000]'
-                  : 'bg-white hover:bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000]'
+                  ? 'bg-black text-[#FFE500] shadow-[2px_2px_0px_0px_#000]'
+                  : 'bg-white hover:bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
               }`}
             >
-              <Layers className="w-4 h-4 stroke-[2.5]" />
+              <Layers className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>{isComparisonOpen ? 'Close Matrix' : `Compare Cities (${comparisonCityIds.length})`}</span>
             </button>
 
             <button
               onClick={() => handleTransferToPlanBuilder(activeCity.id)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-black uppercase tracking-wider bg-[#FFE500] text-black border-2 border-black shadow-[4px_4px_0px_0px_#000] hover:bg-[#FFD000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000] transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 text-xs font-mono font-black uppercase tracking-wider bg-[#FFE500] text-black border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:bg-[#FFD000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000] transition-all"
               title="Use selected city in Plan Builder"
             >
-              <Sliders className="w-4 h-4 stroke-[2.5]" />
+              <Sliders className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Use {activeCity.name} in Assessment</span>
-              <ArrowRight className="w-4 h-4 stroke-[3]" />
+              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
             </button>
           </div>
         </div>
 
         {/* Engine and Metros Disclosure Bar */}
-        <div className="mt-5 pt-4 border-t-2 border-black flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-black uppercase text-black">MAP ENGINE:</span>
+        <div className="mt-3 pt-2.5 border-t-2 border-black flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="font-black uppercase text-black text-[11px]">MAP ENGINE:</span>
             <div className="inline-flex border-2 border-black bg-white p-0.5 text-xs font-bold">
               <button
                 onClick={() => setMapEngine('leaflet')}
-                className={`px-3 py-1 transition-colors uppercase ${
+                className={`px-2.5 py-0.5 text-[11px] transition-colors uppercase ${
                   mapEngine === 'leaflet'
                     ? 'bg-black text-[#FFE500]'
                     : 'text-black hover:bg-neutral-100'
@@ -492,7 +527,7 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
               </button>
               <button
                 onClick={() => setMapEngine('vector')}
-                className={`px-3 py-1 transition-colors uppercase ${
+                className={`px-2.5 py-0.5 text-[11px] transition-colors uppercase ${
                   mapEngine === 'vector'
                     ? 'bg-black text-[#FFE500]'
                     : 'text-black hover:bg-neutral-100'
@@ -868,6 +903,10 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                     const isSelected = city.id === activeCityId;
                     const isCompared = comparisonCityIds.includes(city.id);
                     const isTier1 = city.tier === 'Tier-1';
+                    const hasVerifiedPolicy =
+                      city.stateIncentivesPolicy &&
+                      (city.stateIncentivesPolicy.status === 'verified_fact' ||
+                        city.stateIncentivesPolicy.status === 'company_announcement');
 
                     return (
                       <g
@@ -899,6 +938,18 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                           fill="#000000"
                         />
 
+                        {/* Status indicator pip */}
+                        <circle
+                          cx="9"
+                          cy="-9"
+                          r="4.5"
+                          fill={hasVerifiedPolicy ? '#00F0A8' : '#F59E0B'}
+                          stroke="#000000"
+                          strokeWidth="1.5"
+                        />
+
+                        <title>{`${city.name} (${city.tier}) - ${hasVerifiedPolicy ? 'Verified Policy' : 'Requires Verification'}`}</title>
+
                         <text
                           y={isSelected ? '-20' : '22'}
                           textAnchor="middle"
@@ -918,17 +969,152 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                   })}
                 </svg>
 
-                <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-xs font-mono text-neutral-300 bg-black/90 px-3 py-1.5 border border-white">
-                  <span>CLICK CITY MARKER TO DRILL DOWN</span>
+                <div className="absolute top-4 right-4 z-20 hidden sm:flex items-center gap-3 text-[11px] font-mono text-neutral-300 bg-black/90 px-3 py-1.5 border-2 border-black shadow-[3px_3px_0px_0px_#FFE500]">
+                  <span>CLICK PIN TO DRILL DOWN</span>
                   <button
                     onClick={() => setMapEngine('leaflet')}
                     className="text-[#FFE500] hover:underline font-bold"
                   >
-                    SWITCH TO OSM TILES →
+                    OSM TILES →
                   </button>
                 </div>
               </div>
             )}
+
+            {/* DEDICATED FLOATING LEGEND PANEL (Retro NeoBrutalism Marker Status & Classification Key) */}
+            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-30 max-w-[calc(100%-24px)] sm:max-w-xs md:max-w-sm pointer-events-auto">
+              {isLegendExpanded ? (
+                <div className="bg-[#FFFDF5] border-3 border-black shadow-[5px_5px_0px_0px_#000] p-3 sm:p-3.5 space-y-3 font-mono text-xs text-black">
+                  {/* Header with Title & Collapse Toggle */}
+                  <div className="flex items-center justify-between gap-2 pb-2 border-b-2 border-black">
+                    <div className="flex items-center gap-1.5 font-black uppercase tracking-wider text-[11px] sm:text-xs">
+                      <Compass className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <span>MARKER STATUS LEGEND</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="bg-black text-[#FFE500] px-1.5 py-0.2 text-[10px] font-bold uppercase">
+                        LIVE KEY
+                      </span>
+                      <button
+                        onClick={() => setIsLegendExpanded(false)}
+                        className="p-1 bg-white hover:bg-black hover:text-[#FFE500] border border-black shadow-[1px_1px_0px_0px_#000] transition-colors cursor-pointer"
+                        title="Collapse Legend"
+                        aria-label="Collapse Legend"
+                      >
+                        <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Primary Marker Status Section: Verified Policy vs Requires Verification */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[10px] font-black uppercase text-neutral-700 tracking-wider">
+                      <span>// POLICY VERIFICATION PIN</span>
+                      <span>MARKER DOT</span>
+                    </div>
+
+                    {/* Verified Policy Status Card */}
+                    <div
+                      onClick={() => setFilterVerifiedIncentives((prev) => !prev)}
+                      className={`p-2 border-2 border-black transition-all cursor-pointer ${
+                        filterVerifiedIncentives
+                          ? 'bg-[#E6FFF7] ring-2 ring-black'
+                          : 'bg-white hover:bg-[#F3FFF9]'
+                      } shadow-[2px_2px_0px_0px_#000] flex items-start gap-2.5`}
+                      title="Click to toggle Verified Policy filter"
+                    >
+                      <div className="mt-0.5 shrink-0 flex items-center justify-center">
+                        <span className="w-3 h-3 rounded-full bg-[#00F0A8] border-1.5 border-black inline-block shadow-[1px_1px_0px_0px_#000]" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between font-black text-[11px] leading-tight">
+                          <span className="text-black uppercase flex items-center gap-1">
+                            Verified Policy
+                            {filterVerifiedIncentives && (
+                              <span className="text-[9px] bg-black text-[#00F0A8] px-1 font-mono">
+                                ACTIVE
+                              </span>
+                            )}
+                          </span>
+                          <span className="px-1.5 py-0.2 bg-[#00F0A8] text-black border border-black text-[9px] font-black">
+                            {verifiedPolicyCount} HUBS
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-neutral-700 leading-tight mt-0.5 font-sans font-medium">
+                          Gazetted state IT / GCC policy with enacted fiscal subsidies & capital incentive terms.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Requires Verification Status Card */}
+                    <div className="p-2 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] flex items-start gap-2.5">
+                      <div className="mt-0.5 shrink-0 flex items-center justify-center">
+                        <span className="w-3 h-3 rounded-full bg-[#F59E0B] border-1.5 border-black inline-block shadow-[1px_1px_0px_0px_#000]" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between font-black text-[11px] leading-tight">
+                          <span className="text-black uppercase">Requires Verification</span>
+                          <span className="px-1.5 py-0.2 bg-[#F59E0B] text-black border border-black text-[9px] font-black">
+                            {requiresVerificationCount} HUBS
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-neutral-700 leading-tight mt-0.5 font-sans font-medium">
+                          Policy framework undergoing gazette notification or claims requiring primary validation.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Marker Classification & Selection Visuals */}
+                  <div className="space-y-1.5 pt-2 border-t-2 border-black">
+                    <div className="text-[10px] font-black uppercase text-neutral-700 tracking-wider">
+                      // MARKER FILL & SELECTION
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5 text-[10px]">
+                      <div className="p-1.5 bg-white border border-black shadow-[1px_1px_0px_0px_#000] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 bg-[#00F0A8] border border-black shrink-0" />
+                        <div className="truncate">
+                          <strong className="block font-black uppercase text-[10px]">Tier-1 Metro</strong>
+                          <span className="text-neutral-600 font-sans text-[9px]">Established mega-hub</span>
+                        </div>
+                      </div>
+                      <div className="p-1.5 bg-white border border-black shadow-[1px_1px_0px_0px_#000] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 bg-white border border-black shrink-0" />
+                        <div className="truncate">
+                          <strong className="block font-black uppercase text-[10px]">Tier-2 Hub</strong>
+                          <span className="text-neutral-600 font-sans text-[9px]">Emerging captive</span>
+                        </div>
+                      </div>
+                      <div className="p-1.5 bg-white border border-black shadow-[1px_1px_0px_0px_#000] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 bg-[#FFE500] border border-black shrink-0" />
+                        <div className="truncate">
+                          <strong className="block font-black uppercase text-[10px]">Active Hub</strong>
+                          <span className="text-neutral-600 font-sans text-[9px]">Under inspection</span>
+                        </div>
+                      </div>
+                      <div className="p-1.5 bg-white border border-black shadow-[1px_1px_0px_0px_#000] flex items-center gap-1.5">
+                        <span className="font-bold text-black shrink-0 text-xs">★</span>
+                        <div className="truncate">
+                          <strong className="block font-black uppercase text-[10px]">Compared Hub</strong>
+                          <span className="text-neutral-600 font-sans text-[9px]">Side-by-side active</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsLegendExpanded(true)}
+                  className="bg-[#FFE500] text-black border-2 border-black font-mono font-black text-xs px-3 py-1.5 shadow-[4px_4px_0px_0px_#000] flex items-center gap-2 hover:bg-white transition-all uppercase cursor-pointer"
+                  title="Expand Marker Status Legend"
+                >
+                  <Compass className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Marker Status Legend</span>
+                  <span className="w-2 h-2 rounded-full bg-[#00F0A8] border border-black inline-block" />
+                  <ChevronUp className="w-3.5 h-3.5 stroke-[2.5]" />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* DETAILED CITY INTELLIGENCE PANEL IN RETRO NEOBRUTALISM */}

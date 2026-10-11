@@ -64,50 +64,50 @@ export const HomeView: React.FC<HomeViewProps> = ({
   };
 
   return (
-    <div className="space-y-10">
-      {/* Hero Section in Retro NeoBrutalism */}
-      <div className="bg-[#FFFDF5] border-4 border-black p-8 sm:p-12 shadow-[8px_8px_0px_0px_#000] relative overflow-hidden">
+    <div className="space-y-6 sm:space-y-7">
+      {/* Streamlined Hero Section in Retro NeoBrutalism */}
+      <div className="bg-[#FFFDF5] border-3 sm:border-4 border-black p-5 sm:p-7 shadow-[6px_6px_0px_0px_#000] relative overflow-hidden">
         {/* Retro hazard ribbon accent in top right */}
-        <div className="absolute top-0 right-0 w-32 h-6 hazard-stripes border-b-2 border-l-2 border-black pointer-events-none" />
+        <div className="absolute top-0 right-0 w-28 h-5 hazard-stripes border-b-2 border-l-2 border-black pointer-events-none" />
 
-        <div className="relative z-10 max-w-3xl space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-[#FFE500] border-2 border-black font-mono text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_0px_#000]">
-            <Compass className="w-4 h-4 stroke-[2.5]" />
+        <div className="relative z-10 max-w-3xl space-y-3.5">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 bg-black text-[#FFE500] border-2 border-black font-mono text-[11px] font-black uppercase tracking-wider shadow-[2px_2px_0px_0px_#000]">
+            <Compass className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>SYS // GCC COMPASS STRATEGIC MATRIX</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-black leading-tight uppercase font-display">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-black leading-tight uppercase font-display">
             Make Evidence-Backed Decisions About GCC Locations and Hiring Feasibility.
           </h1>
 
-          <p className="text-base sm:text-lg text-neutral-800 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-neutral-800 leading-relaxed font-medium max-w-2xl">
             Configure hiring plans, evaluate recruitment capacity, stress-test scenarios, and explore supporting evidence to understand the feasibility and risks of your GCC expansion plans.
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-3 font-mono">
+          <div className="pt-1.5 flex flex-wrap items-center gap-2.5 font-mono">
             <button
               onClick={onStartAssessment}
-              className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-black uppercase tracking-wider text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[4px_4px_0px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000] transition-all group"
+              className="inline-flex items-center gap-2 px-4.5 py-2.5 text-xs font-black uppercase tracking-wider text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000] transition-all group"
             >
               <span>Start Assessment</span>
-              <ArrowRight className="w-4 h-4 stroke-[3] transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-3.5 h-3.5 stroke-[3] transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={scrollToHowItWorks}
-              className="inline-flex items-center gap-2 px-5 py-3.5 text-sm font-bold uppercase tracking-wider text-black bg-white hover:bg-[#FAF7EE] border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_#000] transition-all"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-[#FAF7EE] border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all"
             >
               <span>Explore How It Works</span>
             </button>
             <button
               onClick={onNavigateToOverview}
-              className="inline-flex items-center gap-2 px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-black bg-white hover:bg-[#00F0A8] border-2 border-black shadow-[3px_3px_0px_0px_#000] transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-[#00F0A8] border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-all"
             >
               <span>View Overview</span>
             </button>
             {onNavigateToIntro && (
               <button
                 onClick={onNavigateToIntro}
-                className="inline-flex items-center gap-2 px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-neutral-700 bg-white hover:bg-[#FAF7EE] border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-700 bg-white hover:bg-[#FAF7EE] border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-all"
               >
                 <span>Platform Intro</span>
               </button>
