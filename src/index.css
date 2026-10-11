@@ -1,14 +1,88 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Space Grotesk", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
+    background-color: #FAF7EE;
+    color: #000000;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Retro NeoBrutalism utilities */
+.bg-grid-pattern {
+  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.bg-blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.brutal-shadow {
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.brutal-shadow-xl {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.brutal-card {
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  background-color: #ffffff;
+}
+
+.brutal-btn {
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px 0px #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px 0px #000000;
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px #000000;
+}
+
+/* Striped hazard tape accent */
+.hazard-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    #FFE500,
+    #FFE500 10px,
+    #000000 10px,
+    #000000 20px
+  );
 }
 
 @media print {
@@ -35,16 +109,14 @@
   }
 
   .border,
+  .border-black,
   .border-slate-200 {
-    border-color: #cbd5e1 !important;
+    border-color: #000000 !important;
   }
 
-  /* Prevent awkward page breaks inside cards and tables */
   table,
   tr,
-  .space-y-3,
-  .rounded-xl,
-  .rounded-lg {
+  .space-y-3 {
     break-inside: avoid;
     page-break-inside: avoid;
   }

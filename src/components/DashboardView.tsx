@@ -48,30 +48,30 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     switch (status) {
       case 'Mathematically Viable':
         return {
-          textColor: 'text-emerald-700',
-          bg: 'bg-emerald-50',
-          border: 'border-emerald-200',
+          textColor: 'text-black',
+          bg: 'bg-[#00F0A8]',
+          border: 'border-black',
           label: 'Mathematically Viable',
         };
       case 'Capacity Constrained':
         return {
-          textColor: 'text-amber-700',
-          bg: 'bg-amber-50',
-          border: 'border-amber-200',
+          textColor: 'text-black',
+          bg: 'bg-[#FFE500]',
+          border: 'border-black',
           label: 'Capacity Constrained (Requires Sourcing Scale)',
         };
       case 'High Operational Risk':
         return {
-          textColor: 'text-rose-700',
-          bg: 'bg-rose-50',
-          border: 'border-rose-200',
+          textColor: 'text-white',
+          bg: 'bg-[#FF5A36]',
+          border: 'border-black',
           label: 'High Operational Strain',
         };
       case 'Mathematically Infeasible':
         return {
-          textColor: 'text-red-800',
-          bg: 'bg-red-50',
-          border: 'border-red-200',
+          textColor: 'text-white',
+          bg: 'bg-black',
+          border: 'border-black',
           label: 'Mathematically Infeasible',
         };
     }
@@ -84,60 +84,60 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     return (
       <div className="space-y-8 animate-fadeIn">
         {/* Gateway Header */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+        <div className="bg-[#FFFDF5] border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_0px_#000] space-y-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-3 border-black pb-5">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-semibold text-slate-800">
-                <Compass className="w-3.5 h-3.5 text-emerald-600" />
-                <span>GCC Compass · Workspace Overview</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-[#FFE500] border-2 border-black font-mono text-xs font-black uppercase tracking-wider">
+                <Compass className="w-4 h-4 stroke-[2.5]" />
+                <span>OVERVIEW MATRIX // INITIAL SETUP GATEWAY</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-black uppercase font-display">
                 Start an Assessment to View Feasibility Results
               </h1>
-              <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">
+              <p className="text-sm font-mono text-neutral-800 max-w-3xl leading-relaxed font-medium">
                 The initial workspace overview does not display completed assessment results automatically. To ensure integrity and avoid presenting speculative outcomes, choose between configuring custom workforce targets or loading an enterprise demonstration scenario.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0 font-mono">
               <button
                 onClick={onNavigateToBuilder}
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-3 text-xs font-black uppercase text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[3px_3px_0px_0px_#000] transition-all"
               >
-                <Sliders className="w-3.5 h-3.5 text-emerald-400" />
+                <Sliders className="w-4 h-4 stroke-[2.5]" />
                 <span>Configure in Plan Builder</span>
               </button>
             </div>
           </div>
 
           {/* Two Primary Pathways */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2 font-mono">
             {/* Pathway 1: Custom Plan */}
-            <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-5 bg-white border-3 border-black p-6 flex flex-col justify-between space-y-6 shadow-[5px_5px_0px_0px_#000]">
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
-                  <Sliders className="w-5 h-5 text-emerald-400" />
+                <div className="w-12 h-12 bg-[#FFE500] border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_0px_#000]">
+                  <Sliders className="w-6 h-6 stroke-[2.5] text-black" />
                 </div>
                 <div>
-                  <h2 className="text-base font-bold text-slate-900">
+                  <h2 className="text-base font-black text-black uppercase font-display">
                     Option 1: Configure Custom Assessment
                   </h2>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  <p className="text-xs text-neutral-700 mt-1 leading-relaxed font-medium">
                     Set up your organization’s planned headcount, target Indian hub, hiring deadlines, and stage conversion yields. Calculations will execute live via deterministic backwards induction.
                   </p>
                 </div>
 
-                <div className="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-200/80">
+                <div className="space-y-2 text-xs text-neutral-800 pt-3 border-t-2 border-black">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Select from 5 benchmarked Indian tech cities</span>
+                    <CheckCircle2 className="w-4 h-4 text-black stroke-[2.5] shrink-0" />
+                    <span>Select from 6 benchmarked Indian tech cities</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-black stroke-[2.5] shrink-0" />
                     <span>Model 60-day or 90-day notice period runways</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-black stroke-[2.5] shrink-0" />
                     <span>Audit in-house vs RPO recruitment capacity</span>
                   </div>
                 </div>
@@ -145,22 +145,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <button
                 onClick={onNavigateToBuilder}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-900 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl transition-colors shadow-2xs"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-black uppercase text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[3px_3px_0px_0px_#000] transition-all"
               >
                 <span>Open Plan Builder Configurator</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
               </button>
             </div>
 
             {/* Pathway 2: Pre-Configured Demo Scenarios */}
-            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-6 space-y-4">
-              <div className="flex items-center justify-between">
+            <div className="lg:col-span-7 bg-[#FFFDF5] border-3 border-black p-6 space-y-4 shadow-[5px_5px_0px_0px_#000]">
+              <div className="flex items-center justify-between border-b-2 border-black pb-2">
                 <div>
-                  <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-indigo-600" />
+                  <h2 className="text-base font-black text-black uppercase font-display flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 stroke-[2.5] text-black" />
                     <span>Option 2: Load Enterprise Demo Scenarios</span>
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-neutral-600 mt-0.5">
                     Select a verified scenario to inspect labor-market friction and capacity bottlenecks:
                   </p>
                 </div>
@@ -170,29 +170,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 {DEMO_SCENARIOS.map((demo) => (
                   <div
                     key={demo.id}
-                    className="p-3.5 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/20 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                    className="p-3.5 bg-white border-2 border-black shadow-[3px_3px_0px_0px_#000] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-900">{demo.title}</span>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+                        <span className="text-xs font-black uppercase text-black">{demo.title}</span>
+                        <span className="text-[10px] font-black px-1.5 py-0.2 bg-[#00F0A8] text-black border border-black uppercase">
                           {demo.tier}
                         </span>
                       </div>
-                      <div className="text-[11px] text-slate-500">
-                        <span className="font-medium text-slate-700">{demo.headcount} Hires</span> across{' '}
-                        <span className="font-medium text-slate-700">{demo.deadlineMonths} Months</span> ({demo.noticePeriodLagDays}d notice)
+                      <div className="text-[11px] text-neutral-700">
+                        <span className="font-bold text-black">{demo.headcount} Hires</span> across{' '}
+                        <span className="font-bold text-black">{demo.deadlineMonths} Months</span> ({demo.noticePeriodLagDays}d notice)
                       </div>
-                      <div className="text-[11px] text-slate-600 italic">
+                      <div className="text-[11px] text-neutral-600 italic">
                         {demo.keyChallenge}
                       </div>
                     </div>
 
                     <button
                       onClick={() => onLoadDemoScenario && onLoadDemoScenario(demo.key)}
-                      className="px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors whitespace-nowrap self-start sm:self-center"
+                      className="px-3.5 py-1.5 text-xs font-black uppercase text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-colors whitespace-nowrap self-start sm:self-center"
                     >
-                      Load Demo Scenario
+                      Load Demo
                     </button>
                   </div>
                 ))}
@@ -201,8 +201,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Epistemic disclaimer */}
-          <div className="mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-500">
-            <span className="font-semibold text-slate-700 shrink-0">Epistemic Status:</span>
+          <div className="mt-4 pt-3 border-t-2 border-black flex items-start gap-2 text-xs font-mono text-neutral-700">
+            <span className="font-black uppercase text-black shrink-0">EPISTEMIC STATUS:</span>
             <span>
               All GCC Compass results are calculated using backward induction arithmetic. No numbers are generated via speculative estimation or statistical extrapolation without explicit input parameters.
             </span>
@@ -214,136 +214,136 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   // Active Assessment State: Render full calculated overview
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-8 animate-fadeIn font-mono">
       {/* Top Banner / Problem Statement Context */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+      <div className="bg-[#FFFDF5] border-4 border-black p-6 shadow-[6px_6px_0px_0px_#000]">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
-              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-semibold rounded border border-emerald-200">
-                {activeScenarioName ? `Demo Scenario: ${activeScenarioName}` : 'Active Assessment'}
+            <div className="flex items-center gap-2 text-xs mb-1">
+              <span className="px-2.5 py-0.5 bg-[#00F0A8] text-black font-black uppercase border-2 border-black shadow-[2px_2px_0px_0px_#000]">
+                {activeScenarioName ? `Demo: ${activeScenarioName}` : 'Active Custom Assessment'}
               </span>
-              <span aria-hidden="true">·</span>
-              <span className="font-mono">{city.name}, {city.state}</span>
+              <span>//</span>
+              <span className="font-bold uppercase text-black">{city.name}, {city.state}</span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-black uppercase font-display mt-2">
               {config.totalTargetHires} Tech Hires in {city.name} across {config.deadlineMonths} Months
             </h1>
-            <p className="mt-1 text-sm text-slate-600 max-w-3xl">
+            <p className="mt-1 text-xs text-neutral-800 max-w-3xl font-medium">
               Testing operational feasibility against Indian labor-market frictions, recruiter throughput, and a {config.noticePeriodLagDays}-day notice period lag.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               onClick={onNavigateToBuilder}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase text-black bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFE500] transition-colors whitespace-nowrap"
             >
-              <Sliders className="w-3.5 h-3.5 text-slate-500" />
+              <Sliders className="w-3.5 h-3.5 stroke-[2.5]" />
               Adjust Assumptions
             </button>
             <button
               onClick={onNavigateToStressTest}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-black uppercase text-black bg-[#FFE500] hover:bg-[#FFD000] border-2 border-black shadow-[3px_3px_0px_0px_#000] transition-colors whitespace-nowrap"
             >
               Run Stress Test
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
             </button>
             {onClearAssessment && (
               <button
                 onClick={onClearAssessment}
-                className="inline-flex items-center gap-1 px-3 py-2 text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold uppercase text-neutral-700 hover:text-black bg-white hover:bg-neutral-100 border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-colors whitespace-nowrap"
                 title="Clear current assessment and return to clean setup state"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Clear Assessment
+                <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
+                Reset
               </button>
             )}
           </div>
         </div>
 
         {/* Epistemic disclaimer */}
-        <div className="mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-500">
-          <span className="font-semibold text-slate-700 shrink-0">Epistemic Status:</span>
+        <div className="mt-4 pt-3 border-t-2 border-black flex items-start gap-2 text-xs text-neutral-700">
+          <span className="font-black uppercase text-black shrink-0">EPISTEMIC STATUS:</span>
           <span>
             Calculations reflect deterministic funnel arithmetic derived from active assumptions. These results model operational recruitment yield and notice-period runways in {city.name}.
           </span>
         </div>
       </div>
 
-      {/* Primary KPI Strip */}
+      {/* Primary KPI Strip in Retro NeoBrutalism */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* KPI 1: Target Joiners */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div className="text-xs font-medium text-slate-500">Target Day-1 Joiners</div>
-          <div className="mt-2 text-3xl font-bold tracking-tight font-mono tabular-nums text-slate-900">
+        <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000]">
+          <div className="text-[11px] font-black uppercase text-neutral-600">Target Joiners</div>
+          <div className="mt-1 text-3xl font-black font-mono tabular-nums text-black">
             {calc.targetHires}
           </div>
-          <div className="mt-2 text-xs text-slate-500 flex items-center justify-between">
+          <div className="mt-2 text-xs text-neutral-700 flex items-center justify-between border-t border-neutral-300 pt-1.5">
             <span>Required velocity</span>
-            <span className="font-mono tabular-nums font-semibold text-slate-700">
+            <span className="font-mono tabular-nums font-bold text-black">
               {calc.monthlyPaceRequired}/mo
             </span>
           </div>
         </div>
 
         {/* KPI 2: Total Talent Pool Needed */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div className="text-xs font-medium text-slate-500">Total Sourced Pool Needed</div>
-          <div className="mt-2 text-3xl font-bold tracking-tight font-mono tabular-nums text-slate-900">
+        <div className="bg-[#FFE500] border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000]">
+          <div className="text-[11px] font-black uppercase text-black">Total Sourced Pool</div>
+          <div className="mt-1 text-3xl font-black font-mono tabular-nums text-black">
             {calc.requiredTotalApplicantPool.toLocaleString()}
           </div>
-          <div className="mt-2 text-xs text-slate-500 flex items-center justify-between">
-            <span>Qualified candidates</span>
-            <span className="font-mono tabular-nums font-semibold text-slate-700">
+          <div className="mt-2 text-xs text-black flex items-center justify-between border-t border-black pt-1.5 font-bold">
+            <span>Qualified screens</span>
+            <span className="font-mono tabular-nums">
               {calc.requiredQualifiedApplicants.toLocaleString()}
             </span>
           </div>
         </div>
 
         {/* KPI 3: Final Interviews */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div className="text-xs font-medium text-slate-500">Interviews to Conduct</div>
-          <div className="mt-2 text-3xl font-bold tracking-tight font-mono tabular-nums text-slate-900">
+        <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000]">
+          <div className="text-[11px] font-black uppercase text-neutral-600">Interviews Needed</div>
+          <div className="mt-1 text-3xl font-black font-mono tabular-nums text-black">
             {calc.requiredInterviews.toLocaleString()}
           </div>
-          <div className="mt-2 text-xs text-slate-500 flex items-center justify-between">
-            <span>Engineering panel load</span>
-            <span className="font-mono tabular-nums font-semibold text-slate-700">
+          <div className="mt-2 text-xs text-neutral-700 flex items-center justify-between border-t border-neutral-300 pt-1.5">
+            <span>Engineering load</span>
+            <span className="font-mono tabular-nums font-bold text-black">
               {calc.engineeringInterviewHoursTotal.toLocaleString()} hrs
             </span>
           </div>
         </div>
 
         {/* KPI 4: Recruiter Capacity */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div className="text-xs font-medium text-slate-500">Recruiter Team Load</div>
-          <div className="mt-2 text-3xl font-bold tracking-tight font-mono tabular-nums text-slate-900">
+        <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000]">
+          <div className="text-[11px] font-black uppercase text-neutral-600">Recruiter Team Load</div>
+          <div className="mt-1 text-3xl font-black font-mono tabular-nums text-black">
             {calc.recruiterCapacityUtilizationPct}%
           </div>
-          <div className="mt-2 text-xs text-slate-500 flex items-center justify-between">
-            <span>Capacity status</span>
+          <div className="mt-2 text-xs flex items-center justify-between border-t border-neutral-300 pt-1.5">
+            <span>TA Capacity</span>
             <span
-              className={`font-semibold ${
-                calc.isRecruiterCapacityExceeded ? 'text-rose-600' : 'text-emerald-600'
+              className={`font-black uppercase px-1 ${
+                calc.isRecruiterCapacityExceeded ? 'bg-[#FF5A36] text-white' : 'bg-[#00F0A8] text-black'
               }`}
             >
               {calc.isRecruiterCapacityExceeded
-                ? `-${calc.recruiterDeficit} recruiters`
-                : 'Balanced'}
+                ? `-${calc.recruiterDeficit} TA`
+                : 'BALANCED'}
             </span>
           </div>
         </div>
 
         {/* KPI 5: Effective Offer Window */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div className="text-xs font-medium text-slate-500">Effective Offer Window</div>
-          <div className="mt-2 text-3xl font-bold tracking-tight font-mono tabular-nums text-slate-900">
+        <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000]">
+          <div className="text-[11px] font-black uppercase text-neutral-600">Offer Window</div>
+          <div className="mt-1 text-3xl font-black font-mono tabular-nums text-black">
             {calc.activeInterviewWindowMonths} Mo
           </div>
-          <div className="mt-2 text-xs text-slate-500 flex items-center justify-between">
-            <span>Notice period lag</span>
-            <span className="font-mono tabular-nums font-semibold text-slate-700">
+          <div className="mt-2 text-xs text-neutral-700 flex items-center justify-between border-t border-neutral-300 pt-1.5">
+            <span>Notice period</span>
+            <span className="font-mono tabular-nums font-bold text-black">
               {config.noticePeriodLagDays} days
             </span>
           </div>
@@ -352,17 +352,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* Operational Feasibility Verdict Banner */}
       <div
-        className={`p-5 rounded-xl border ${statusMeta.bg} ${statusMeta.border} shadow-sm`}
+        className={`p-5 border-3 border-black ${statusMeta.bg} shadow-[5px_5px_0px_0px_#000]`}
       >
         <div className="flex items-start gap-3">
-          <ShieldAlert className={`w-5 h-5 shrink-0 mt-0.5 ${statusMeta.textColor}`} />
+          <ShieldAlert className="w-6 h-6 stroke-[2.5] text-black shrink-0 mt-0.5" />
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-bold ${statusMeta.textColor}`}>
+              <span className="text-sm font-black uppercase text-black">
                 FEASIBILITY VERDICT: {statusMeta.label}
               </span>
             </div>
-            <p className="text-xs text-slate-700 leading-relaxed">
+            <p className="text-xs text-black leading-relaxed font-bold">
               {calc.feasibilityRationale}
             </p>
           </div>
@@ -372,53 +372,53 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* Main Section: The Funnel Breakdown & Pacing Timeline */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Interactive Funnel Visualization */}
-        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-          <div className="flex items-center justify-between">
+        <div className="lg:col-span-7 bg-[#FFFDF5] border-4 border-black p-6 shadow-[6px_6px_0px_0px_#000] space-y-6">
+          <div className="flex items-center justify-between border-b-2 border-black pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900">Recruitment Funnel Mathematics</h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <h2 className="text-base font-black uppercase text-black font-display">Recruitment Funnel Mathematics</h2>
+              <p className="text-xs text-neutral-600 mt-0.5">
                 Deterministic backward induction from {calc.targetHires} joiners to initial sourcing
               </p>
             </div>
             <button
               onClick={onNavigateToBuilder}
-              className="text-xs text-slate-600 hover:text-slate-900 font-medium underline underline-offset-2"
+              className="text-xs font-black uppercase text-black bg-[#FFE500] hover:bg-[#FFD000] px-2 py-1 border border-black shadow-[1px_1px_0px_0px_#000]"
             >
               Edit Rates
             </button>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 font-mono">
             {/* Stage 1: Sourced Pool */}
-            <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="p-3.5 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-slate-700">Stage 1: Raw Sourced Resumes / Inbound</span>
-                <span className="font-mono font-bold text-slate-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 1: Raw Sourced Resumes</span>
+                <span className="font-mono font-black text-black tabular-nums bg-[#FFE500] px-1">
                   {calc.requiredTotalApplicantPool.toLocaleString()} candidates
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                <div className="bg-slate-800 h-full w-full" />
+              <div className="w-full bg-neutral-200 h-3 border border-black overflow-hidden">
+                <div className="bg-black h-full w-full" />
               </div>
-              <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="mt-2 flex items-center justify-between text-[11px] text-neutral-600">
                 <span>Passes initial CV match / resume screening</span>
-                <span className="font-mono tabular-nums font-medium text-slate-700">
+                <span className="font-mono tabular-nums font-bold text-black">
                   {config.applicantToQualifiedRate}% rate
                 </span>
               </div>
             </div>
 
             {/* Stage 2: Qualified Applicants */}
-            <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="p-3.5 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-slate-700">Stage 2: Qualified & Screened Pool</span>
-                <span className="font-mono font-bold text-slate-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 2: Qualified & Screened</span>
+                <span className="font-mono font-black text-black tabular-nums">
                   {calc.requiredQualifiedApplicants.toLocaleString()} candidates
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-neutral-200 h-3 border border-black overflow-hidden">
                 <div
-                  className="bg-slate-700 h-full"
+                  className="bg-neutral-800 h-full"
                   style={{
                     width: `${Math.round(
                       (calc.requiredQualifiedApplicants / calc.requiredTotalApplicantPool) * 100
@@ -426,25 +426,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="mt-2 flex items-center justify-between text-[11px] text-neutral-600">
                 <span>Consents & scheduled for technical interviews</span>
-                <span className="font-mono tabular-nums font-medium text-slate-700">
+                <span className="font-mono tabular-nums font-bold text-black">
                   {config.qualifiedToInterviewRate}% rate
                 </span>
               </div>
             </div>
 
             {/* Stage 3: Interviews Conducted */}
-            <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="p-3.5 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-slate-700">Stage 3: Technical & Leadership Interviews</span>
-                <span className="font-mono font-bold text-slate-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 3: Technical Interviews</span>
+                <span className="font-mono font-black text-black tabular-nums">
                   {calc.requiredInterviews.toLocaleString()} candidates
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-neutral-200 h-3 border border-black overflow-hidden">
                 <div
-                  className="bg-indigo-600 h-full"
+                  className="bg-[#00F0A8] h-full"
                   style={{
                     width: `${Math.round(
                       (calc.requiredInterviews / calc.requiredTotalApplicantPool) * 100
@@ -452,25 +452,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="mt-2 flex items-center justify-between text-[11px] text-neutral-600">
                 <span>Passes technical bar to receive formal job offer</span>
-                <span className="font-mono tabular-nums font-medium text-slate-700">
+                <span className="font-mono tabular-nums font-bold text-black">
                   {config.interviewToOfferRate}% rate (1 in {Math.round(100 / config.interviewToOfferRate)})
                 </span>
               </div>
             </div>
 
             {/* Stage 4: Offers Extended */}
-            <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="p-3.5 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-slate-700">Stage 4: Formal Offers Extended</span>
-                <span className="font-mono font-bold text-slate-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 4: Formal Offers Extended</span>
+                <span className="font-mono font-black text-black tabular-nums">
                   {calc.requiredOffersExtended.toLocaleString()} offers
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-neutral-200 h-3 border border-black overflow-hidden">
                 <div
-                  className="bg-sky-600 h-full"
+                  className="bg-black h-full"
                   style={{
                     width: `${Math.round(
                       (calc.requiredOffersExtended / calc.requiredTotalApplicantPool) * 100
@@ -478,25 +478,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="mt-2 flex items-center justify-between text-[11px] text-neutral-600">
                 <span>Candidate signs and formally accepts offer</span>
-                <span className="font-mono tabular-nums font-medium text-slate-700">
+                <span className="font-mono tabular-nums font-bold text-black">
                   {config.offerAcceptanceRate}% acceptance
                 </span>
               </div>
             </div>
 
             {/* Stage 5: Accepted Offers */}
-            <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="p-3.5 bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-slate-700">Stage 5: Signed / Accepted Offers</span>
-                <span className="font-mono font-bold text-slate-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 5: Signed / Accepted Offers</span>
+                <span className="font-mono font-black text-black tabular-nums">
                   {calc.requiredAcceptedOffers.toLocaleString()} signed
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-neutral-200 h-3 border border-black overflow-hidden">
                 <div
-                  className="bg-amber-600 h-full"
+                  className="bg-[#FFE500] h-full"
                   style={{
                     width: `${Math.round(
                       (calc.requiredAcceptedOffers / calc.requiredTotalApplicantPool) * 100
@@ -504,25 +504,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="mt-2 flex items-center justify-between text-[11px] text-neutral-600">
                 <span>Survives {config.noticePeriodLagDays}-day notice period without reneging</span>
-                <span className="font-mono tabular-nums font-medium text-slate-700">
+                <span className="font-mono tabular-nums font-bold text-black">
                   {config.acceptedToJoiningRate}% joining rate ({100 - config.acceptedToJoiningRate}% drop-off)
                 </span>
               </div>
             </div>
 
             {/* Stage 6: Day-1 Joiners */}
-            <div className="p-3.5 bg-emerald-50 rounded-lg border border-emerald-200">
+            <div className="p-3.5 bg-[#00F0A8] border-2 border-black shadow-[3px_3px_0px_0px_#000]">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-semibold text-emerald-900">Stage 6: Target Day-1 Joiners (Target)</span>
-                <span className="font-mono font-bold text-emerald-900 tabular-nums">
+                <span className="font-black uppercase text-black">Stage 6: Target Day-1 Joiners</span>
+                <span className="font-mono font-black text-black tabular-nums text-sm">
                   {calc.targetHires} joiners
                 </span>
               </div>
-              <div className="w-full bg-emerald-200 h-2.5 rounded-full overflow-hidden">
+              <div className="w-full bg-white h-3.5 border border-black overflow-hidden">
                 <div
-                  className="bg-emerald-600 h-full"
+                  className="bg-black h-full"
                   style={{
                     width: `${Math.max(
                       3,
@@ -531,9 +531,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-2 text-[11px] text-emerald-800">
+              <div className="mt-2 text-[11px] text-black font-bold">
                 End-to-end recruitment yield: Only{' '}
-                <span className="font-mono font-bold">
+                <span className="font-mono font-black">
                   {((calc.targetHires / calc.requiredTotalApplicantPool) * 100).toFixed(2)}%
                 </span>{' '}
                 of raw candidate pool converts to day-1 joined headcount.
@@ -544,61 +544,61 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* Right: The Indian Notice-Period Timeline & Pacing Runway */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-            <div>
-              <h2 className="text-base font-bold text-slate-900">
+          <div className="bg-[#FFFDF5] border-4 border-black p-6 shadow-[6px_6px_0px_0px_#000] space-y-4">
+            <div className="border-b-2 border-black pb-2">
+              <h2 className="text-base font-black uppercase text-black font-display">
                 The Notice-Period Runway Trap
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-neutral-600 mt-0.5">
                 How a {config.noticePeriodLagDays}-day notice period compresses your effective hiring deadline
               </p>
             </div>
 
-            <div className="space-y-3 pt-2">
+            <div className="space-y-3 pt-1">
               {calc.isTimelineImpossible ? (
-                <div className="border border-rose-200 rounded-lg p-3 bg-rose-50 text-xs text-rose-900 space-y-1">
-                  <div className="font-bold flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
-                    <span>Timeline Conflict: Zero Effective Runway</span>
+                <div className="border-3 border-black p-3.5 bg-[#FF5A36] text-white shadow-[3px_3px_0px_0px_#000] text-xs space-y-1">
+                  <div className="font-black uppercase flex items-center gap-1.5">
+                    <AlertTriangle className="w-4 h-4 stroke-[2.5] shrink-0" />
+                    <span>TIMELINE CONFLICT: ZERO EFFECTIVE RUNWAY</span>
                   </div>
-                  <p className="text-[11px] text-rose-800 leading-relaxed">
-                    The {config.noticePeriodLagDays}-day notice period ({config.noticePeriodLagDays / 30} months) is greater than or equal to the total {config.deadlineMonths}-month project duration. Candidates serving notice cannot join by Month {config.deadlineMonths} without 100% notice buyouts or sourcing exclusively immediate joiners.
+                  <p className="text-[11px] leading-relaxed font-bold">
+                    The {config.noticePeriodLagDays}-day notice period ({config.noticePeriodLagDays / 30} months) is greater than or equal to the total {config.deadlineMonths}-month project duration. Candidates serving notice cannot join by Month {config.deadlineMonths} without 100% notice buyouts.
                   </p>
                 </div>
               ) : (
                 <>
-                  <div className="border border-slate-200 rounded-lg p-3 bg-slate-50">
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-800">
+                  <div className="border-2 border-black p-3 bg-white shadow-[2px_2px_0px_0px_#000]">
+                    <div className="flex items-center justify-between text-xs font-black uppercase text-black">
                       <span>
                         {calc.activeInterviewWindowMonths > 1
-                          ? `Months 1 – ${calc.activeInterviewWindowMonths - 1}: Sourcing & Active Interviews`
-                          : 'Month 1: Sourcing & Initial Technical Screening'}
+                          ? `M1 – M${calc.activeInterviewWindowMonths - 1}: Sourcing & Interviews`
+                          : 'M1: Sourcing & Initial Screening'}
                       </span>
-                      <span className="text-[11px] font-mono text-indigo-700 font-semibold">Active Window</span>
+                      <span className="text-[10px] bg-black text-[#FFE500] px-1.5 py-0.2">ACTIVE WINDOW</span>
                     </div>
-                    <p className="text-xs text-slate-600 mt-1">
+                    <p className="text-xs text-neutral-700 mt-1">
                       Team must source {calc.requiredTotalApplicantPool.toLocaleString()} candidates and conduct {calc.requiredInterviews.toLocaleString()} interviews (~{calc.monthlyInterviewsNeeded}/mo).
                     </p>
                   </div>
 
-                  <div className="border border-amber-200 rounded-lg p-3 bg-amber-50">
-                    <div className="flex items-center justify-between text-xs font-semibold text-amber-900">
+                  <div className="border-2 border-black p-3 bg-[#FFE500] shadow-[2px_2px_0px_0px_#000]">
+                    <div className="flex items-center justify-between text-xs font-black uppercase text-black">
                       <span>Month {calc.latestOfferCutoffMonth}: CRITICAL OFFER CUTOFF</span>
-                      <span className="text-[11px] font-mono text-amber-800 font-semibold">Latest Offer Date</span>
+                      <span className="text-[10px] bg-black text-white px-1.5 py-0.2">DEADLINE</span>
                     </div>
-                    <p className="text-xs text-amber-800 mt-1">
-                      All {calc.requiredOffersExtended} offers must be finalized and signed by Month {calc.latestOfferCutoffMonth} for candidates to serve a {config.noticePeriodLagDays}-day notice period and join by Month {config.deadlineMonths}.
+                    <p className="text-xs text-black mt-1 font-bold">
+                      All {calc.requiredOffersExtended} offers must be finalized and signed by Month {calc.latestOfferCutoffMonth} for candidates to serve a {config.noticePeriodLagDays}-day notice period.
                     </p>
                   </div>
 
-                  <div className="border border-slate-200 rounded-lg p-3 bg-slate-50">
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-800">
+                  <div className="border-2 border-black p-3 bg-white shadow-[2px_2px_0px_0px_#000]">
+                    <div className="flex items-center justify-between text-xs font-black uppercase text-black">
                       <span>
-                        Months {calc.latestOfferCutoffMonth + 1} – {config.deadlineMonths}: Notice Period & Onboarding Waves
+                        M{calc.latestOfferCutoffMonth + 1} – M{config.deadlineMonths}: Notice & Onboarding
                       </span>
-                      <span className="text-[11px] font-mono text-emerald-700 font-semibold">Fulfillment</span>
+                      <span className="text-[10px] bg-[#00F0A8] text-black px-1.5 py-0.2 border border-black">FULFILLMENT</span>
                     </div>
-                    <p className="text-xs text-slate-600 mt-1">
+                    <p className="text-xs text-neutral-700 mt-1">
                       Candidates serve notice. At current {config.acceptedToJoiningRate}% rate, {calc.requiredAcceptedOffers - calc.targetHires} accepted candidates are projected to back out before Day 1 due to counteroffers.
                     </p>
                   </div>
@@ -606,34 +606,34 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               )}
 
               {/* Variability & Early Release Disclosure */}
-              <div className="p-2.5 bg-slate-50 border border-slate-200/80 rounded-lg text-[11px] text-slate-500 leading-relaxed">
-                <strong className="text-slate-700">Notice Period Variance Disclosure:</strong> Model assumes a uniform {config.noticePeriodLagDays}-day lag. In practice, Indian notice periods range from 30 days (probation/startups) to 90 days (IT services). Notice buyouts, counteroffers, and early releases are working assumptions rather than contractual guarantees.
+              <div className="p-2.5 bg-white border border-black text-[11px] text-neutral-600 leading-relaxed">
+                <strong className="text-black uppercase">Notice Period Variance Disclosure:</strong> Model assumes a uniform {config.noticePeriodLagDays}-day lag. In practice, Indian notice periods range from 30 days (startups) to 90 days (IT services).
               </div>
             </div>
 
             {/* Capacity vs Demand Quick Summary */}
-            <div className="mt-4 pt-4 border-t border-slate-100 space-y-2 text-xs">
+            <div className="mt-4 pt-3 border-t-2 border-black space-y-2 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Active Offer Window</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-neutral-700">Active Offer Window</span>
+                <span className="font-black text-black">
                   {calc.activeInterviewWindowMonths} months
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Interviews Required / Month</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-neutral-700">Interviews Required / Month</span>
+                <span className="font-black text-black">
                   {calc.monthlyInterviewsNeeded} interviews/mo
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Recruiter Team Capacity</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-neutral-700">Recruiter Monthly Capacity</span>
+                <span className="font-black text-black">
                   {calc.totalRecruiterMonthlyCapacity} interviews/mo ({config.dedicatedRecruiters} recruiters)
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-600">Monthly Engineering Interview Time</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-neutral-700">Monthly Engineering Panel Time</span>
+                <span className="font-black text-black">
                   {calc.engineeringInterviewHoursPerMonth} hrs/mo
                 </span>
               </div>
@@ -641,30 +641,30 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* City Context Card */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-800">
+          <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_#000] space-y-3">
+            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+              <span className="text-xs font-black uppercase text-black">
                 {city.name} Talent Ecosystem ({city.tier})
               </span>
               <button
                 onClick={onNavigateToEvidence}
-                className="text-[11px] text-slate-500 hover:text-slate-900 flex items-center gap-1"
+                className="text-[11px] font-black uppercase text-black hover:bg-[#FFE500] px-1.5 py-0.5 border border-black flex items-center gap-1"
               >
-                <span>View Evidence</span>
-                <ExternalLink className="w-3 h-3" />
+                <span>Evidence</span>
+                <ExternalLink className="w-3 h-3 stroke-[2.5]" />
               </button>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-neutral-700 leading-relaxed font-medium">
               {city.techEcosystemSummary}
             </p>
-            <div className="pt-2 border-t border-slate-100 text-xs space-y-1">
-              <div className="flex items-center justify-between text-slate-600">
+            <div className="pt-2 border-t-2 border-black text-xs space-y-1">
+              <div className="flex items-center justify-between text-neutral-700">
                 <span>Estimated Senior Talent (6+y):</span>
-                <span className="font-mono font-semibold text-slate-800">{city.estimatedSeniorTechTalentPool}</span>
+                <span className="font-bold text-black">{city.estimatedSeniorTechTalentPool}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-600">
+              <div className="flex items-center justify-between text-neutral-700">
                 <span>Typical Voluntary Attrition:</span>
-                <span className="font-mono font-semibold text-slate-800">{city.typicalOfferDropoutRate}% in Tier-2</span>
+                <span className="font-bold text-black">{city.typicalOfferDropoutRate}% in {city.tier}</span>
               </div>
             </div>
           </div>
@@ -672,16 +672,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* Operational Bottlenecks Section */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="bg-[#FFFDF5] border-4 border-black p-6 shadow-[6px_6px_0px_0px_#000] space-y-4">
+        <div className="flex items-center justify-between border-b-2 border-black pb-3">
           <div>
-            <h2 className="text-base font-bold text-slate-900">Identified Bottlenecks & Operational Risks</h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <h2 className="text-base font-black uppercase text-black font-display">Identified Bottlenecks & Operational Risks</h2>
+            <p className="text-xs text-neutral-600 mt-0.5">
               Specific constraints that could threaten the {config.deadlineMonths}-month hiring deadline
             </p>
           </div>
-          <span className="text-xs font-mono text-slate-500">
-            {calc.bottlenecks.length} active risk factors
+          <span className="text-xs font-black bg-black text-[#FFE500] px-2 py-0.5">
+            {calc.bottlenecks.length} ACTIVE RISK FACTORS
           </span>
         </div>
 
@@ -689,33 +689,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {calc.bottlenecks.map((bottleneck) => (
             <div
               key={bottleneck.id}
-              className={`p-4 rounded-lg border ${
+              className={`p-4 border-2 border-black shadow-[3px_3px_0px_0px_#000] ${
                 bottleneck.severity === 'critical'
-                  ? 'bg-rose-50/60 border-rose-200 text-rose-950'
-                  : 'bg-amber-50/60 border-amber-200 text-amber-950'
+                  ? 'bg-[#FF5A36] text-white'
+                  : 'bg-[#FFE500] text-black'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle
-                    className={`w-4 h-4 shrink-0 ${
-                      bottleneck.severity === 'critical' ? 'text-rose-600' : 'text-amber-600'
-                    }`}
-                  />
-                  <h3 className="text-xs font-bold">{bottleneck.title}</h3>
+                  <AlertTriangle className="w-4 h-4 stroke-[2.5] shrink-0" />
+                  <h3 className="text-xs font-black uppercase">{bottleneck.title}</h3>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/70 border border-current font-medium">
+                <span className="text-[10px] font-mono px-1.5 py-0.2 border border-black bg-white text-black font-bold uppercase">
                   {bottleneck.impactMetric}
                 </span>
               </div>
 
-              <p className="mt-2 text-xs text-slate-700 leading-relaxed">
+              <p className="mt-2 text-xs leading-relaxed font-bold">
                 {bottleneck.description}
               </p>
 
-              <div className="mt-3 pt-2.5 border-t border-slate-200/60 text-xs">
-                <span className="font-semibold text-slate-800">Recommended Action: </span>
-                <span className="text-slate-600">{bottleneck.suggestedMitigation}</span>
+              <div className="mt-3 pt-2.5 border-t border-black text-xs font-bold">
+                <span className="uppercase">Recommended Action: </span>
+                <span className="font-medium">{bottleneck.suggestedMitigation}</span>
               </div>
             </div>
           ))}

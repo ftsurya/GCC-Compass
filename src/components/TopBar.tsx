@@ -11,12 +11,8 @@ import {
   User,
   ChevronDown,
   RotateCcw,
-  LogOut,
-  Shield,
-  Menu,
-  X,
-  ExternalLink,
   MapPin,
+  Sparkles,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -59,11 +55,9 @@ export const TopBar: React.FC<TopBarProps> = ({
   onSelectTab,
   onExportClick,
   currentUser,
-  onOpenAuth,
   onResetDefaults,
   hasActiveAssessment = false,
   activeScenarioName,
-  onClearAssessment,
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -105,50 +99,71 @@ export const TopBar: React.FC<TopBarProps> = ({
   // ---------------------------------------------------------------------------
   if (isPublicIntro) {
     return (
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+      <header className="sticky top-0 z-40 bg-[#FAF7EE] border-b-4 border-black">
+        {/* Retro top hazard ticker bar */}
+        <div className="bg-black text-[#FFE500] font-mono text-[11px] font-bold tracking-widest px-4 py-1 flex items-center justify-between border-b-2 border-black overflow-hidden select-none">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-2 h-2 bg-[#00F0A8]"></span>
+              SYSTEM // INDIA GCC INTELLIGENCE MATRIX v2.4
+            </span>
+            <span className="hidden md:inline text-neutral-400">|</span>
+            <span className="hidden md:inline text-neutral-300">6 HUBS VERIFIED · EMPIRICAL DATA ONLY</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="bg-[#FFE500] text-black px-1.5 py-0.2 text-[10px] font-black uppercase">AUDITED</span>
+            <span className="hidden sm:inline text-neutral-300 font-mono">STATUS: OPERATIONAL</span>
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4 h-16">
+          <div className="flex items-center justify-between gap-4 h-18">
             {/* Logo and Brand Name */}
             <div
               onClick={() => onSelectTab('intro')}
-              className="flex items-center gap-2.5 shrink-0 cursor-pointer select-none group"
+              className="flex items-center gap-3 shrink-0 cursor-pointer select-none group"
               title="GCC Compass"
             >
-              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
-                <Compass className="w-4 h-4 text-emerald-400" />
+              <div className="w-10 h-10 border-2 border-black bg-[#FFE500] text-black flex items-center justify-center shadow-[3px_3px_0px_0px_#000] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[4px_4px_0px_0px_#000] transition-all">
+                <Compass className="w-6 h-6 stroke-[2.5]" />
               </div>
               <div className="flex flex-col">
-                <span className="text-base font-bold tracking-tight text-slate-900 leading-tight">
-                  GCC Compass
-                </span>
-                <span className="text-[10px] font-medium text-slate-500 tracking-tight">
-                  Location Intelligence & Feasibility
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-black tracking-tight text-black uppercase font-display">
+                    GCC COMPASS
+                  </span>
+                  <span className="bg-black text-[#00F0A8] font-mono text-[10px] font-bold px-1.5 py-0.5 border border-black uppercase">
+                    PRO
+                  </span>
+                </div>
+                <span className="text-[11px] font-bold text-neutral-700 tracking-tight font-mono">
+                  LOCATION INTELLIGENCE & FEASIBILITY
                 </span>
               </div>
             </div>
 
             {/* Simple Public Navigation: How It Works, Sign In, Get Started */}
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-3">
               <button
                 onClick={scrollToHowItWorks}
-                className="text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 py-1"
+                className="hidden sm:inline-flex items-center px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-black bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFE500] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all"
               >
                 How It Works
               </button>
 
               <button
                 onClick={() => onSelectTab('welcome')}
-                className="text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50"
+                className="inline-flex items-center px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-black bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFE500] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all"
               >
                 Sign In
               </button>
 
               <button
                 onClick={() => onSelectTab('welcome')}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4.5 py-2 text-xs font-black uppercase tracking-wider bg-[#FFE500] text-black border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:bg-[#FFD000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000] transition-all"
               >
                 <span>Get Started</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
               </button>
             </div>
           </div>
@@ -163,24 +178,24 @@ export const TopBar: React.FC<TopBarProps> = ({
   // ---------------------------------------------------------------------------
   if (isPublicWelcome) {
     return (
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+      <header className="sticky top-0 z-40 bg-[#FAF7EE] border-b-4 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4 h-16">
+          <div className="flex items-center justify-between gap-4 h-18">
             {/* Logo and Brand Name */}
             <div
               onClick={() => onSelectTab('intro')}
-              className="flex items-center gap-2.5 shrink-0 cursor-pointer select-none group"
+              className="flex items-center gap-3 shrink-0 cursor-pointer select-none group"
               title="GCC Compass Home"
             >
-              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
-                <Compass className="w-4 h-4 text-emerald-400" />
+              <div className="w-10 h-10 border-2 border-black bg-[#FFE500] text-black flex items-center justify-center shadow-[3px_3px_0px_0px_#000]">
+                <Compass className="w-6 h-6 stroke-[2.5]" />
               </div>
               <div className="flex flex-col">
-                <span className="text-base font-bold tracking-tight text-slate-900 leading-tight">
-                  GCC Compass
+                <span className="text-xl font-black tracking-tight text-black uppercase font-display">
+                  GCC COMPASS
                 </span>
-                <span className="text-[10px] font-medium text-slate-500 tracking-tight">
-                  Location Intelligence & Feasibility
+                <span className="text-[11px] font-bold text-neutral-700 tracking-tight font-mono">
+                  LOCATION INTELLIGENCE & FEASIBILITY
                 </span>
               </div>
             </div>
@@ -188,7 +203,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             {/* Back to Platform Intro */}
             <button
               onClick={() => onSelectTab('intro')}
-              className="text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors inline-flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-black uppercase tracking-wider text-black bg-white border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:bg-[#FFE500] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_#000] transition-all inline-flex items-center gap-2"
             >
               <span>← Back to Intro</span>
             </button>
@@ -200,131 +215,153 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   // ---------------------------------------------------------------------------
   // INTERNAL WORKSPACE HEADER (Routes: /app/*)
-  // Rendered ONLY after user enters workspace. Shows 6 workspace tabs:
-  // Home, Overview, Plan Builder, Stress Test, Evidence Library, Decision Brief
+  // Rendered ONLY after user enters workspace. Shows workspace tabs:
+  // Home, Overview, Plan Builder, Map Intelligence, Stress Test, Evidence Library, Decision Brief
   // ---------------------------------------------------------------------------
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-[#FAF7EE] border-b-4 border-black">
+      {/* Retro system banner strip */}
+      <div className="bg-black text-[#FFE500] font-mono text-[11px] font-bold tracking-widest px-4 py-1 flex items-center justify-between border-b-2 border-black overflow-hidden select-none">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block w-2 h-2 bg-[#00F0A8]"></span>
+            WORKSPACE // GCC STRATEGIC DECISION MATRIX
+          </span>
+          {hasActiveAssessment && (
+            <span className="bg-[#00F0A8] text-black px-1.5 py-0.2 text-[10px] font-black uppercase">
+              ACTIVE: {activeScenarioName || 'CUSTOM RUN'}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-neutral-400 font-mono text-[10px] hidden sm:inline">ENGINE: DETERMINISTIC</span>
+          <span className="bg-[#FFE500] text-black px-1.5 py-0.2 text-[10px] font-black uppercase">PRO MODE</span>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 h-16">
+        <div className="flex items-center justify-between gap-3 h-18">
           {/* Logo & Workspace Title */}
           <div
             onClick={() => onSelectTab('home')}
             className="flex items-center gap-2.5 shrink-0 cursor-pointer select-none group"
             title="GCC Compass Workspace"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
-              <Compass className="w-4 h-4 text-emerald-400" />
+            <div className="w-10 h-10 border-2 border-black bg-[#FFE500] text-black flex items-center justify-center shadow-[3px_3px_0px_0px_#000] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[4px_4px_0px_0px_#000] transition-all">
+              <Compass className="w-6 h-6 stroke-[2.5]" />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-slate-900 leading-tight">
-                GCC Compass
-              </span>
-              <span className="text-[10px] font-medium text-slate-500 tracking-tight">
-                Workspace
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg font-black tracking-tight text-black uppercase font-display">
+                  GCC COMPASS
+                </span>
+              </div>
+              <span className="text-[10px] font-bold text-neutral-600 tracking-wider font-mono uppercase">
+                RESEARCH WORKSPACE
               </span>
             </div>
-            {hasActiveAssessment ? (
-              <span className="hidden xl:inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{activeScenarioName ? `Demo: ${activeScenarioName}` : 'Custom Active'}</span>
-              </span>
-            ) : (
-              <span className="hidden xl:inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
-                <span>Unassessed</span>
-              </span>
-            )}
           </div>
 
-          {/* Internal Workspace Navigation Tabs */}
-          <nav className="hidden lg:flex items-center gap-4 text-sm font-medium text-slate-600">
+          {/* Internal Workspace Navigation Tabs (Retro NeoBrutalist rectangular buttons) */}
+          <nav className="hidden lg:flex items-center gap-2 text-xs font-bold">
             <button
               onClick={() => onSelectTab('home')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'home'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <Home className="w-3.5 h-3.5 text-slate-500" />
+              <Home className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Home</span>
             </button>
 
             <button
               onClick={() => onSelectTab('overview')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'overview'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <BarChart3 className="w-3.5 h-3.5 text-slate-500" />
+              <BarChart3 className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Overview</span>
             </button>
 
             <button
               onClick={() => onSelectTab('plan-builder')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'plan-builder'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <Sliders className="w-3.5 h-3.5 text-slate-500" />
+              <Sliders className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Plan Builder</span>
             </button>
 
             <button
               onClick={() => onSelectTab('map-intelligence')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'map-intelligence'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <MapPin className="w-3.5 h-3.5 text-slate-500" />
+              <MapPin className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Map Intelligence</span>
             </button>
 
             <button
               onClick={() => onSelectTab('stress-test')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'stress-test'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <Layers className="w-3.5 h-3.5 text-slate-500" />
+              <Layers className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Stress Test</span>
             </button>
 
             <button
               onClick={() => onSelectTab('evidence-library')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'evidence-library'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <BookOpen className="w-3.5 h-3.5 text-slate-500" />
-              <span>Evidence Library</span>
+              <BookOpen className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>Evidence</span>
             </button>
 
             <button
               onClick={() => onSelectTab('decision-brief')}
-              className={`flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-hidden ${
+              className={`flex items-center gap-1.5 px-3 py-2 border-2 border-black transition-all select-none uppercase tracking-wide font-mono ${
                 activeTab === 'decision-brief'
-                  ? 'text-slate-900 font-semibold border-b-2 border-slate-900'
-                  : 'hover:text-slate-900'
+                  ? 'bg-[#FFE500] text-black shadow-[3px_3px_0px_0px_#000] translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white text-black shadow-[2px_2px_0px_0px_#000] hover:bg-[#FFF9D2] hover:shadow-[3px_3px_0px_0px_#000]'
               }`}
             >
-              <FileText className="w-3.5 h-3.5 text-slate-500" />
+              <FileText className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Decision Brief</span>
             </button>
           </nav>
 
           {/* User Profile & Actions */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
+            {/* Quick Export CTA */}
+            {onExportClick && (
+              <button
+                onClick={onExportClick}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-black uppercase tracking-wider text-black bg-[#00F0A8] hover:bg-[#00d694] border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all"
+              >
+                <FileText className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>Export Brief</span>
+              </button>
+            )}
+
             {/* User Session Pill */}
             {currentUser && (
               <div className="relative" ref={userMenuRef}>
@@ -332,33 +369,33 @@ export const TopBar: React.FC<TopBarProps> = ({
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   aria-expanded={isUserMenuOpen}
                   aria-label="User account menu"
-                  className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 transition-colors text-xs text-left"
+                  className="flex items-center gap-2 px-2.5 py-1.5 border-2 border-black bg-white hover:bg-[#FFFDF5] shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all text-xs"
                 >
-                  <div className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+                  <div className="w-6 h-6 border border-black bg-[#FFE500] text-black flex items-center justify-center font-black text-[10px] shrink-0 font-mono">
                     {userInitials}
                   </div>
-                  <div className="hidden sm:flex flex-col min-w-0 max-w-[120px]">
-                    <span className="font-semibold text-slate-900 truncate leading-tight">
+                  <div className="hidden sm:flex flex-col text-left min-w-0 max-w-[110px]">
+                    <span className="font-bold text-black truncate leading-tight font-mono text-[11px]">
                       {currentUser.name}
                     </span>
-                    <span className="text-[10px] text-slate-500 truncate leading-tight">
-                      {currentUser.isGuest ? 'Guest Analyst' : currentUser.organization}
+                    <span className="text-[9px] text-neutral-600 truncate font-mono">
+                      {currentUser.isGuest ? 'GUEST ANALYST' : currentUser.organization}
                     </span>
                   </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  <ChevronDown className="w-3.5 h-3.5 stroke-[3] text-black" />
                 </button>
 
                 {/* Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 text-xs animate-fadeIn">
-                    <div className="px-4 py-2 border-b border-slate-100">
-                      <div className="font-semibold text-slate-900 truncate">
+                  <div className="absolute right-0 mt-2 w-64 bg-white border-2 border-black shadow-[6px_6px_0px_0px_#000] py-2 z-50 text-xs animate-fadeIn">
+                    <div className="px-4 py-2 border-b-2 border-black bg-[#FFFDF5]">
+                      <div className="font-bold text-black truncate font-mono">
                         {currentUser.name}
                       </div>
-                      <div className="text-slate-500 text-[11px] truncate">
+                      <div className="text-neutral-600 text-[11px] truncate font-mono">
                         {currentUser.email}
                       </div>
-                      <div className="text-[10px] text-slate-400 mt-1">
+                      <div className="text-[10px] font-bold text-black mt-1 uppercase font-mono bg-[#FFE500] px-1 py-0.5 inline-block border border-black">
                         {currentUser.role} · {currentUser.organization}
                       </div>
                     </div>
@@ -369,9 +406,9 @@ export const TopBar: React.FC<TopBarProps> = ({
                           setIsUserMenuOpen(false);
                           onSelectTab('welcome');
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 text-slate-700 hover:text-slate-900"
+                        className="w-full text-left px-4 py-2 hover:bg-[#FFF9D2] flex items-center gap-2 font-bold text-black font-mono"
                       >
-                        <User className="w-3.5 h-3.5 text-slate-400" />
+                        <User className="w-3.5 h-3.5 stroke-[2.5]" />
                         <span>Change Access / Sign Out</span>
                       </button>
 
@@ -381,9 +418,9 @@ export const TopBar: React.FC<TopBarProps> = ({
                             setIsUserMenuOpen(false);
                             onResetDefaults();
                           }}
-                          className="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 text-slate-700 hover:text-slate-900"
+                          className="w-full text-left px-4 py-2 hover:bg-[#FFF9D2] flex items-center gap-2 font-bold text-black font-mono border-t border-neutral-200"
                         >
-                          <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+                          <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
                           <span>Reset Model Defaults</span>
                         </button>
                       )}
@@ -393,9 +430,9 @@ export const TopBar: React.FC<TopBarProps> = ({
                           setIsUserMenuOpen(false);
                           onSelectTab('intro');
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 text-slate-700 hover:text-slate-900 border-t border-slate-100"
+                        className="w-full text-left px-4 py-2 hover:bg-[#FFF9D2] flex items-center gap-2 font-bold text-black font-mono border-t-2 border-black"
                       >
-                        <Compass className="w-3.5 h-3.5 text-slate-400" />
+                        <Compass className="w-3.5 h-3.5 stroke-[2.5]" />
                         <span>Exit to Platform Intro</span>
                       </button>
                     </div>
@@ -403,90 +440,79 @@ export const TopBar: React.FC<TopBarProps> = ({
                 )}
               </div>
             )}
-
-            {/* Quick Export CTA */}
-            {onExportClick && (
-              <button
-                onClick={onExportClick}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-colors"
-              >
-                <FileText className="w-3.5 h-3.5 text-slate-600" />
-                <span>Export Brief</span>
-              </button>
-            )}
           </div>
         </div>
       </div>
 
       {/* Mobile Workspace Navigation Sub-Bar (Shown only in workspace) */}
-      <div className="lg:hidden border-t border-slate-200 bg-slate-50/90 px-4 py-2 overflow-x-auto scrollbar-none">
-        <div className="flex items-center gap-2 min-w-max">
+      <div className="lg:hidden border-t-2 border-black bg-white px-3 py-2 overflow-x-auto">
+        <div className="flex items-center gap-1.5 min-w-max">
           <button
             onClick={() => onSelectTab('home')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'home'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Home
           </button>
           <button
             onClick={() => onSelectTab('overview')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'overview'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Overview
           </button>
           <button
             onClick={() => onSelectTab('plan-builder')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'plan-builder'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Plan Builder
           </button>
           <button
             onClick={() => onSelectTab('map-intelligence')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'map-intelligence'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Map Intelligence
           </button>
           <button
             onClick={() => onSelectTab('stress-test')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'stress-test'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Stress Test
           </button>
           <button
             onClick={() => onSelectTab('evidence-library')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'evidence-library'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Evidence
           </button>
           <button
             onClick={() => onSelectTab('decision-brief')}
-            className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-mono font-bold uppercase border-2 border-black shrink-0 ${
               activeTab === 'decision-brief'
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-600 hover:text-slate-900 bg-white border border-slate-200'
+                ? 'bg-[#FFE500] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white text-black'
             }`}
           >
             Brief

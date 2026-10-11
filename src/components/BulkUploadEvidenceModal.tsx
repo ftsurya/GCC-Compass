@@ -150,47 +150,47 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-3xl w-full my-8 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto font-mono">
+      <div className="bg-[#FFFDF5] border-4 border-black shadow-[10px_10px_0px_0px_#000] max-w-3xl w-full my-8 flex flex-col max-h-[90vh] animate-fadeIn">
         {/* Modal Header */}
-        <div className="flex items-start justify-between p-6 border-b border-slate-100 bg-slate-50/50 rounded-t-2xl">
+        <div className="flex items-start justify-between p-6 border-b-3 border-black bg-[#FFE500]">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 bg-slate-900 text-white rounded-lg inline-flex">
-                <Upload className="w-4 h-4" />
+              <span className="p-1.5 bg-black text-[#FFE500] border border-black inline-flex">
+                <Upload className="w-4 h-4 stroke-[2.5]" />
               </span>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-black uppercase text-black font-display">
                 Bulk Upload Evidence Records
               </h2>
             </div>
-            <p className="text-xs text-slate-500 max-w-xl">
+            <p className="text-xs text-black font-sans font-medium max-w-xl">
               Add multiple evidence, salary benchmark, and talent pool findings using strict JSON schema validation to guarantee audit compliance.
             </p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition-colors"
+            className="w-8 h-8 bg-white hover:bg-[#FF5A36] hover:text-white text-black border-2 border-black font-black text-sm flex items-center justify-center shadow-[2px_2px_0px_0px_#000] transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            ✕
           </button>
         </div>
 
         {/* Sub-navigation Tabs */}
-        <div className="flex items-center justify-between px-6 pt-3 border-b border-slate-100 bg-white">
-          <div className="flex items-center gap-4 text-xs">
+        <div className="flex items-center justify-between px-6 pt-3 border-b-2 border-black bg-white">
+          <div className="flex items-center gap-4 text-xs font-black uppercase">
             <button
               onClick={() => setActiveTab('editor')}
-              className={`pb-2.5 font-semibold transition-colors border-b-2 flex items-center gap-1.5 ${
+              className={`pb-2.5 transition-colors border-b-4 flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'editor'
-                  ? 'border-slate-900 text-slate-900'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  ? 'border-black text-black'
+                  : 'border-transparent text-neutral-500 hover:text-black'
               }`}
             >
-              <FileCode className="w-3.5 h-3.5" />
+              <FileCode className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>JSON Input</span>
               {validationErrors.length > 0 && (
-                <span className="bg-rose-100 text-rose-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                <span className="bg-[#FF5A36] text-white text-[10px] font-black px-1.5 py-0.2 border border-black">
                   {validationErrors.length}
                 </span>
               )}
@@ -198,14 +198,14 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
 
             <button
               onClick={() => setActiveTab('schema')}
-              className={`pb-2.5 font-semibold transition-colors border-b-2 flex items-center gap-1.5 ${
+              className={`pb-2.5 transition-colors border-b-4 flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'schema'
-                  ? 'border-slate-900 text-slate-900'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  ? 'border-black text-black'
+                  : 'border-transparent text-neutral-500 hover:text-black'
               }`}
             >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>JSON Schema & Specs</span>
+              <HelpCircle className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>Schema & Specs</span>
             </button>
 
             <button
@@ -213,13 +213,13 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                 if (parsedPreview.length > 0) setActiveTab('preview');
                 else handleValidateAndPreview();
               }}
-              className={`pb-2.5 font-semibold transition-colors border-b-2 flex items-center gap-1.5 ${
+              className={`pb-2.5 transition-colors border-b-4 flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'preview'
-                  ? 'border-slate-900 text-slate-900'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  ? 'border-black text-black'
+                  : 'border-transparent text-neutral-500 hover:text-black'
               }`}
             >
-              <CheckCircle2 className="w-3.5 h-3.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>
                 Validation Preview {parsedPreview.length > 0 ? `(${parsedPreview.length})` : ''}
               </span>
@@ -229,7 +229,7 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
           <div className="flex items-center gap-2 pb-2">
             <button
               onClick={handleLoadSample}
-              className="text-[11px] font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-md transition-colors"
+              className="text-[11px] font-black uppercase text-black bg-[#FAF7EE] hover:bg-[#FFE500] border-2 border-black px-2.5 py-1 shadow-[2px_2px_0px_0px_#000] transition-colors cursor-pointer"
             >
               Load Sample Template
             </button>
@@ -248,10 +248,8 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                 }}
                 onDragLeave={() => setDragActive(false)}
                 onDrop={handleDrop}
-                className={`border-2 border-dashed rounded-xl p-4 text-center transition-colors cursor-pointer ${
-                  dragActive
-                    ? 'border-slate-900 bg-slate-100/70'
-                    : 'border-slate-200 bg-slate-50/50 hover:bg-slate-50 hover:border-slate-300'
+                className={`border-3 border-dashed border-black p-5 text-center transition-colors cursor-pointer ${
+                  dragActive ? 'bg-[#FFF9D2]' : 'bg-white hover:bg-[#FAF7EE]'
                 }`}
                 onClick={() => fileInputRef.current?.click()}
               >
@@ -267,11 +265,11 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                   }}
                 />
                 <div className="flex flex-col items-center gap-1 text-xs">
-                  <Upload className="w-5 h-5 text-slate-400 mb-1" />
-                  <span className="font-semibold text-slate-700">
+                  <Upload className="w-6 h-6 stroke-[2.5] text-black mb-1" />
+                  <span className="font-black uppercase text-black">
                     Click to browse or drop a .json file here
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-neutral-600 font-bold">
                     Accepts JSON array matching GCC Compass Evidence Schema
                   </span>
                 </div>
@@ -280,11 +278,11 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
               {/* JSON Editor Box */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                    <FileText className="w-3.5 h-3.5 text-slate-500" />
+                  <label className="text-xs font-black uppercase text-black flex items-center gap-1.5">
+                    <FileText className="w-3.5 h-3.5 stroke-[2.5]" />
                     <span>Raw JSON Input</span>
                   </label>
-                  <span className="text-[11px] text-slate-400 font-mono">
+                  <span className="text-[11px] text-neutral-600 font-mono font-bold">
                     {jsonInput.length > 0 ? `${jsonInput.split('\n').length} lines` : 'Empty'}
                   </span>
                 </div>
@@ -296,25 +294,25 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                   }}
                   rows={10}
                   placeholder={`[\n  {\n    "claim": "Visakhapatnam offers 28-35% lower commercial operating cost compared to Bangalore or Hyderabad.",\n    "metricValue": "28% - 35% Cost Arbitrage",\n    "sourceName": "CBRE India Office Market Report 2024",\n    "classification": "third_party_estimate",\n    "limitations": "Prime IT SEZ spaces only; secondary real estate varies."\n  }\n]`}
-                  className="w-full font-mono text-xs p-3 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 leading-relaxed shadow-inner"
+                  className="w-full font-mono text-xs p-3 bg-black text-[#00F0A8] border-3 border-black focus:outline-none focus:border-[#FFE500] leading-relaxed shadow-[4px_4px_0px_0px_#000]"
                 />
               </div>
 
               {/* Validation Feedback */}
               {validationErrors.length > 0 && (
-                <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5">
-                  <div className="flex items-center gap-2 text-rose-800 font-bold text-xs">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
+                <div className="p-3.5 bg-[#FF5A36] text-white border-3 border-black shadow-[3px_3px_0px_0px_#000] space-y-1.5">
+                  <div className="flex items-center gap-2 font-black text-xs uppercase">
+                    <AlertCircle className="w-4 h-4 stroke-[2.5] shrink-0" />
                     <span>Validation Failed ({validationErrors.length} issues found)</span>
                   </div>
-                  <ul className="list-disc pl-5 space-y-1 text-rose-700 text-[11px]">
+                  <ul className="list-disc pl-5 space-y-1 text-white text-[11px] font-mono">
                     {validationErrors.slice(0, 5).map((err, i) => (
                       <li key={i}>
-                        <strong className="font-semibold">[{err.field}]</strong> {err.message}
+                        <strong className="font-black">[{err.field}]</strong> {err.message}
                       </li>
                     ))}
                     {validationErrors.length > 5 && (
-                      <li className="font-medium text-rose-600">
+                      <li className="font-bold">
                         ...and {validationErrors.length - 5} more issues.
                       </li>
                     )}
@@ -323,9 +321,9 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
               )}
 
               {validationWarnings.length > 0 && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] space-y-1">
-                  <div className="font-semibold flex items-center gap-1.5">
-                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <div className="p-3 bg-[#FFE500] text-black border-2 border-black text-[11px] space-y-1 font-mono shadow-[2px_2px_0px_0px_#000]">
+                  <div className="font-black uppercase flex items-center gap-1.5">
+                    <AlertCircle className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
                     <span>Normalization Notices:</span>
                   </div>
                   <ul className="list-disc pl-4 space-y-0.5">
@@ -340,19 +338,19 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
 
           {activeTab === 'schema' && (
             <div className="space-y-4">
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <div className="bg-white border-2 border-black p-4 space-y-2 shadow-[3px_3px_0px_0px_#000]">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <HelpCircle className="w-4 h-4 text-slate-600" />
+                  <h3 className="text-xs font-black uppercase text-black flex items-center gap-1.5">
+                    <HelpCircle className="w-4 h-4 stroke-[2.5]" />
                     <span>Required JSON Schema Specification</span>
                   </h3>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleDownloadSchema}
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white border border-slate-200 px-2 py-1 rounded-md hover:bg-slate-100"
+                      className="inline-flex items-center gap-1 text-[11px] font-black uppercase text-black bg-[#FAF7EE] hover:bg-[#FFE500] border-2 border-black px-2 py-1 shadow-[2px_2px_0px_0px_#000] cursor-pointer"
                     >
-                      <Download className="w-3 h-3" />
-                      Download .json Schema
+                      <Download className="w-3 h-3 stroke-[2.5]" />
+                      Download Schema
                     </button>
                     <button
                       onClick={() =>
@@ -361,91 +359,91 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                           setCopiedSchema
                         )
                       }
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 bg-white border border-slate-200 px-2 py-1 rounded-md hover:bg-slate-100"
+                      className="inline-flex items-center gap-1 text-[11px] font-black uppercase text-black bg-[#FAF7EE] hover:bg-[#FFE500] border-2 border-black px-2 py-1 shadow-[2px_2px_0px_0px_#000] cursor-pointer"
                     >
-                      {copiedSchema ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                      {copiedSchema ? <Check className="w-3 h-3 stroke-[3] text-black" /> : <Copy className="w-3 h-3 stroke-[2.5]" />}
                       {copiedSchema ? 'Copied' : 'Copy'}
                     </button>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-600">
+                <p className="text-[11px] text-neutral-800 font-sans">
                   Each item in the JSON array must satisfy the GCC Compass Epistemic Integrity Specification. Synthetic data or records lacking explicit limitations are flagged during validation.
                 </p>
               </div>
 
               {/* Table of schema fields */}
-              <div className="border border-slate-200 rounded-xl overflow-hidden text-xs">
+              <div className="border-3 border-black overflow-hidden text-xs bg-white shadow-[3px_3px_0px_0px_#000]">
                 <table className="w-full text-left">
-                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold text-[11px]">
+                  <thead className="bg-[#FFE500] border-b-2 border-black text-black font-black uppercase text-[11px]">
                     <tr>
-                      <th className="py-2.5 px-3">Field</th>
-                      <th className="py-2.5 px-3">Type</th>
-                      <th className="py-2.5 px-3">Requirement</th>
+                      <th className="py-2.5 px-3 border-r-2 border-black">Field</th>
+                      <th className="py-2.5 px-3 border-r-2 border-black">Type</th>
+                      <th className="py-2.5 px-3 border-r-2 border-black">Requirement</th>
                       <th className="py-2.5 px-3">Description & Allowed Values</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-[11px]">
+                  <tbody className="divide-y-2 divide-black text-[11px]">
                     <tr>
-                      <td className="py-2 px-3 font-mono font-bold text-slate-900">claim</td>
-                      <td className="py-2 px-3 text-slate-600">string</td>
-                      <td className="py-2 px-3 text-rose-600 font-bold">Required</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono font-black text-black border-r-2 border-black">claim</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">string</td>
+                      <td className="py-2 px-3 bg-[#FF5A36] text-white font-black uppercase border-r-2 border-black">Required</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         The factual finding or benchmark statement (min 5 chars).
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono font-bold text-slate-900">sourceName</td>
-                      <td className="py-2 px-3 text-slate-600">string</td>
-                      <td className="py-2 px-3 text-rose-600 font-bold">Required</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono font-black text-black border-r-2 border-black">sourceName</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">string</td>
+                      <td className="py-2 px-3 bg-[#FF5A36] text-white font-black uppercase border-r-2 border-black">Required</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         Original author, research firm, or statutory filing body.
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono font-bold text-slate-900">classification</td>
-                      <td className="py-2 px-3 text-slate-600">enum string</td>
-                      <td className="py-2 px-3 text-rose-600 font-bold">Required</td>
-                      <td className="py-2 px-3 text-slate-600 font-mono text-[10px]">
+                      <td className="py-2 px-3 font-mono font-black text-black border-r-2 border-black">classification</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">enum</td>
+                      <td className="py-2 px-3 bg-[#FF5A36] text-white font-black uppercase border-r-2 border-black">Required</td>
+                      <td className="py-2 px-3 text-neutral-800 font-mono text-[10px]">
                         verified_fact | third_party_estimate | company_announcement | model_inference | requires_verification
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono font-bold text-slate-900">limitations</td>
-                      <td className="py-2 px-3 text-slate-600">string</td>
-                      <td className="py-2 px-3 text-rose-600 font-bold">Required</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono font-black text-black border-r-2 border-black">limitations</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">string</td>
+                      <td className="py-2 px-3 bg-[#FF5A36] text-white font-black uppercase border-r-2 border-black">Required</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         Methodological boundaries, sample constraints, or unverified nuances.
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono text-slate-700">metricValue</td>
-                      <td className="py-2 px-3 text-slate-600">string</td>
-                      <td className="py-2 px-3 text-slate-400">Optional</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono text-black border-r-2 border-black">metricValue</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">string</td>
+                      <td className="py-2 px-3 text-neutral-600 border-r-2 border-black font-bold uppercase">Optional</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         Headline metric (e.g. &apos;90 Days Notice Period&apos;, &apos;1,000 Seating&apos;).
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono text-slate-700">sourceUrl</td>
-                      <td className="py-2 px-3 text-slate-600">string (uri)</td>
-                      <td className="py-2 px-3 text-slate-400">Optional</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono text-black border-r-2 border-black">sourceUrl</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">uri string</td>
+                      <td className="py-2 px-3 text-neutral-600 border-r-2 border-black font-bold uppercase">Optional</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         Direct verifiable citation link.
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono text-slate-700">geography</td>
-                      <td className="py-2 px-3 text-slate-600">string</td>
-                      <td className="py-2 px-3 text-slate-400">Optional</td>
-                      <td className="py-2 px-3 text-slate-600">
+                      <td className="py-2 px-3 font-mono text-black border-r-2 border-black">geography</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">string</td>
+                      <td className="py-2 px-3 text-neutral-600 border-r-2 border-black font-bold uppercase">Optional</td>
+                      <td className="py-2 px-3 text-neutral-800 font-sans">
                         Defaults to &apos;Visakhapatnam&apos; if not specified.
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono text-slate-700">confidenceScore</td>
-                      <td className="py-2 px-3 text-slate-600">enum string</td>
-                      <td className="py-2 px-3 text-slate-400">Optional</td>
-                      <td className="py-2 px-3 text-slate-600 font-mono text-[10px]">
+                      <td className="py-2 px-3 font-mono text-black border-r-2 border-black">confidenceScore</td>
+                      <td className="py-2 px-3 text-neutral-700 border-r-2 border-black">enum</td>
+                      <td className="py-2 px-3 text-neutral-600 border-r-2 border-black font-bold uppercase">Optional</td>
+                      <td className="py-2 px-3 text-neutral-800 font-mono text-[10px]">
                         High | Moderate | Low | Unverified (auto-assigned if omitted)
                       </td>
                     </tr>
@@ -456,7 +454,7 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
               {/* Sample JSON Block */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold text-slate-700">Sample Batch Array</span>
+                  <span className="text-xs font-black uppercase text-black">Sample Batch Array</span>
                   <button
                     onClick={() =>
                       copyToClipboard(
@@ -464,13 +462,13 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                         setCopiedExample
                       )
                     }
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 hover:text-slate-900"
+                    className="inline-flex items-center gap-1 text-[11px] font-black uppercase text-black bg-[#FFE500] border-2 border-black px-2 py-0.5 shadow-[2px_2px_0px_0px_#000] cursor-pointer"
                   >
-                    {copiedExample ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                    {copiedExample ? <Check className="w-3 h-3 stroke-[3] text-black" /> : <Copy className="w-3 h-3 stroke-[2.5]" />}
                     {copiedExample ? 'Copied Example' : 'Copy Example'}
                   </button>
                 </div>
-                <pre className="bg-slate-900 text-slate-200 p-3 rounded-xl text-[11px] font-mono overflow-x-auto leading-relaxed border border-slate-800">
+                <pre className="bg-black text-[#00F0A8] p-3 text-[11px] font-mono overflow-x-auto leading-relaxed border-3 border-black shadow-[3px_3px_0px_0px_#000]">
                   {JSON.stringify(EVIDENCE_JSON_SCHEMA_EXAMPLE, null, 2)}
                 </pre>
               </div>
@@ -479,22 +477,22 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
 
           {activeTab === 'preview' && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl">
-                <div className="flex items-center gap-2 text-emerald-900 text-xs">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                  <span className="font-bold">
+              <div className="flex items-center justify-between p-3.5 bg-[#00F0A8] border-3 border-black shadow-[3px_3px_0px_0px_#000]">
+                <div className="flex items-center gap-2 text-black text-xs">
+                  <CheckCircle2 className="w-4 h-4 stroke-[2.5] shrink-0" />
+                  <span className="font-black uppercase">
                     Schema Validation Passed: {parsedPreview.length} records ready for import
                   </span>
                 </div>
-                <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
-                  Structure & Required Fields Valid
+                <span className="text-[11px] font-black uppercase text-black bg-white border border-black px-2 py-0.5">
+                  Valid Structure
                 </span>
               </div>
 
               {duplicateCount > 0 && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs flex items-center justify-between">
+                <div className="p-3 bg-[#FFE500] border-2 border-black text-black text-xs flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
                   <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                    <AlertCircle className="w-4 h-4 stroke-[2.5] shrink-0" />
                     <span>
                       <strong>{duplicateCount} duplicate records detected.</strong> Unique IDs assigned automatically to avoid overwriting existing data.
                     </span>
@@ -503,8 +501,8 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
               )}
 
               {/* Epistemic disclaimer */}
-              <div className="p-2.5 bg-slate-100 border border-slate-200 rounded-lg text-[11px] text-slate-600 flex items-start gap-1.5">
-                <HelpCircle className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
+              <div className="p-2.5 bg-white border-2 border-black text-[11px] text-neutral-800 flex items-start gap-1.5 font-sans font-medium">
+                <HelpCircle className="w-3.5 h-3.5 stroke-[2.5] text-black shrink-0 mt-0.5" />
                 <span>
                   <strong>Epistemic Notice:</strong> Schema validation confirms JSON structure, field completeness, and classification types. It does not certify factual truth or prevent inaccurate benchmarks.
                 </span>
@@ -515,31 +513,31 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
                 {parsedPreview.map((item, idx) => (
                   <div
                     key={item.id}
-                    className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-2"
+                    className="p-3.5 bg-white border-2 border-black text-xs space-y-2 shadow-[2px_2px_0px_0px_#000]"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="space-y-0.5">
-                        <span className="text-[10px] font-mono font-bold text-slate-500 uppercase">
+                        <span className="text-[10px] font-mono font-black text-neutral-600 uppercase">
                           Record #{idx + 1} · {item.geography}
                         </span>
-                        <h4 className="font-bold text-slate-900 text-xs">{item.claim}</h4>
+                        <h4 className="font-black uppercase text-black text-xs">{item.claim}</h4>
                       </div>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-800 uppercase shrink-0">
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-[#FFE500] text-black border border-black shrink-0">
                         {item.classification.replace('_', ' ')}
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2 rounded-lg border border-slate-200/60">
+                    <div className="grid grid-cols-2 gap-2 text-[11px] text-neutral-800 bg-[#FAF7EE] p-2 border border-black">
                       <div>
-                        <strong className="text-slate-800">Source:</strong> {item.sourceName}
+                        <strong className="text-black font-black uppercase">Source:</strong> {item.sourceName}
                       </div>
                       {item.metricValue && (
                         <div>
-                          <strong className="text-slate-800">Metric:</strong> {item.metricValue}
+                          <strong className="text-black font-black uppercase">Metric:</strong> {item.metricValue}
                         </div>
                       )}
                       <div className="col-span-2">
-                        <strong className="text-slate-800">Limitations:</strong> {item.limitations}
+                        <strong className="text-black font-black uppercase">Limitations:</strong> {item.limitations}
                       </div>
                     </div>
                   </div>
@@ -550,10 +548,10 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
         </div>
 
         {/* Modal Footer Controls */}
-        <div className="flex items-center justify-between p-4 px-6 border-t border-slate-100 bg-slate-50/50 rounded-b-2xl">
+        <div className="flex items-center justify-between p-4 px-6 border-t-3 border-black bg-white">
           <button
             onClick={onClose}
-            className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            className="px-4 py-2 text-xs font-black uppercase text-black bg-[#FAF7EE] hover:bg-neutral-200 border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -562,9 +560,9 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
             {activeTab !== 'preview' ? (
               <button
                 onClick={handleValidateAndPreview}
-                className="px-4 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg shadow-xs transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 text-xs font-black uppercase text-black bg-white border-2 border-black hover:bg-[#FAF7EE] shadow-[2px_2px_0px_0px_#000] transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
+                <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
                 Validate JSON
               </button>
             ) : null}
@@ -572,13 +570,13 @@ export const BulkUploadEvidenceModal: React.FC<BulkUploadEvidenceModalProps> = (
             <button
               onClick={handleApplyUpload}
               disabled={parsedPreview.length === 0}
-              className={`px-4 py-2 text-xs font-semibold rounded-lg shadow-sm transition-all flex items-center gap-1.5 ${
+              className={`px-5 py-2 text-xs font-black uppercase border-2 border-black shadow-[3px_3px_0px_0px_#000] transition-all flex items-center gap-1.5 cursor-pointer ${
                 parsedPreview.length > 0
-                  ? 'bg-slate-900 text-white hover:bg-slate-800'
-                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  ? 'bg-[#00F0A8] hover:bg-[#00d694] text-black'
+                  : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
               }`}
             >
-              <Upload className="w-3.5 h-3.5" />
+              <Upload className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Import {parsedPreview.length} Records</span>
             </button>
           </div>

@@ -357,7 +357,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-slate-900 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#FAF7EE] text-black font-sans selection:bg-black selection:text-[#FFE500] overflow-x-hidden bg-blueprint-grid">
       {/* Top Bar with distinct headers for Public Intro, Welcome Access, and Internal Workspace */}
       <TopBar
         activeTab={activeTab}
@@ -375,14 +375,14 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Storage Persistence Error Banner */}
         {storageError && (
-          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between text-xs text-amber-900 shadow-sm animate-fadeIn">
+          <div className="mb-6 p-4 bg-[#FFE500] border-2 border-black shadow-[4px_4px_0px_0px_#000] flex items-center justify-between text-xs text-black font-mono font-bold animate-fadeIn">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-amber-800">Storage Notice:</span>
+              <span className="bg-black text-[#FFE500] px-1.5 py-0.5 text-[10px] uppercase">STORAGE NOTICE:</span>
               <span>{storageError}</span>
             </div>
             <button
               onClick={() => setStorageError(null)}
-              className="text-amber-700 hover:text-amber-900 font-bold px-2 py-0.5"
+              className="text-black hover:bg-black hover:text-white px-2 py-0.5 border border-black font-bold transition-colors"
             >
               ✕
             </button>
@@ -537,121 +537,121 @@ export default function App() {
         }}
       />
 
-      {/* Enterprise Product Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-xs text-slate-500 print:hidden">
+      {/* Enterprise Retro Product Footer */}
+      <footer className="border-t-4 border-black bg-white py-6 text-xs text-black print:hidden font-mono">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-800">GCC Compass</span>
-            <span aria-hidden="true" className="text-slate-300">
-              ·
+            <span className="font-black text-black bg-[#FFE500] px-2 py-0.5 border border-black uppercase">GCC COMPASS</span>
+            <span aria-hidden="true" className="text-black font-bold">
+              //
             </span>
-            <span>Location Intelligence & Workforce Feasibility</span>
+            <span className="font-bold">LOCATION INTELLIGENCE & WORKFORCE FEASIBILITY</span>
           </div>
 
           {/* Context-aware footer links */}
           {isWorkspace ? (
-            <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-600">
+            <div className="flex flex-wrap items-center gap-3 text-[11px] text-black font-bold">
               <button
                 onClick={() => navigateTo('/app')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Home
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/overview')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Overview
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/plan-builder')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Plan Builder
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/map')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Map Intelligence
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/stress-test')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Stress Test
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/evidence')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Evidence Library
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/decision-brief')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Decision Brief
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/')}
-                className="text-slate-400 hover:text-slate-700 transition-colors"
+                className="hover:bg-black hover:text-white px-1 transition-colors"
               >
                 Exit to Intro
               </button>
             </div>
           ) : (
-            <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-600">
+            <div className="flex flex-wrap items-center gap-3 text-[11px] text-black font-bold">
               <button
                 onClick={() => navigateTo('/')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Platform Intro
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/welcome')}
-                className="hover:text-slate-900 transition-colors"
+                className="hover:bg-[#FFE500] px-1 transition-colors underline"
               >
                 Workspace Access
               </button>
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-black">
                 ·
               </span>
               <button
                 onClick={() => navigateTo('/app/plan-builder')}
-                className="hover:text-slate-900 transition-colors font-medium text-slate-900"
+                className="bg-[#FFE500] px-2 py-0.5 border border-black shadow-[2px_2px_0px_0px_#000] hover:shadow-[3px_3px_0px_0px_#000] font-black uppercase text-black"
               >
                 Launch Assessment
               </button>
             </div>
           )}
 
-          <div className="flex items-center gap-2 text-[11px] text-slate-400">
-            <span>Audit-Grade Deterministic Modeling</span>
+          <div className="flex items-center gap-2 text-[11px] font-mono text-neutral-600">
+            <span className="bg-black text-[#00F0A8] px-1.5 py-0.5 text-[10px] font-bold">AUDIT-GRADE DETERMINISTIC MODELING</span>
           </div>
         </div>
       </footer>
