@@ -13,6 +13,7 @@ import {
   RotateCcw,
   MapPin,
   Sparkles,
+  HelpCircle,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -357,6 +358,18 @@ export const TopBar: React.FC<TopBarProps> = ({
 
           {/* User Profile & Actions */}
           <div className="flex items-center gap-2.5 shrink-0">
+            {/* Reopen How It Works Guide inside Workspace */}
+            {onOpenHowItWorks && (
+              <button
+                onClick={onOpenHowItWorks}
+                className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-[#FFE500] border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_#000] transition-all font-mono"
+                title="Open 7-step Methodology & Workflow Guide"
+              >
+                <HelpCircle className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>How It Works</span>
+              </button>
+            )}
+
             {/* Quick Export CTA */}
             {onExportClick && (
               <button
@@ -428,6 +441,19 @@ export const TopBar: React.FC<TopBarProps> = ({
                         >
                           <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
                           <span>Reset Model Defaults</span>
+                        </button>
+                      )}
+
+                      {onOpenHowItWorks && (
+                        <button
+                          onClick={() => {
+                            setIsUserMenuOpen(false);
+                            onOpenHowItWorks();
+                          }}
+                          className="w-full text-left px-4 py-2 hover:bg-[#FFF9D2] flex items-center gap-2 font-bold text-black font-mono border-t border-neutral-200"
+                        >
+                          <HelpCircle className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span>How It Works Guide</span>
                         </button>
                       )}
 
@@ -523,6 +549,15 @@ export const TopBar: React.FC<TopBarProps> = ({
           >
             Decision Brief
           </button>
+          {onOpenHowItWorks && (
+            <button
+              onClick={onOpenHowItWorks}
+              className="px-2.5 py-1 text-[11px] font-mono font-bold uppercase border-2 border-black shrink-0 whitespace-nowrap bg-white text-black hover:bg-[#FFE500] shadow-[1px_1px_0px_0px_#000] transition-all flex items-center gap-1"
+            >
+              <HelpCircle className="w-3 h-3 stroke-[2.5]" />
+              <span>How It Works</span>
+            </button>
+          )}
         </div>
       </div>
     </header>

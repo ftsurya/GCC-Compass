@@ -374,7 +374,7 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
 
       const markerHtml = `
         <div style="cursor: pointer; display: flex; flex-direction: column; align-items: center; user-select: none;">
-          <div style="background: ${bgCol}; color: ${textCol}; border: 2.5px solid #000000; box-shadow: 3px 3px 0px 0px #000000; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 0.04em; display: flex; align-items: center; gap: 5px;">
+          <div class="marker-discovery-cue" title="Click to inspect ${city.name} talent and companies" style="background: ${bgCol}; color: ${textCol}; border: 2.5px solid #000000; box-shadow: 3px 3px 0px 0px #000000; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 0.04em; display: flex; align-items: center; gap: 5px;">
             <span>${city.name}</span>
             ${isCompared ? '<span style="color:#000;">★</span>' : ''}
             <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:${statusDotColor}; border:1.5px solid #000000; box-shadow: 1px 1px 0px 0px #000000;" title="${statusTitle}"></span>
@@ -854,11 +854,17 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                 </button>
               </div>
             ) : mapEngine === 'leaflet' && !tileLoadError ? (
-              <div
-                ref={mapContainerRef}
-                className="w-full h-full min-h-[460px] sm:min-h-[500px] z-10"
-                style={{ background: '#0f172a' }}
-              />
+              <div className="relative w-full h-full">
+                <div className="absolute top-3 left-3 z-30 pointer-events-none flex items-center gap-2 bg-[#FAF7EE] text-black px-2.5 py-1 border-2 border-black font-mono text-[10px] sm:text-[11px] font-bold shadow-[2px_2px_0px_0px_#000]">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#00F0A8] border border-black motion-safe:animate-pulse shrink-0" />
+                  <span>INTERACTIVE MAP // CLICK CITY PINS TO DRILL DOWN</span>
+                </div>
+                <div
+                  ref={mapContainerRef}
+                  className="w-full h-full min-h-[460px] sm:min-h-[500px] z-10"
+                  style={{ background: '#0f172a' }}
+                />
+              </div>
             ) : (
               /* Vector Geographic SVG Projection Fallback */
               <div className="relative w-full h-full p-4 flex flex-col items-center justify-center select-none bg-[#0d131f] text-white min-h-[460px] sm:min-h-[500px] bg-blueprint-grid">

@@ -692,6 +692,15 @@ export default function App() {
                 ·
               </span>
               <button
+                onClick={() => setIsHowItWorksOpen(true)}
+                className="hover:bg-[#FFE500] px-1 transition-colors underline font-bold"
+              >
+                How It Works Guide
+              </button>
+              <span aria-hidden="true" className="text-black">
+                ·
+              </span>
+              <button
                 onClick={() => navigateTo('/')}
                 className="hover:bg-black hover:text-white px-1 transition-colors"
               >

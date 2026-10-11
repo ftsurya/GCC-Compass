@@ -115,6 +115,27 @@ assert(
   'App.tsx and IntroView integrate HowItWorksModal trigger without mutating assessment state'
 );
 
+// Test 1.6c: In-workspace How It Works action accessible across all workspace views
+assert(
+  topBarTsx.includes('HelpCircle') &&
+  topBarTsx.includes('How It Works') &&
+  topBarTsx.includes('onOpenHowItWorks') &&
+  appTsx.includes('How It Works Guide'),
+  'TopBar and App footer provide in-workspace How It Works action across all views'
+);
+
+// Test 1.6d: Map Intelligence markers provide subtle discovery cue with reduced-motion support
+const mapIntelligenceTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/MapIntelligenceView.tsx'), 'utf-8');
+const indexCss = fs.readFileSync(path.join(process.cwd(), 'src/index.css'), 'utf-8');
+assert(
+  mapIntelligenceTsx.includes('marker-discovery-cue') &&
+  mapIntelligenceTsx.includes('INTERACTIVE MAP // CLICK CITY PINS TO DRILL DOWN') &&
+  indexCss.includes('@keyframes marker-discovery-pulse') &&
+  indexCss.includes('.marker-discovery-cue') &&
+  indexCss.includes('prefers-reduced-motion: reduce'),
+  'Map Intelligence implements marker discovery cue with prefers-reduced-motion fallback'
+);
+
 // Test 1.7: WelcomeView integrated for /welcome access page
 const welcomeViewTsx = fs.readFileSync(path.join(process.cwd(), 'src/components/WelcomeView.tsx'), 'utf-8');
 assert(
