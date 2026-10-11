@@ -167,28 +167,40 @@ def build_presentation():
         except Exception:
             pass
 
-    # Right Bottom: Key Stats Card
-    add_card(s1, 8.2, 4.7, 4.333, 2.0, C_WHITE, C_BORDER, 2.0)
-    stats_box = s1.shapes.add_textbox(Inches(8.4), Inches(4.8), Inches(3.9), Inches(1.8))
+    # Right Bottom: Live Prototype & Technical Rigor Card
+    add_card(s1, 8.2, 4.5, 4.333, 2.2, C_WHITE, C_BORDER, 2.0)
+    l_strip = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(8.2), Inches(4.5), Inches(4.333), Inches(0.35))
+    l_strip.fill.solid()
+    l_strip.fill.fore_color.rgb = C_YELLOW
+    l_strip.line.color.rgb = C_BORDER
+    l_strip.line.width = Pt(1.5)
+    lp = l_strip.text_frame.paragraphs[0]
+    lp.text = "LIVE PROTOTYPE VERIFIED ONLINE"
+    lp.font.bold = True
+    lp.font.size = Pt(9.5)
+    lp.font.color.rgb = C_BLACK
+    lp.alignment = PP_ALIGN.CENTER
+
+    stats_box = s1.shapes.add_textbox(Inches(8.35), Inches(4.9), Inches(4.0), Inches(1.7))
     stf = stats_box.text_frame
     stf.word_wrap = True
     sp1 = stf.paragraphs[0]
-    sp1.text = "PROTOTYPE SPECIFICATION & RIGOR"
+    sp1.text = "URL: https://ftsurya.github.io/GCC-Compass/"
     sp1.font.bold = True
-    sp1.font.size = Pt(10)
-    sp1.font.color.rgb = C_GRAY
+    sp1.font.size = Pt(9.0)
+    sp1.font.color.rgb = C_BLACK
 
     metrics = [
-        ("111 / 111", "Automated Regression Tests Passing"),
-        ("6 Hubs", "Bengaluru, Hyderabad, Pune, Vizag, CBE, BBSR"),
-        ("28 Entities", "Categorized Captives, IT Services & Product Hubs"),
-        ("Zero Fluff", "Strict Anti-Hallucination & Provenance Model")
+        ("Architecture", "Client-Side React 19 SPA on GitHub Pages"),
+        ("Validation", "111/111 Automated Tests · 0 Lint Errors"),
+        ("Ecosystem", "6 Hubs · 28 Verified Entities (17 Captives)"),
+        ("Invitation", "Reviewers invited to explore live workflows")
     ]
     for m_val, m_lbl in metrics:
         mp = stf.add_paragraph()
-        mp.text = f"• {m_val} — {m_lbl}"
-        mp.font.size = Pt(10)
-        mp.font.color.rgb = C_BLACK
+        mp.text = f"• {m_val}: {m_lbl}"
+        mp.font.size = Pt(8.5)
+        mp.font.color.rgb = C_GRAY
 
     # =========================================================================
     # SLIDE 2: Problem Statement and Information Gaps
@@ -555,14 +567,14 @@ def build_presentation():
     add_header(s9, "Technical Rigor", "Prototype Validation & Verification Results", "Empirical evidence of system reliability, static typing, and mathematical determinism")
 
     results = [
-        ("111 / 111", "Automated Regression Tests", C_MINT,
-         "• 100% test pass rate across tsx calculator.test.ts and regression.test.ts.\n• Validates backward induction math (300 hires -> 32,688 applicant pool).\n• Tests notice period lag (90d notice locks offers at Month 3).\n• Confirms all 5 enterprise demo scenarios calculate deterministically.\n• Validates 6-city boundary isolation and company classification checks."),
-        ("0 Errors", "TypeScript Compilation (Lint)", C_YELLOW,
-         "• Strict type safety enforced with zero compilation errors in tsc --noEmit.\n• GccCompany data models enforce companyClassification enum.\n• CityProviderIndicator strictly types limitations and source dates.\n• Eliminates potential runtime undefined crashes across state transfers."),
-        ("1.21s", "Production Vite Build", C_LAVENDER,
-         "• Production client environment built in 1.21 seconds with Vite 8 + React 19.\n• Optimized asset chunks for lucide-react, motion, leaflet, and jspdf.\n• Zero broken dependencies, cleanly packaged for deployment."),
-        ("16 Workflows", "Browser End-to-End Smoke Tests", C_CORAL,
-         "• Tested live locally at http://localhost:3000/ across all 16 user workflows.\n• Public Intro -> Welcome -> Plan Builder -> Stress Test -> Map -> Brief.\n• Validated file downloads (Markdown .md, JSON, and PDF generator).")
+        ("111 / 111", "Automated Test Suite", C_MINT,
+         "• 100% pass rate in tsx calculator.test.ts & regression.test.ts.\n• Validates backward-induction funnel (300 hires -> 32,688 applicant pool).\n• Tests 60-90d notice period lag and offer cutoff deadlines.\n• Confirms all 5 enterprise demo scenarios calculate deterministically.\n• Validates 6-city boundary isolation and strict company classifications."),
+        ("0 Errors", "TypeScript & Static Linter", C_YELLOW,
+         "• Strict type safety enforced with zero compilation errors in tsc --noEmit.\n• GccCompany data models strictly type 5-way classification enum.\n• CityProviderIndicator strictly types limitations and source dates.\n• Eliminates potential runtime undefined exceptions across route states."),
+        ("< 1.0s", "Production Vite Build", C_LAVENDER,
+         "• Production client bundle built in ~885ms with Vite 8.3 + React 19.\n• Universal relative addressing (base: './') across scripts & stylesheets.\n• Automated SPA fallbacks generated (404.html, .nojekyll, _redirects).\n• Pre-configured for zero-config multi-cloud static deployments."),
+        ("Verified", "Live Public Browser Smoke Test", C_CORAL,
+         "• Verified live at https://ftsurya.github.io/GCC-Compass/.\n• Validated Landing, Plan Builder, Map Intelligence, & Decision Brief.\n• Tested multi-format export engine: Markdown (.md), PDF, JSON, & copy.\n• Client-side React architecture running on GitHub Pages.")
     ]
 
     for idx, (res_metric, res_title, res_color, res_body) in enumerate(results):
@@ -610,7 +622,7 @@ def build_presentation():
         ("Current Epistemic Limitations", C_YELLOW, [
             ("Dated Office Cost Benchmarks (H1 2024)", "Commercial office lease rental rates reflect H1 2024 JLL and Colliers benchmarks. Real-time market changes in 2025/2026 require dynamic index updates."),
             ("Undisclosed Private Headcounts", "Private multinational captives (e.g. Nvidia Pune, Alliant Vizag) do not publish isolated city headcounts. Kept as 'Data unavailable' rather than guessing."),
-            ("Local-Only Deployment", "Prototype currently operates strictly on local development environments; no public cloud deployment is configured.")
+            ("Static Data Snapshot Architecture", "Runs entirely client-side on GitHub Pages at https://ftsurya.github.io/GCC-Compass/. Zero server attack vectors, but relies on snapshot data files.")
         ]),
         ("Next Steps & Product Roadmap", C_MINT, [
             ("Phase 1: Live ATS Integrations", "Connect directly to Greenhouse, Lever, and Workday APIs to replace industry conversion benchmarks with live company historical pass rates."),
@@ -621,36 +633,67 @@ def build_presentation():
 
     for idx, (sec_title, sec_color, sec_items) in enumerate(sections):
         left_x = 0.8 + (idx * 5.95)
-        add_card(s10, left_x, 2.0, 5.75, 4.8, C_WHITE, C_BORDER, 2.0)
+        add_card(s10, left_x, 2.0, 5.75, 4.0, C_WHITE, C_BORDER, 2.0)
 
         # Header banner
-        hb = s10.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(left_x), Inches(2.0), Inches(5.75), Inches(0.6))
+        hb = s10.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(left_x), Inches(2.0), Inches(5.75), Inches(0.55))
         hb.fill.solid()
         hb.fill.fore_color.rgb = sec_color
         hb.line.color.rgb = C_BORDER
         hb.line.width = Pt(1.5)
         hp = hb.text_frame.paragraphs[0]
         hp.text = sec_title.upper()
-        hp.font.size = Pt(11)
+        hp.font.size = Pt(10.5)
         hp.font.bold = True
         hp.font.color.rgb = C_BLACK
         hp.alignment = PP_ALIGN.CENTER
 
-        tb = s10.shapes.add_textbox(Inches(left_x + 0.3), Inches(2.75), Inches(5.15), Inches(3.9))
+        tb = s10.shapes.add_textbox(Inches(left_x + 0.25), Inches(2.65), Inches(5.25), Inches(3.2))
         tf = tb.text_frame
         tf.word_wrap = True
         for i_idx, (it_title, it_desc) in enumerate(sec_items):
             p = tf.paragraphs[0] if i_idx == 0 else tf.add_paragraph()
             p.text = f"{i_idx + 1}. {it_title}: "
             p.font.bold = True
-            p.font.size = Pt(10.5)
+            p.font.size = Pt(9.5)
             p.font.color.rgb = C_BLACK
             r = p.add_run()
             r.text = it_desc
             r.font.bold = False
             r.font.color.rgb = C_GRAY
-            if i_idx < len(sec_items) - 1:
-                tf.add_paragraph().text = ""
+
+    # Reviewer CTA Footer Card
+    add_card(s10, 0.8, 6.2, 11.733, 0.8, C_WHITE, C_BORDER, 2.0)
+    cta_bar = s10.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(6.2), Inches(3.2), Inches(0.8))
+    cta_bar.fill.solid()
+    cta_bar.fill.fore_color.rgb = C_YELLOW
+    cta_bar.line.color.rgb = C_BORDER
+    cta_bar.line.width = Pt(1.5)
+    cp = cta_bar.text_frame.paragraphs[0]
+    cp.text = "EXPLORE LIVE PROTOTYPE"
+    cp.font.bold = True
+    cp.font.size = Pt(11)
+    cp.font.color.rgb = C_BLACK
+    cp.alignment = PP_ALIGN.CENTER
+    cp_sub = cta_bar.text_frame.add_paragraph()
+    cp_sub.text = "Verified on GitHub Pages"
+    cp_sub.font.size = Pt(8.5)
+    cp_sub.font.color.rgb = C_GRAY
+    cp_sub.alignment = PP_ALIGN.CENTER
+
+    cta_tb = s10.shapes.add_textbox(Inches(4.2), Inches(6.25), Inches(8.1), Inches(0.7))
+    ctf = cta_tb.text_frame
+    ctf.word_wrap = True
+    ctp = ctf.paragraphs[0]
+    ctp.text = "Public Reviewer URL: https://ftsurya.github.io/GCC-Compass/"
+    ctp.font.bold = True
+    ctp.font.size = Pt(10.5)
+    ctp.font.color.rgb = C_BLACK
+
+    ctp2 = ctf.add_paragraph()
+    ctp2.text = "GitHub Repository: https://github.com/ftsurya/GCC-Compass | Branch: main (4e3db9c) | gh-pages (caef8a7)"
+    ctp2.font.size = Pt(8.5)
+    ctp2.font.color.rgb = C_GRAY
 
     # Output path
     output_dir = os.path.join(os.path.dirname(__file__))
