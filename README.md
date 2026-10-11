@@ -11,7 +11,8 @@
 
 **GitHub Repository:** [https://github.com/ftsurya/GCC-Compass](https://github.com/ftsurya/GCC-Compass)
 **Target Branch:** `main`
-**Deployment Status:** Prototype runs locally (`http://localhost:3000`). No public cloud hosting is configured.
+**Public Reviewer URL:** [https://ftsurya.github.io/GCC-Compass/](https://ftsurya.github.io/GCC-Compass/) (Deployed via `gh-pages` & GitHub Actions CI/CD)
+**Local Development:** `http://localhost:3000`
 
 ---
 
@@ -176,15 +177,34 @@ npm run build
 
 ---
 
-## 8. Known Data Boundaries & Epistemic Limitations
+## 8. Public Deployment Architecture & Reviewer Access
 
-1. **Commercial Real Estate Benchmarks:** Office lease rates reflect H1 2024 JLL and Colliers benchmarks. Real-time updates for H2 2024 and 2025 require dynamic indexing.
-2. **Private Captive Headcount Disclosures:** Exact local headcount for multinational GCCs (e.g., Nvidia Pune, State Street) is undisclosed by parent corporations; preserved as `"Data unavailable"`.
-3. **Deployment Scope:** Currently runs locally. No public URL has been deployed to avoid external hosting dependencies.
+- **Public Reviewer URL:** [https://ftsurya.github.io/GCC-Compass/](https://ftsurya.github.io/GCC-Compass/)
+- **Architecture:** Pure client-side SPA with zero external backend dependencies. All calculations, state persistence (`localStorage`), PDF export, and map rendering operate in-browser.
+- **Relative Asset Addressing:** Configured with `base: './'` in `vite.config.ts`, ensuring zero path conflicts on GitHub Pages, custom domains, or subdirectories.
+- **Automated SPA Fallback:** Build generates `dist/404.html` and `dist/.nojekyll` to support direct deep-linking (e.g., `/app/plan-builder`, `/app/map`, `/app/decision-brief`) across static hosting.
+- **Multi-Cloud Ready:**
+  - **GitHub Pages:** Pre-built and pushed to branch `gh-pages` (`caef8a7`), plus automated CI/CD via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+  - **Vercel:** Fully configured with clean URLs and SPA rewrites via [`vercel.json`](vercel.json).
+  - **Netlify:** Pre-configured with wildcard redirects via [`public/_redirects`](public/_redirects).
+
+> **Enabling GitHub Pages (1-step action in GitHub repository settings):**
+> Go to **Repository Settings > Pages > Build and deployment > Source**, and select either:
+> 1. **Deploy from a branch** > Branch: **`gh-pages`** > Folder: **`/ (root)`** > Save
+> 2. **GitHub Actions**
+> Once enabled, the application is instantly served at [https://ftsurya.github.io/GCC-Compass/](https://ftsurya.github.io/GCC-Compass/).
 
 ---
 
-## 9. Internship Assignment Deliverables
+## 9. Known Data Boundaries & Epistemic Limitations
+
+1. **Commercial Real Estate Benchmarks:** Office lease rates reflect H1 2024 JLL and Colliers benchmarks. Real-time updates for H2 2024 and 2025 require dynamic indexing.
+2. **Private Captive Headcount Disclosures:** Exact local headcount for multinational GCCs (e.g., Nvidia Pune, State Street) is undisclosed by parent corporations; preserved as `"Data unavailable"`.
+3. **External Hosting Costs:** No paid cloud services are configured; deployment relies entirely on free, static hosting infrastructure.
+
+---
+
+## 10. Internship Assignment Deliverables
 
 Located in the [`presentation/`](presentation/) directory:
 
@@ -201,7 +221,7 @@ Located in the [`presentation/`](presentation/) directory:
 
 ---
 
-## 10. Repository & License
+## 11. Repository & License
 
 - **GitHub Repository:** [https://github.com/ftsurya/GCC-Compass](https://github.com/ftsurya/GCC-Compass)
 - **Branch:** `main`
