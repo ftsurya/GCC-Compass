@@ -214,6 +214,24 @@ ${calc.bottlenecks.map((b, idx) => `### ${idx + 1}. ${b.title} (${b.impactMetric
     }
   };
 
+  const handleDownloadMarkdown = () => {
+    try {
+      const blob = new Blob([markdownContent], {
+        type: 'text/markdown;charset=utf-8',
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `gcc-compass-decision-brief-${city.id}-${config.totalTargetHires}-hires.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to download Markdown brief:', err);
+    }
+  };
+
   return (
     <div className="space-y-8 max-w-5xl mx-auto font-mono animate-fadeIn">
       {/* Top Action Bar in Retro NeoBrutalism */}
@@ -251,6 +269,15 @@ ${calc.bottlenecks.map((b, idx) => `### ${idx + 1}. ${b.title} (${b.impactMetric
                 <span>Copy Markdown</span>
               </>
             )}
+          </button>
+
+          <button
+            onClick={handleDownloadMarkdown}
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-black uppercase text-black bg-white hover:bg-neutral-100 border-2 border-black shadow-[2px_2px_0px_0px_#000] transition-colors"
+            title="Download full Markdown decision brief"
+          >
+            <Download className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>Markdown (.md)</span>
           </button>
 
           <button

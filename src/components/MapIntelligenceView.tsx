@@ -1263,9 +1263,14 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                               PARENT: <strong className="text-black">{activeCompany.parentCompany}</strong> // GLOBAL HQ: {activeCompany.headquarters}
                             </div>
                           </div>
-                          <span className="self-start px-3 py-1 bg-[#00F0A8] border-2 border-black font-mono text-xs font-black uppercase shadow-[2px_2px_0px_0px_#000]">
-                            {activeCompany.primarySector}
-                          </span>
+                          <div className="flex flex-col gap-1.5 items-start sm:items-end">
+                            <span className="px-3 py-1 bg-[#00F0A8] border-2 border-black font-mono text-xs font-black uppercase shadow-[2px_2px_0px_0px_#000]">
+                              {activeCompany.primarySector}
+                            </span>
+                            <span className="px-2 py-0.5 bg-black text-[#FFE500] border border-black font-mono text-[10px] font-bold uppercase">
+                              {activeCompany.companyClassification}
+                            </span>
+                          </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
@@ -1377,6 +1382,17 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                                   </div>
                                   <div className="text-[11px] font-mono text-neutral-600 mt-0.5 truncate">
                                     {comp.primarySector} · {comp.facilityLocation}
+                                  </div>
+                                  <div className="mt-1">
+                                    <span className={`inline-block text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 border border-black ${
+                                      comp.companyClassification === 'Verified captive/global capability centre'
+                                        ? 'bg-[#00F0A8] text-black'
+                                        : comp.companyClassification === 'Software/product company'
+                                        ? 'bg-[#FFE500] text-black'
+                                        : 'bg-neutral-100 text-neutral-800'
+                                    }`}>
+                                      {comp.companyClassification}
+                                    </span>
                                   </div>
                                 </div>
                                 <span className="text-xs font-mono font-black bg-[#FFE500] px-2 py-0.5 border border-black shrink-0">
@@ -1775,14 +1791,17 @@ export const MapIntelligenceView: React.FC<MapIntelligenceViewProps> = ({
                   })}
                 </tr>
 
-                {/* GCC Companies Cataloged */}
+                {/* GCC & Tech Facilities Cataloged */}
                 <tr className="hover:bg-[#FFF9D2]">
-                  <td className="p-3.5 font-bold uppercase bg-[#FAF7EE] border-r-2 border-black">Cataloged GCC Companies</td>
+                  <td className="p-3.5 font-bold uppercase bg-[#FAF7EE] border-r-2 border-black">Cataloged Facilities & GCCs</td>
                   {comparisonCityIds.map((id) => {
-                    const count = GCC_COMPANIES.filter((comp) => comp.cityId === id).length;
+                    const comps = GCC_COMPANIES.filter((comp) => comp.cityId === id);
+                    const gccCount = comps.filter((c) => c.companyClassification === 'Verified captive/global capability centre').length;
+                    const otherCount = comps.length - gccCount;
                     return (
                       <td key={id} className="p-3.5 font-bold border-r-2 border-black last:border-r-0">
-                        {count} facilities cataloged
+                        <div>{comps.length} facilities cataloged</div>
+                        <div className="text-[10px] text-neutral-600 mt-0.5">({gccCount} verified GCCs · {otherCount} IT/Product)</div>
                       </td>
                     );
                   })}

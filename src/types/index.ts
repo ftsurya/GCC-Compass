@@ -59,10 +59,18 @@ export interface CityProviderIndicator {
   limitations: string;
 }
 
+export type CompanyClassification =
+  | 'Verified captive/global capability centre'
+  | 'IT services or consulting company'
+  | 'Software/product company'
+  | 'Confirmed facility or development centre, but GCC status unverified'
+  | 'Company or facility requiring verification';
+
 export interface CompanyWorkforce {
   localHeadcount: string;
   headcountType:
     | 'facility_estimate'
+    | 'facility_seating_capacity'
     | 'corporate_announcement'
     | 'company_announcement'
     | 'third_party_estimate'
@@ -82,6 +90,7 @@ export interface GccCompany {
   facilityLocation: string;
   establishedYear?: number;
   primarySector: string;
+  companyClassification: CompanyClassification;
   businessFunctions: string[];
   specialisations: string[];
   workforce: CompanyWorkforce;

@@ -548,7 +548,14 @@ assert(
   'Map Intelligence: Every city has stable unique ID, verified coordinates, operating costs, and policies'
 );
 
-// Test 6.3: Structured hierarchy: City -> GCC Companies -> Company Profiles -> Functions -> Workforce
+// Test 6.3: Structured hierarchy: City -> GCC Companies -> Company Profiles -> Functions -> Workforce -> Classification
+const validClassifications = [
+  'Verified captive/global capability centre',
+  'IT services or consulting company',
+  'Software/product company',
+  'Confirmed facility or development centre, but GCC status unverified',
+  'Company or facility requiring verification',
+];
 assert(
   GCC_COMPANIES.length >= 25 &&
     GCC_COMPANIES.every(
@@ -559,6 +566,8 @@ assert(
         comp.parentCompany &&
         comp.facilityLocation &&
         comp.primarySector &&
+        comp.companyClassification &&
+        validClassifications.includes(comp.companyClassification) &&
         Array.isArray(comp.businessFunctions) &&
         comp.businessFunctions.length > 0 &&
         Array.isArray(comp.specialisations) &&
@@ -569,6 +578,25 @@ assert(
         comp.workforce?.limitations
     ),
   'Map Intelligence: Reliable structured hierarchy established: City -> GCC Companies -> Profiles -> Functions -> Workforce'
+);
+
+// Test 6.3b: Accurate company classification differentiation (Section 5.1 compliance)
+const captiveGccs = GCC_COMPANIES.filter((c) => c.companyClassification === 'Verified captive/global capability centre');
+const itServices = GCC_COMPANIES.filter((c) => c.companyClassification === 'IT services or consulting company');
+const productComps = GCC_COMPANIES.filter((c) => c.companyClassification === 'Software/product company');
+const unverifiedGcc = GCC_COMPANIES.filter((c) => c.companyClassification === 'Confirmed facility or development centre, but GCC status unverified');
+
+assert(
+  captiveGccs.length >= 15 && itServices.length >= 5 && productComps.length >= 2 && unverifiedGcc.length >= 1,
+  'Map Intelligence: Explicitly distinguishes verified captives, IT services, product companies, and unverified facilities'
+);
+
+// Test 6.3c: Facility seating capacity isolation (Section 5.2 compliance)
+const seatingCapacityRecord = GCC_COMPANIES.find((c) => c.id === 'vizag-infosys');
+assert(
+  seatingCapacityRecord?.workforce.headcountType === 'facility_seating_capacity' &&
+    seatingCapacityRecord.workforce.limitations.includes('Seating capacity'),
+  'Map Intelligence: Seating capacity is strictly distinguished from employee headcount'
 );
 
 // Test 6.4: Company Directory Filtering: Zero cross-city pollution

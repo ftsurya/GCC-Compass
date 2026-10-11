@@ -19,6 +19,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Siripuram / Rushikonda IT SEZ',
     establishedYear: 2005,
     primarySector: 'Banking & Financial Services (BFSI)',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Core Banking Platforms',
       'Financial Crime Compliance & Risk Analytics',
@@ -43,6 +44,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Rushikonda Hill-2 IT Park',
     establishedYear: 2023,
     primarySector: 'Enterprise Software & Cloud Delivery',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Cloud Infrastructure Modernization',
       'Enterprise Application Maintenance',
@@ -51,10 +53,10 @@ export const GCC_COMPANIES: GccCompany[] = [
     specialisations: ['Java', 'Cloud Foundations', 'Angular / React', 'Enterprise Systems'],
     workforce: {
       localHeadcount: '~1,000 seating capacity',
-      headcountType: 'company_announcement',
+      headcountType: 'facility_seating_capacity',
       sourceName: 'Government of Andhra Pradesh IT Department & Infosys Corporate Announcement',
       dateChecked: 'October 2024',
-      limitations: 'Announcement reflects campus seating capacity; real-time on-site headcount fluctuates under hybrid delivery.',
+      limitations: 'Seating capacity of ~1,000 does not equal active employee headcount; reflects initial campus facility buildout under hybrid work.',
     },
     evidenceItemIds: ['ev-4'],
   },
@@ -67,6 +69,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Resapuvanipalem / Ramnagar',
     establishedYear: 2008,
     primarySector: 'IT Services & Digital Operations',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Enterprise Infrastructure Support',
       'Quality Assurance Services',
@@ -90,6 +93,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Rushikonda IT Park',
     establishedYear: 2001,
     primarySector: 'Smart Utilities & CleanTech Software',
+    companyClassification: 'Software/product company',
     businessFunctions: [
       'Utility Billing Engines & CRM',
       'Smart Metering IoT Software',
@@ -113,6 +117,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Miracle City, Bhogapuram / Rushikonda',
     establishedYear: 2003,
     primarySector: 'Enterprise Cloud & Integration',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'B2B Integration Platforms',
       'Application Modernization',
@@ -138,6 +143,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Gachibowli / Financial District',
     establishedYear: 2004,
     primarySector: 'Internet & Cloud Platforms',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Google Cloud Platform Core Services',
       'Search & Ads Quality Systems',
@@ -162,6 +168,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Gachibowli Campus',
     establishedYear: 1998,
     primarySector: 'Enterprise Cloud & Operating Systems',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Azure Core Computing & Networking',
       'Developer Division & Visual Studio Tools',
@@ -185,6 +192,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Salarpuria Sattva Knowledge City, HITEC City',
     establishedYear: 2007,
     primarySector: 'Life Sciences & Digital Health',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Clinical Trial Biostatistics & Data Science',
       'Pharmacovigilance Analytics',
@@ -208,6 +216,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Salarpuria Sattva Knowledge City',
     establishedYear: 2021,
     primarySector: 'Investment Banking & Capital Markets Tech',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Global Banking & Markets Electronic Trading',
       'Asset Management Platforms',
@@ -231,6 +240,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'DivyaSree Orion, Raidurg / Gachibowli',
     establishedYear: 2006,
     primarySector: 'Banking & Financial Services (BFSI)',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Consumer Lending Core Architecture',
       'Enterprise Data Lake Engineering',
@@ -256,6 +266,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Manyata Embassy Business Park',
     establishedYear: 2005,
     primarySector: 'Retail Tech & Supply Chain Engineering',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Omnichannel E-Commerce Platforms',
       'Supply Chain & Automated Fulfillment',
@@ -280,6 +291,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Outer Ring Road (Cessna Business Park & Salarpuria Aura)',
     establishedYear: 2008,
     primarySector: 'Retail Tech & Edge Computing',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Store Automation & Self-Checkout Systems',
       'Global Supply Chain Logistics Cloud',
@@ -303,6 +315,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Embassy TechVillage, Outer Ring Road',
     establishedYear: 2002,
     primarySector: 'Investment Banking & Corporate Tech',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Global Clearing & Settlement Platforms',
       'Wholesale Payments Architecture',
@@ -326,6 +339,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'EPIP Zone, Whitefield',
     establishedYear: 1998,
     primarySector: 'Enterprise ERP & Cloud Software',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'SAP S/4HANA Core Product Engineering',
       'Business Technology Platform (BTP)',
@@ -349,6 +363,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Sarjapur Ring Road & Outer Ring Road Campus',
     establishedYear: 1998,
     primarySector: 'Semiconductors & Systems Software',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'SoC Silicon Design & Verification',
       'Firmware, BIOS & Kernel Development',
@@ -374,6 +389,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'CHIL SEZ (Saravanampatti) & TIDEL Park',
     establishedYear: 2006,
     primarySector: 'Automotive Embedded Systems & Industrial IoT',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Powertrain & Electronic Control Unit (ECU) Software',
       'Automotive Sensor & Telematics Systems',
@@ -398,6 +414,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'CHIL SEZ, Keeranatham / Saravanampatti',
     establishedYear: 2005,
     primarySector: 'Enterprise Digital Solutions',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Healthcare & Life Sciences Claims Platforms',
       'Insurance Systems Modernization',
@@ -421,6 +438,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'TIDEL Park, Peelamedu',
     establishedYear: 2011,
     primarySector: 'Enterprise B2B SaaS Products',
+    companyClassification: 'Software/product company',
     businessFunctions: [
       'Document360 Knowledge Management SaaS',
       'Serverless360 Azure Monitoring Platform',
@@ -444,6 +462,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Regional Delivery Liaison / Chennai Hub',
     establishedYear: 2018,
     primarySector: 'Automotive Connected Software',
+    companyClassification: 'Confirmed facility or development centre, but GCC status unverified',
     businessFunctions: [
       'Connected Vehicle Telematics Software',
       'Digital Dealer Management Platforms',
@@ -468,6 +487,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'BMC Bhawani Enclave / O-Hub',
     establishedYear: 2023,
     primarySector: 'Professional Services & Cloud Advisory Tech',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Enterprise Cloud Migration & Architecture',
       'Cyber Risk & Identity Governance',
@@ -492,6 +512,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Fortune Towers, Chandrasekharpur',
     establishedYear: 2023,
     primarySector: 'Assurance & Enterprise Technology',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Audit & Financial Technology Automation',
       'Tax Software Engineering',
@@ -515,6 +536,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Infocity, Patia',
     establishedYear: 1996,
     primarySector: 'Enterprise Software & Core Banking',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Finacle Core Banking Product Engineering',
       'Telecom OSS / BSS Software',
@@ -538,6 +560,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'TCS Kalinga Park, Infocity',
     establishedYear: 2008,
     primarySector: 'IT Services & Cognitive Business Operations',
+    companyClassification: 'IT services or consulting company',
     businessFunctions: [
       'Global Banking & Insurance Platforms',
       'Energy & Utilities Enterprise Solutions',
@@ -563,6 +586,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Magarpatta Cybercity & Kharadi (EON Free Zone)',
     establishedYear: 2007,
     primarySector: 'Investment & Retail Banking Technology',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Global Payments Clearing & Settlement',
       'Market Risk & Quantitative Analytics',
@@ -587,6 +611,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Magarpatta City & Yerwada',
     establishedYear: 2006,
     primarySector: 'Corporate Banking & Asset Management',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Trade Finance Platforms & Workflow',
       'Securities Lending Engines',
@@ -610,6 +635,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Tech Boulevard, Magarpatta & Yerwada',
     establishedYear: 2014,
     primarySector: 'Payments & Global Fintech Network',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Core Transaction Processing Authorization',
       'Fraud Detection & AI Risk Scoring',
@@ -633,6 +659,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Panchshil Tech Park, Yerwada',
     establishedYear: 2005,
     primarySector: 'AI, Accelerated Computing & Systems Software',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'CUDA Driver & Compiler Architecture',
       'Deep Learning SDK Engineering (cuDNN, TensorRT)',
@@ -656,6 +683,7 @@ export const GCC_COMPANIES: GccCompany[] = [
     facilityLocation: 'Cybercity, Magarpatta',
     establishedYear: 2004,
     primarySector: 'Asset Servicing & Custody Technology',
+    companyClassification: 'Verified captive/global capability centre',
     businessFunctions: [
       'Global Asset Servicing Engine',
       'Securities Custody & Clearance Platforms',
